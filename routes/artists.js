@@ -48,25 +48,55 @@ router.get('/',(req,res) => {
 // @access  Private
 router.post('/',(req,res) => {
 
-  res.send('Add artist to DB ')
+  const {name,genre} = req.body
+  artist = {
+    name:name,
+    genre:genre
+  }
+
+  insertArtistToDB(artist)
+
 })
 
-// @route   PUT api/songs/:id
+// @route   PUT api/artist/:id
 // @desc    Update Artist Info
 // @access  Private
-router.post('/',(req,res) => {
+router.put('/',(req,res) => {
 
+  let q = `UPDATE ARTISTS set name = '${req.body.name}', genre = '${req.body.genre}' where id = ${req.body.id}`; 
+
+    
+  db.query(q,(error,results,fields)=>{
+   if (error) throw error;
     res.send('Update Artist Info')
 })
 
+})
 
-// @route   DELETE api/songs/:id
+
+// @route   DELETE api/artists/:id
 // @desc    Delete an Artist
 // @access  Private
-router.post('/',(req,res) => {
+router.delete('/',(req,res) => {
 
-    res.send('Delete artist from DB')
-})
+
+  // Will need error checking
+  // MAke sure it exists first 
+
+  const {id} = req.body
+
+  if (!id){
+    console.log('NO User ')
+  }
+
+ 
+ deleteArtistFromDB(id)
+
+
+
+
+
+});
 
 
 

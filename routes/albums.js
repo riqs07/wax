@@ -21,6 +21,14 @@ router.get('/',(req,res) => {
     res.send('Add a Like')
 })
 
+// @route   POST api/songs/:id/rating
+// @desc    Add a rating to album 
+// @access  Public
+
+router.get('/',(req,res) => {
+  res.send('Add a rating')
+})
+
 
 
 ///////////// CRUD  ///////

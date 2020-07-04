@@ -6,7 +6,6 @@ const config = require('config')
 var db = require('../db');
 
 const bcrypt = require('bcryptjs')
-const c = require('config')
 
 
 
@@ -64,9 +63,9 @@ db.query(q,(error,results,fields)=>{
 
 function addUsertoDB(user){
 
-    let insertNewUser = `INSERT INTO USERS set ?`; 
+    let q = `INSERT INTO USERS set ?`; 
     
-    db.query(insertNewUser,user,(error,results)=>{
+    db.query(q,user,(error,results)=>{
      if (error) throw error;
      console.log('User Added')
     })

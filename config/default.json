@@ -1,3 +1,4 @@
 {
-"jwtSecret":"secret"
+"jwtSecret":"secret",
+"dbPassword":"wolvesCDQ49!"
 }
