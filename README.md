@@ -1,9 +1,9 @@
 # wax
-Music Review app
+Full stack music app 
 
-React JS 
-Express JS 
-NODE JS
+React
+Express  
+NODE 
 MYSQL
 
-Libraries include:JsonWebToken,bcrypt,styled-components
+Libraries include:JsonWebToken,bcrypt,styled-components,react-router-dom, 
