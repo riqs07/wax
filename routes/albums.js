@@ -1,14 +1,17 @@
 const express = require('express')
 const router = express.Router()
-
+const {db,getAlbumByID,getAlbumByName,insertAlbumToDB} = require('../db')
 
 
 // @route   GET api/albums/:id
 // @desc    Get album stats... Avg Rating,Total Runtime,Likes,Reviews
 // @access  Private
-router.get('/',(req,res) => {
+router.post('/', (req,res) => {
 
-  res.send('Stats')
+  const {id } = req.body
+
+console.log(getAlbumByID(id))
+  res.send('Album   Stats')
 })
 
 

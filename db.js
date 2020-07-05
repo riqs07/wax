@@ -1,5 +1,6 @@
 const mysql = require('mysql');
 const config = require('config')
+const dbName = config.get('dbName')
 const dbPassword = config.get('dbPassword')
  
 
@@ -8,14 +9,14 @@ let db = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
   password : dbPassword,
-  database : 'music_'
+  database : dbName
 });
 
 db.connect();
+exports.getArtistByID = getArtistByID
+exports.getAlbumByID =getAlbumByID
+exports.db = db;
 
-module.exports = db;
-
-/// SHould i have db functions here in place of mogoos erros 
 
 function getUserByEmail(email){
   let q = `SELECT * from USERS where email = "${email}"`;
@@ -89,6 +90,11 @@ function getArtistByID(id){
     })
 }
 
+
+
+
+
+
  function getArtistByName(name){
   let q = `SELECT * from ARTISTS where name = "${name}"`;
   db.query(q, (error, results, fields) => {
@@ -120,7 +126,7 @@ function getArtistStats(id){
 ////////////////////////////////////////////////////////////////////////////
 
 
-getArtistByName('Dua Lipa')
+
 
 /////////////////////////////////////// CRUD ////////////////////////////////////////////////////
 function insertAlbumToDB(Album){
@@ -134,7 +140,7 @@ function insertAlbumToDB(Album){
    
 })
 }
-
+exports.insertAlbumToDB = insertAlbumToDB
 function updateAlbumInDB(album){
 // Album is an object
 // DAte might mess this up for now 
@@ -146,6 +152,7 @@ function updateAlbumInDB(album){
     console.log('Album Updated')
 })
 }
+exports.updateAlbumInDB = updateAlbumInDB
 
 function getAlbumByID(id){
   let q = `SELECT * from ALBUMS where id = ${id}`;
@@ -155,6 +162,7 @@ function getAlbumByID(id){
     return results[0]
     })
 }
+exports.getAlbumByID = getAlbumByID
 
 function getAlbumByName(name){
   let q = `SELECT * from ALBUMS where name = "${name}"`;
@@ -166,6 +174,7 @@ function getAlbumByName(name){
     return results[0]
     })
 }
+exports.getAlbumByName = getAlbumByName
 
 function deleteAlbumFromDB(id){
   let q = `DELETE FROM ALBUMS where id = ${id}`; 
@@ -175,6 +184,9 @@ function deleteAlbumFromDB(id){
    res.send('Success! Album Deleted')
 })
 }
+
+exports.deleteAlbumFromDB = deleteAlbumFromDB
+
 
 function getAlbumStats(id){
   // FUTURE // 

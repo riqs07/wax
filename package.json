@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "server": "nodemon server.js"
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "clientinstall": "npm install --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Terriq",
   "license": "ISC",
@@ -20,5 +23,13 @@
   "devDependencies": {
     "concurrently": "^5.2.0",
     "nodemon": "^2.0.4"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/riqs07/wax.git"
+  },
+  "bugs": {
+    "url": "https://github.com/riqs07/wax/issues"
+  },
+  "homepage": "https://github.com/riqs07/wax#readme"
 }

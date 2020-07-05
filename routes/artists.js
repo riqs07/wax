@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
-var db = require('../db');
+var {db, getAlbumByID} = require('../db');
 
-  
+
 
 // @route   GET api/albums
 // @desc    GET Artists albums 
