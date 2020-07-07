@@ -8,7 +8,6 @@ const { db,addUserToDB, getUserAlbumFavorites, } = require("../db");
 const bcrypt = require("bcryptjs");
 const { route } = require("./songs");
 const auth = require("../middleware/auth");
-const c = require("config");
 
 // @route   POST api/users/
 // @desc    Register or Log in a user

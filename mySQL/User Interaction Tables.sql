@@ -111,5 +111,5 @@ insert into artist_favorites (user_id,artist_id) values
 select genre,count(*) as 'favs' from artists inner join artist_favorites on artists.id = artist_favorites.user_id group by genre;
 
 -- album leader board 
-select *,albums.name as 'album' from album_likes inner join albums on album_id = albums.id group by albu;
+select name,genre from artists inner join albums on artist_id = albums.artist_id ;
 -- artist leader board 
