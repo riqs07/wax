@@ -71,7 +71,8 @@ router.post("/",
             password: results[0].password,
           };
 
-          // AWAIT ISSUE
+          // @issue 2 
+          // AWAIT STORE VALUE 
           // PW VALIDATION
           // const isMatch = await bcrypt.compare(password,User.password)
 

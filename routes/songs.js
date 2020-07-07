@@ -7,7 +7,7 @@ const router = express.Router()
 
 // @route   POST api/songs/:id/like
 // @desc    Add a like to SONG 
-// @access  Public
+// @access  Private
 
 router.get('/',(req,res) => {
     res.send('Add a Like')
