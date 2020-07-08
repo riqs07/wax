@@ -1,9 +1,16 @@
 # wax
-Full stack music app 
+JAVASCRIPT MUSIC REVIEW APP / DATABASE. 
 
-React
-Express  
-NODE 
-MYSQL
+STYLING: styled-components 
+FRONT-END: REACT JS
+API: EXPRESS JS 
+Back-end: NODE JS
+ORM: Sequelize
+DATABASE : MySQL
 
-Libraries include:JsonWebToken,bcrypt,styled-components,react-router-dom, 
+AUTH:JsonWebToken
+
+
+Other Libraries Include:react-router-dom,bcrypt,
+
+DEVELOPED WITH 🎵 & ❤ IN CHARLOTTE, NC

@@ -3,7 +3,7 @@ const router = express.Router();
 const { check, validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 const config = require("config");
-const { db,addUserToDB, getUserAlbumFavorites, } = require("../db");
+const { db, User } = require("../db");
 
 const bcrypt = require("bcryptjs");
 const { route } = require("./songs");
@@ -99,7 +99,22 @@ router.get('/', async(req,res)=> {
 
 })
 
+router.get('/ass', async(req,res)=> {
+	
+	const {id, name,password,email} = req.body
 
+//Hash Password 
+// const salt = await bcrypt.genSalt(10);
+// hash = await bcrypt.hash(password, salt);
+
+  User.create({
+		name,
+		password,
+		email
+
+	}).catch(e => res.status(500).send('Bad Request'))
+  })
+  
 
 
 

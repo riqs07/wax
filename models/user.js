@@ -1,8 +1,12 @@
+const { Sequelize, DataTypes } = require('sequelize');
+const db = require('../db')
+
 const user = db.define('user', {
     // Model attributes are defined here
     id: {
-      type: DataTypes.UUID,
-      primaryKey: true
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
     },
     name: {
       type: DataTypes.STRING,
@@ -12,7 +16,6 @@ const user = db.define('user', {
         type:DataTypes.STRING,
         allowNull: false,
         validate:{
-          msg: "Must be at least 6 charecters long!",
           len: [6,90]
         }
   
@@ -23,10 +26,10 @@ const user = db.define('user', {
         unique:true,
         validate:{
             isEmail: true,    
-            msg: "Must be an email"
         },
     },
   
   });
   
+
   module.exports = user

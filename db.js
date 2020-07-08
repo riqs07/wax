@@ -21,8 +21,9 @@ var db = new Sequelize (dbName, 'root', dbPassword, {
 const user = db.define('user', {
   // Model attributes are defined here
   id: {
-    type: DataTypes.UUID,
-    primaryKey: true
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
   },
   name: {
     type: DataTypes.STRING,
@@ -32,7 +33,6 @@ const user = db.define('user', {
       type:DataTypes.STRING,
       allowNull: false,
       validate:{
-        msg: "Must be at least 6 charecters long!",
         len: [6,90]
       }
 
@@ -43,7 +43,6 @@ const user = db.define('user', {
       unique:true,
       validate:{
           isEmail: true,    
-          msg: "Must be an email"
       },
   },
 
@@ -53,15 +52,17 @@ const user = db.define('user', {
 const album = db.define('album', {
   // Model attributes are defined here
   id: {
-    type: DataTypes.UUID,
-    primaryKey: true
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+
   },
   name: {
     type: DataTypes.STRING,
     allowNull: false
   },
   artistID: {
-    type: Sequelize.UUID,
+    type: Sequelize.INTEGER,
     references: {
       model: 'artists',
       key: 'id'
@@ -80,18 +81,20 @@ const album = db.define('album', {
 const song = db.define('song', {
   // Model attributes are defined here
   id: {
-    type: DataTypes.UUID,
-    primaryKey: true
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+
   },
   artistID: {
-    type: Sequelize.UUID,
+    type: Sequelize.INTEGER,
     references: {
       model: 'artists',
       key: 'id'
   }
 },
   albumID: {
-    type: Sequelize.UUID,
+    type: Sequelize.INTEGER,
     references: {
       model: 'albums',
       key: 'id'
@@ -99,7 +102,8 @@ const song = db.define('song', {
 },
   name: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
+
   },
   runtime:{
       // IN SECONDS
@@ -111,8 +115,10 @@ const song = db.define('song', {
 const artist = db.define('artist', {
   // Model attributes are defined here
   id: {
-    type: DataTypes.UUID,
-    primaryKey: true
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+
   },
   name: {
     type: DataTypes.STRING,
@@ -124,135 +130,152 @@ const artist = db.define('artist', {
  
   const artist_favorite = db.define('artist_favorite',{
     artistID: {
-      type: Sequelize.UUID,
+      type: Sequelize.INTEGER,
       references: {
         model: 'artists',
         key: 'id'
-    }
+    },
+    primaryKey:true
   },
   userID: {
-    type: Sequelize.UUID,
+    type: Sequelize.INTEGER,
     references: {
       model: 'users',
       key: 'id'
-  }
+  },
+  primaryKey:true
+
 },
   })
   
 
   const song_favorite = db.define('song_favorite',{
     songID: {
-      type: Sequelize.UUID,
+      type: Sequelize.INTEGER,
+      primaryKey:true,
       references: {
         model: 'songs',
         key: 'id'
-    }
+    },
   },
   userID: {
-    type: Sequelize.UUID,
+    type: Sequelize.INTEGER,
+    primaryKey:true,
     references: {
       model: 'users',
       key: 'id'
-  }
+  },
 },
   })
   const song_rating = db.define('song_rating',{
     songID: {
-      type: Sequelize.UUID,
+      type: Sequelize.INTEGER,
+      primaryKey:true,
       references: {
         model: 'songs',
         key: 'id'
-    }
+    },
   },
   userID: {
-    type: Sequelize.UUID,
+    type: Sequelize.INTEGER,
+    primaryKey:true,
     references: {
       model: 'users',
       key: 'id'
   },
+  
+  },
   rating: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.DECIMAL,
     allowNull: false
 
 },
-  }
 })
 const song_like = db.define('song_like',{
-  artistID: {
-    type: Sequelize.UUID,
+  songID: {
+    type: Sequelize.INTEGER,
     references: {
-      model: 'artists',
+      model: 'songs',
       key: 'id'
-  }
+  },
+  primaryKey:true
+  
 },
 userID: {
-  type: Sequelize.UUID,
+  type: Sequelize.INTEGER,
   references: {
     model: 'users',
     key: 'id'
 },
+primaryKey:true
 }
 })
 
-
 const album_favorite = db.define('album_favorite',{
   albumID: {
-    type: Sequelize.UUID,
+    type: Sequelize.INTEGER,
     references: {
       model: 'albums',
       key: 'id'
   }
+  ,
+  primaryKey:true
 },
 userID: {
-  type: Sequelize.UUID,
+  type: Sequelize.INTEGER,
   references: {
     model: 'users',
     key: 'id'
-}
+},
+primaryKey:true
 },
 })
 const album_rating = db.define('album_rating',{
   albumID: {
-    type: Sequelize.UUID,
+    type: Sequelize.INTEGER,
     references: {
       model: 'albums',
       key: 'id'
-  }
+  },
+  primaryKey:true
 },
 userID: {
-  type: Sequelize.UUID,
+  type: Sequelize.INTEGER,
+  primaryKey:true,
   references: {
     model: 'users',
     key: 'id'
 },
+
+},
 rating: {
-  type: Sequelize.INTEGER,
+  type: Sequelize.DECIMAL,
   allowNull: false
 
 },
-}
 })
 const album_like = db.define('album_like',{
 artistID: {
-  type: Sequelize.UUID,
+  type: Sequelize.INTEGER,
   references: {
     model: 'artists',
     key: 'id'
-}
+},
+primaryKey:true
 },
 userID: {
-type: Sequelize.UUID,
+type: Sequelize.INTEGER,
 references: {
   model: 'users',
   key: 'id'
 },
+primaryKey:true
 }
 })
-
-  artist.hasMany(album, {as : 'albums'})
 
 
 db.sync()
 
-module.exports = db
+exports.db = db
+
 
