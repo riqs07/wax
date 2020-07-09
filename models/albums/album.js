@@ -1,33 +1,38 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const db = require('../../db')
+const Sequelize = require("sequelize");
+const db = require("../../db");
 
-const album = db.define('album', {
-  // Model attributes are defined here
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
+const Album = db.define(
+	"Album",
+	{
+		id: {
+			type: Sequelize.INTEGER,
+			primaryKey: true,
+			autoIncrement: true,
+		},
+		name: {
+			type: Sequelize.STRING,
+			allowNull: false,
+			unique: true,
+		},
+		artist_id: {
+			type: Sequelize.INTEGER,
+			references: {
+				model: "artists",
+				key: "id",
+			},
+		},
+		release_year: {
+			type: Sequelize.DATEONLY,
+		},
+		runtime: {
+			// IN SECONDS
+			type: Sequelize.INTEGER,
+		},
+		genre: Sequelize.STRING,
+	},
+);
 
-  },
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  artistID: {
-    type: Sequelize.INTEGER,
-    references: {
-      model: 'artists',
-      key: 'id'
-  }
-},
-    release_year:{
-      type:DataTypes.DATEONLY,
-  },
-  runtime:{
-      // IN SECONDS
-      type:DataTypes.INTEGER,
-  },
-  genre:DataTypes.STRING
-});
 
-module.exports = album
+
+
+module.exports = Album;

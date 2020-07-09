@@ -3,19 +3,17 @@ const router = express.Router();
 const { check, validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 const config = require("config");
-const { db, User } = require("../db");
+const { User } = require("../db");
 
 const bcrypt = require("bcryptjs");
-const { route } = require("./songs");
-const auth = require("../middleware/auth");
 
 // @route   POST api/users/
-// @desc    Register or Log in a user
-// @access  Public
+// @desc    REGISTER OR LOGIN
+// @access  Private
+
 router.post(
 	"/",
 	[
-		// Validate User Registration request meets parameters
 		check("name", "name is required").not().isEmpty(),
 		check("email", "Please include valid email").isEmail(),
 		check(
@@ -24,104 +22,44 @@ router.post(
 		).isLength({ min: 6 }),
 	],
 	async (req, res) => {
-		const errors = validationResult(req);
-		if (!errors.isEmpty()) {
-			/// BAD REQUEST
-			return res.status(400).json({ errors: errors.array() });
-		}
+		const { name, password, email } = req.body;
 
-		const { name, email, password } = req.body;
-
-		//Hash Password
 		const salt = await bcrypt.genSalt(10);
 		hash = await bcrypt.hash(password, salt);
 
-		// Create new User object with info from request body
-		const newUser = {
-			name: name,
-			email: email,
-			password: hash,
-		};
+		const [user, created] = await User.findOrCreate({
+			where: { email: email },
+			defaults: {
+				name,
+				password,
+				email,
+			},
+		});
 
-		try {
-			let q = `SELECT * from USERS where email = "${email}"`;
-			db.query(q, (error, results, fields) => {
-        if (error) throw error;
-       
-        if (results.length > 0) {
-          res.send("Success! You are now Logged IN");
-  
-          sendPayload(results[0].id, res);
-        } else {
-          // IF NEW USER
-          addUserToDB(newUser)
-          res.send("Success! You are now registered!");
-        }
-			});
-		
-		} catch (error) {
-			res.status(500).send("Server Error! User not added!");
-		}
+		sendPayload(user.id, res);
 	}
 );
 
-
-// @route   get api/users/
-// @desc    Get User Home Page Info
+// @route   DELETE api/users/
+// @desc    Delete User
 // @access  Private
-
-router.get('/', async(req,res)=> {
-  try {
-    // CHECK IF EXISTS 
-
-    // Validation 
-    // Get RAW DB VALUES
-    // Using ID to get all info
-    // Prepping res 
-
-    // Validation
-      // const albums =  await getUserAlbumFavorites(id)
-      // const likes =  getUserAlbumLikes(id)
-      // const artist = getUserFavoriteArtists(id)
-    // Each is an array with id's 
-    // then use those ids to fetch proper info from data
-    // then feed that to the front end 
-    
-   
-    
-    //// @issue 1
-    // Cant get value to store in variable
-
-
-  } catch (error) {
-    res.status(500).send('Server Error')
-  }
-
-})
-
-router.get('/ass', async(req,res)=> {
-	
-	const {id, name,password,email} = req.body
-
-//Hash Password 
-// const salt = await bcrypt.genSalt(10);
-// hash = await bcrypt.hash(password, salt);
-
-  User.create({
-		name,
-		password,
-		email
-
-	}).catch(e => res.status(500).send('Bad Request'))
-  })
-  
+router.delete("/", async (req, res) => {
+	// on front end have a you sure statement
+	const { id } = req.body;
+	User.destroy({
+		where: { id	},
+	});
+});
 
 
 
-// GET user home page
-// @sql
-/// show user fav song albums artist sort 
-// serve 
+
+
+
+
+
+
+
 
 function sendPayload(id, res) {
 	const payload = {

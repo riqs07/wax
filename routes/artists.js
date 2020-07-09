@@ -1,105 +1,98 @@
-const express = require('express')
-const router = express.Router()
-var {db, getAlbumByID} = require('../db');
+const express = require("express");
+const router = express.Router();
+const { Artist } = require("../db");
 
-
-
-// @route   GET api/albums
-// @desc    GET Artists albums 
+// @route   GET Artists/all
+// @desc    Get all Artists
 // @access  Public
-router.get('/stats',(req,res) => {
+router.get("/", async (req, res) => {
+	Artist.findAll()
+		.then((x) => res.send(x))
+		.catch((err) => console.log(err));
+});
 
-    res.send(req.body)
-
-    console.log(req.body.id)
-    let songCount = `select count(*) as count from songs where artist_id = ${req.body.id};`;
-    let albumCount = `select count(*) as count from albums where  artist_id = ${req.body.id};`;
-  
-    
-  
-    connection.query(songCount,(error, results, fields) =>{
-        
-        if (error) throw error;
-        console.log(results[0].count);
-        
-      });
-    connection.query(albumCount,(error, results, fields) =>{
-        
-        if (error) throw error;
-        console.log(results[0].count);
-        
-      });
-    
-})
+// @route   GET Artists/best
+// @desc    Get Top Artists ovarall score
+// @access  Public
+router.get("/", async (req, res) => {
+	Artist.findAll()
+		.then((x) => res.send(x))
+		.catch((err) => console.log(err));
+});
 
 
-// @route   GET api/songs/:id
-// @desc    Get artist stats
+// @route   GET artist/:id
+// @desc    GET Specific Artists
+// @access  Public
+router.post("/", async (req, res) => {
+	const { id } = req.body;
+	Artist.findOne({ where: { id } }).then((x) => res.send(x));
+});
+// @route   UPDATE api/artists/
+// @desc    UPDATE Artist
 // @access  Private
-router.get('/',(req,res) => {
+router.put("/", async (req, res) => {
+	
+});
 
-  res.send('Add artist to DB ')
-})
-
-/////////////CRUD///////////
-
-// @route   POST api/songs
-// @desc    Add new Artist to DB
+// @route   DELETE api/artists/
+// @desc    Delete Artist
 // @access  Private
-router.post('/',(req,res) => {
-
-  const {name,genre} = req.body
-  artist = {
-    name:name,
-    genre:genre
-  }
-
-  insertArtistToDB(artist)
-
-})
-
-// @route   PUT api/artist/:id
-// @desc    Update Artist Info
-// @access  Private
-router.put('/',(req,res) => {
-
-  let q = `UPDATE ARTISTS set name = '${req.body.name}', genre = '${req.body.genre}' where id = ${req.body.id}`; 
-
-    
-  db.query(q,(error,results,fields)=>{
-   if (error) throw error;
-    res.send('Update Artist Info')
-})
-
-})
-
-
-// @route   DELETE api/artists/:id
-// @desc    Delete an Artist
-// @access  Private
-router.delete('/',(req,res) => {
-
-
-  // Will need error checking
-  // MAke sure it exists first 
-
-  const {id} = req.body
-
-  if (!id){
-    console.log('NO User ')
-  }
-
- 
- deleteArtistFromDB(id)
+router.delete("/", async (req, res) => {
+	// on front end have a you sure statement
+	const { id } = req.body;
+	Album.destroy({
+		where: { id	},
+	});
+});
 
 
 
-
+// @route   GET artists/:id/
+// @desc    Get Top Favs album
+// @access  Public
+router.get("/", async (req, res) => {
 
 });
+// @route   GET artists/:id/
+// @desc    Get Artist Most liked songs
+// @access  Public
+router.get("/", async (req, res) => {
+
+});
+// @route   GET artists/:id//best
+// @desc    Get Artist Top Rated songs
+// @access  Public
+router.get("/", async (req, res) => {
+	Artist.findAll()
+
+});
+
+
+// @route   POST api/artist/:id/favorite
+// @desc    Add a Favorite to artist
+// @access  Private
+
+router.post('/favorite',(req,res) => {
+  const {userID, artistID} = req.body
+  Artist_favorite.create({
+    userID,
+    artistID
+  }).then(res.send('favorited an artist '))
+})
+// @route   DELETE api/artist/:id/favorite
+// @desc    REmove a Favorite to artist
+// @access  Private
+
+router.delete('/favorite',(req,res) => {
+  const {userID, artistID} = req.body
+  Artist_favorite.destroy({
+    userID,
+    artistID
+  }).then(res.send('favorited on artist deleted '))
+})
 
 
 
 
 module.exports = router;
-

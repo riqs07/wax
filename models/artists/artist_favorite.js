@@ -2,7 +2,7 @@ const { Sequelize, DataTypes } = require('sequelize');
 const db = require('../db')
 
 const artist_favorite = db.define('artist_favorite',{
-    artistID: {
+    artist_id: {
       type: Sequelize.INTEGER,
       primaryKey:true,
       references: {
@@ -11,7 +11,7 @@ const artist_favorite = db.define('artist_favorite',{
     },
    
   },
-  userID: {
+  user_id: {
     type: Sequelize.INTEGER,
     primaryKey:true,
     references: {

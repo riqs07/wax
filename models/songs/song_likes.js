@@ -2,7 +2,7 @@ const { Sequelize, DataTypes } = require('sequelize');
 const db = require('../db')
 
 const song_like = db.define('song_like',{
-    songID: {
+    song_id: {
       type: Sequelize.INTEGER,
       primaryKey:true,
       references: {
@@ -11,7 +11,7 @@ const song_like = db.define('song_like',{
     },
     
   },
-  userID: {
+  user_id: {
     type: Sequelize.INTEGER,
     primaryKey:true,
     references: {

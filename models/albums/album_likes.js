@@ -1,17 +1,17 @@
 const { Sequelize, DataTypes } = require("sequelize");
-const db = require("../../db");
+const {db} = require("../../db");
 
 const album_like = db.define("album_like", {
-	artistID: {
-		type: Sequelize.INTEGER,
+	album_id: {
+		type: DataTypes.INTEGER,
 		primaryKey: true,
 		references: {
 			model: "artists",
 			key: "id",
 		},
 	},
-	userID: {
-		type: Sequelize.INTEGER,
+	user_id: {
+		type: DataTypes.INTEGER,
 		primaryKey: true,
 		references: {
 			model: "users",
