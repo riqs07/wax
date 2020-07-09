@@ -5,7 +5,7 @@ const { Artist } = require("../db");
 // @route   GET Artists/all
 // @desc    Get all Artists
 // @access  Public
-router.get("/", async (req, res) => {
+router.get("/all", async (req, res) => {
 	Artist.findAll()
 		.then((x) => res.send(x))
 		.catch((err) => console.log(err));
@@ -21,8 +21,8 @@ router.get("/", async (req, res) => {
 });
 
 
-// @route   GET artist/:id
-// @desc    GET Specific Artists
+// @route   POST artist/:id
+// @desc    GET Specific Artists info
 // @access  Public
 router.post("/", async (req, res) => {
 	const { id } = req.body;
@@ -51,19 +51,19 @@ router.delete("/", async (req, res) => {
 // @route   GET artists/:id/
 // @desc    Get Top Favs album
 // @access  Public
-router.get("/", async (req, res) => {
+router.post("/", async (req, res) => {
 
 });
 // @route   GET artists/:id/
 // @desc    Get Artist Most liked songs
 // @access  Public
-router.get("/", async (req, res) => {
+router.post("/", async (req, res) => {
 
 });
 // @route   GET artists/:id//best
 // @desc    Get Artist Top Rated songs
 // @access  Public
-router.get("/", async (req, res) => {
+router.post("/", async (req, res) => {
 	Artist.findAll()
 
 });

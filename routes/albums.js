@@ -9,6 +9,45 @@ const { Album , User,Album_favorite,Album_like,Album_rating } = require("../db")
 // @access  Public
 router.get("/all", async (req, res) => {
 	Album.findAll()
+		.then(x => res.send(x))
+		.catch((err) => console.log(err));
+});
+
+
+// @route   GET albums/all
+// @desc    Get ALBUM TOTAL LIKES
+// @access  Public
+router.get("/totalLikes", async (req, res) => {
+  const {albumID } = req.body
+  
+	Album_rating.findAndCountAll({
+    where: {albumID}
+  }) 
+		.then((x) => res.send(x))
+		.catch((err) => console.log(err));
+});
+// @route   GET albums/all
+// @desc    Get ALBUM AVG RATINGS
+// @access  Public
+router.get("/avg", async (req, res) => {
+  const {albumID } = req.body
+  
+	Album_rating.findAndCountAll({
+    where: {albumID}
+  }) 
+		.then((x) => res.send(x))
+		.catch((err) => console.log(err));
+});
+
+// @route   GET albums/all
+// @desc    Get ALBUM TOTAL Favs
+// @access  Public
+router.get("/totalFavs", async (req, res) => {
+  const {albumID } = req.body
+  
+	Album_favorite.findAndCountAll({
+    where: {albumID}
+  }) 
 		.then((x) => res.send(x))
 		.catch((err) => console.log(err));
 });
@@ -22,7 +61,8 @@ router.post('/like',(req,res) => {
   Album_like.create({
     userID,
     albumID
-  }).then(res.send('Liked album '))
+  }).then(res.send({msg:'Album Liked. Success'}))
+  .catch(err => console.log(err))
 })
 // @route   DELETE api/albums/:id/like
 // @desc    Remove a like to albums

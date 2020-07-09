@@ -24,6 +24,12 @@ router.post(
 	async (req, res) => {
 		const { name, password, email } = req.body;
 
+		try {
+			
+		} catch (error) {
+			
+		}
+
 		const salt = await bcrypt.genSalt(10);
 		hash = await bcrypt.hash(password, salt);
 
