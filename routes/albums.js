@@ -12,37 +12,44 @@ router.get("/all", async (req, res) => {
 		.then(x => res.send(x))
 		.catch((err) => console.log(err));
 });
+// @route   GET albums/:id
+// @desc    GET Specific album
+// @access  Public
+router.get("/", async (req, res) => {
+	const { id } = req.body;
+	Album.findOne({ where: { id } }).then((x) => res.send(x));
+});
 
 
-// @route   GET albums/all
+// @route   GET albums/likes
 // @desc    Get ALBUM TOTAL LIKES
 // @access  Public
-router.get("/totalLikes", async (req, res) => {
+router.get("/likes", async (req, res) => {
   const {albumID } = req.body
   
-	Album_rating.findAndCountAll({
+	Album_like.findAndCountAll({
     where: {albumID}
   }) 
 		.then((x) => res.send(x))
 		.catch((err) => console.log(err));
 });
-// @route   GET albums/all
+// @route   GET albums/avg
 // @desc    Get ALBUM AVG RATINGS
 // @access  Public
 router.get("/avg", async (req, res) => {
   const {albumID } = req.body
   
 	Album_rating.findAndCountAll({
-    where: {albumID}
+    where: {  albumID   }
   }) 
 		.then((x) => res.send(x))
 		.catch((err) => console.log(err));
 });
 
-// @route   GET albums/all
+// @route   GET albums/favs
 // @desc    Get ALBUM TOTAL Favs
 // @access  Public
-router.get("/totalFavs", async (req, res) => {
+router.get("/favs", async (req, res) => {
   const {albumID } = req.body
   
 	Album_favorite.findAndCountAll({
@@ -56,7 +63,7 @@ router.get("/totalFavs", async (req, res) => {
 // @desc    Add a like to albums
 // @access  Private
 
-router.post('/like',(req,res) => {
+router.post('/likes',(req,res) => {
   const {userID, albumID} = req.body
   Album_like.create({
     userID,
@@ -68,7 +75,7 @@ router.post('/like',(req,res) => {
 // @desc    Remove a like to albums
 // @access  Private
 
-router.delete('/',(req,res) => {
+router.delete('/likes',(req,res) => {
   const {userID, albumID} = req.body
   Album_like.destroy({
     userID,
@@ -80,7 +87,7 @@ router.delete('/',(req,res) => {
 // @desc    Add a Favorite to albums
 // @access  Private
 
-router.post('/favorite',(req,res) => {
+router.post('/favs',(req,res) => {
   const {userID, albumID} = req.body
   Album_favorite.create({
     userID,
@@ -91,7 +98,7 @@ router.post('/favorite',(req,res) => {
 // @desc    REmove a Favorite to albums
 // @access  Private
 
-router.delete('/favorite',(req,res) => {
+router.delete('/favs',(req,res) => {
   const {userID, albumID} = req.body
   Album_favorite.destroy({
     userID,
@@ -125,13 +132,13 @@ router.post('/rating',(req,res) => {
 })
 
 
-// @route   POST albums/
+// @route   POST users/
 // @desc    Get User Favorite Albums
 // @access  Private
 router.post("/user", async (req, res) => {
 	const { id } = req.body;
 	let final = []
-	let albums = await Album_favorite.findAll({
+	Album_favorite.findAll({
     where: { userID:id },
 	})
   .then(favs => favs.map(fav => favs.push(fav.id)))
@@ -152,14 +159,6 @@ router.post("/user", async (req, res) => {
 	// .them(x => console.log('Sent',x))
   })
   
-
-// @route   GET albums/:id
-// @desc    GET Specific album
-// @access  Public
-router.get("/", async (req, res) => {
-	const { id } = req.body;
-	Album.findOne({ where: { id } }).then((x) => res.send(x));
-});
 
 
 // @route   POST albums/:id
@@ -197,33 +196,6 @@ router.delete("/", async (req, res) => {
 });
 
 
-// @route   GET albums/TopAlbumFavs
-// @desc    Get Top Favs
-// @access  Public
-router.get("/", async (req, res) => {
-
-});
-// @route   GET albums/TopAlbumLikes
-// @desc    Get Top Albums Likes
-// @access  Public
-router.get("/", async (req, res) => {
-
-});
-// @route   GET albums/best
-// @desc    Get Top Albums ovarall score
-// @access  Public
-router.get("/", async (req, res) => {
-	Artist.findAll()
-
-});
-
-
-
-
-
-
- async function getAlbumByID(id) {
-}
 
 
 module.exports = router;
