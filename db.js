@@ -69,9 +69,7 @@ const Artist = db.define('artist', {
   },
   genre:DataTypes.STRING,
   })
-const Album = db.define(
-	"album",
-	{
+const Album = db.define(	"album",{
 		id: {
 			type: Sequelize.INTEGER,
 			primaryKey: true,
@@ -96,7 +94,8 @@ const Album = db.define(
 			// IN SECONDS
 			type: Sequelize.INTEGER,
 		},
-		genre: Sequelize.STRING,
+    genre: Sequelize.STRING,
+    imageURL:Sequelize.STRING
 	},
 );
 
@@ -156,11 +155,11 @@ const Album_rating = db.define("album_rating", {
 			model: "users",
 			key: "id",
 		},
-		rating: {
-			type: Sequelize.INTEGER,
-			allowNull: false,
-		},
-	},
+  },
+  rating: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
 });
 
 const Song = db.define('song', {
@@ -194,7 +193,8 @@ const Song = db.define('song', {
       // IN SECONDS
       type:DataTypes.INTEGER,
   },
-  genre:DataTypes.STRING
+  genre:DataTypes.STRING,
+  linkURL:Sequelize.STRING
 });
 
 
@@ -376,26 +376,28 @@ add_artist = [
   ];
 
   add_albumRatings = [
-   {albumID:1,userID:1, rating:100},
-   {albumID:1,userID:2, rating:20},
-   {albumID:1,userID:3, rating:30},
-   {albumID:2,userID:1, rating:100},
-   {albumID:2,userID:2, rating:20},
-   {albumID:2,userID:3, rating:30},
-   {albumID:3,userID:3, rating:50},
-   {albumID:4,userID:1, rating:100},
-   {albumID:4,userID:2, rating:20},
-   {albumID:4,userID:3, rating:30},
-   {albumID:5,userID:1, rating:100},
-   {albumID:5,userID:2, rating:20},
-   {albumID:5,userID:3, rating:30},
-   {albumID:6,userID:3, rating:50},
-   {albumID:6,userID:1, rating:100},
-   {albumID:6,userID:2, rating:20},
-   {albumID:6,userID:10, rating:90},
-   {albumID:6,userID:9, rating:50},
-   {albumID:6,userID:8, rating:55},
-   {albumID:6,userID:6, rating:10},
+    {albumID:1,userID:1, rating:100},
+	 {albumID:1,userID:2, rating:20},
+	 {albumID:1,userID:3, rating:30},
+	 {albumID:2,userID:1, rating:100},
+	 {albumID:2,userID:2, rating:20},
+	 {albumID:2,userID:3, rating:30},
+	 {albumID:3,userID:3, rating:50},
+	 {albumID:4,userID:1, rating:100},
+	 {albumID:4,userID:2, rating:20},
+	 {albumID:4,userID:3, rating:30},
+	 {albumID:5,userID:1, rating:100},
+	 {albumID:5,userID:2, rating:20},
+	 {albumID:5,userID:3, rating:30},
+	 {albumID:6,userID:3, rating:50},
+	 {albumID:6,userID:1, rating:100},
+	 {albumID:6,userID:2, rating:20},
+	 {albumID:6,userID:10, rating:90},
+	 {albumID:6,userID:9, rating:50},
+	 {albumID:6,userID:8, rating:55},
+	 {albumID:6,userID:6, rating:10},
+   {albumID:10,userID:10, rating:100},
+   {albumID:10,userID:9, rating:100},
   ];
 
 

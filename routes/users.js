@@ -3,7 +3,7 @@ const router = express.Router();
 const { check, validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 const config = require("config");
-const { User } = require("../db");
+const { User,Album_favorite, Album_like } = require("../db");
 
 const bcrypt = require("bcryptjs");
 
@@ -59,10 +59,60 @@ router.delete("/", async (req, res) => {
 
 
 
+// @route   GET user/all
+// @desc    Get all Users
+// @access  Public
+router.get("/all", async (req, res) => {
+	User.findAll()
+		.then(x => res.send(x))
+		.catch((err) => console.log(err));
+});
+
+// @route   GET users/:id
+// @desc    GET Specific user
+// @access  Public
+router.get("/", async (req, res) => {
+	const { id } = req.body;
+	User.findOne({ where: { id } }).then((x) => res.send(x));
+});
 
 
+// @route   GET users/favs
+// @desc    Get USER TOTAL Likes
+// @access  Public
+router.get("/likes", async (req, res) => {
+	const {userID } = req.body
+	  Album_like.findAndCountAll({
+	  where: {userID}
+	}) 
+		  .then((x) => res.send(x))
+		  .catch((err) => console.log(err));
+  });
 
-
+// @route   GET users/favs
+// @desc    Get USER FAVS 
+// @access  Public
+router.get("/favs", async (req, res) => {
+	const {userID } = req.body
+	  Album_favorite.findAndCountAll({
+	  where: {userID}
+	}) 
+		  .then((x) => res.send(x))
+		  // Needs to take num array and get albums 
+  
+    
+  
+	// let albums = await Album_favorite.findAll({
+	//   where: { userID:id }
+	// })
+	// .then(favs => favs.map(fav => favs.push(fav.id)))
+  
+   
+	// // Needs to take num array and get albums 
+	// .then(ids =>ids.map(x => getAlbumByID(x)))
+	// .them(x => console.log('Sent',x))
+		  .catch((err) => console.log(err));
+  });
 
 
 

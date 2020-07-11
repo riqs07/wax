@@ -1,5 +1,5 @@
 import React from 'react'
-import Albums from '../albums/grid'
+import AlbumsGrid from '../albums/grid'
 
 
  const Home = () => {
@@ -7,7 +7,7 @@ import Albums from '../albums/grid'
         <div className ="grid 2">
         <div>
 
-            <Albums/>
+            <AlbumsGrid/>
         </div>
     </div>
     )

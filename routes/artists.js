@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Artist } = require("../db");
+const { Artist, Artist_favorite } = require("../db");
 
 // @route   GET Artists/all
 // @desc    Get all Artists
