@@ -23,15 +23,24 @@ router.post(
 	],
 	async (req, res) => {
 		const { name, password, email } = req.body;
+		valid = validatePassword(password)
 
+		
 		try {
 			
 		} catch (error) {
 			
 		}
+		/// New user validate and encyprt password
+		valid = validatePassword
+		if (valid === true){
+			
+			const salt = await bcrypt.genSalt(10);
+			hash = await bcrypt.hash(password, salt);
+		}
 
-		const salt = await bcrypt.genSalt(10);
-		hash = await bcrypt.hash(password, salt);
+		// curreent user 
+		// encrypt and compare to plain text passowrd 
 
 		const [user, created] = await User.findOrCreate({
 			where: { email: email },
@@ -136,5 +145,18 @@ function sendPayload(id, res) {
 		}
 	);
 }
+
+function validatePassword(pw){
+	// validation rules
+	// min 6 charecters
+	// one lowercase 
+	// one numeric 
+ const regex = new RegExp("^(?=.*[0-9])(?=.*[a-z]).{6,32}$")
+ valid = regex.test(pw)
+
+ return valid
+
+}
+
 
 module.exports = router;

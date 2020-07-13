@@ -106,8 +106,7 @@ router.post("/likes", (req, res) => {
 		userID,
 		albumID,
 	})
-		.then(res.send({ msg: "Album Liked. Success" }))
-		.catch((err) => console.log(err));
+		.then(res.status(204).send({data:null}))
 });
 
 // @route   DELETE api/albums/:id/like
@@ -119,7 +118,9 @@ router.delete("/likes", (req, res) => {
 	Album_like.destroy({
 		userID,
 		albumID,
-	}).then(res.send("Liked on album deleted "));
+  })
+  .then(res.status(204).send({data:null}))
+  
 });
 
 // @route   POST api/albums/:id/favorite

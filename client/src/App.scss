@@ -1,9 +1,16 @@
+@import "./sass/abstracts/palette.scss";
 :root {
   --primary-color: #003699;
   --dark-color: #333333;
   --light-color: #f4f4f4;
   --danger-color: #dc3545;
   --success-color: #28a745;
+}
+
+.title {
+  color: hsl(202, 57%,15%);
+  font-weight: 700;
+  font-size: 1.5rem;
 }
 
 * {
@@ -68,7 +75,7 @@ img {
 }
 
 .text-primary {
-  color: var(--primary-color);
+  color: $blue;
 }
 
 .text-dark {
@@ -93,7 +100,47 @@ img {
   border: #ccc 1px dotted;
   margin: 0.7rem 0;
 }
+.album-card {
 
+  border: #ccc 1px dotted;
+  border-radius: 5px;
+  margin: 0.7rem 0;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+  &--title{
+    font-size: 1.75rem;
+    color: $blue-d1;
+    
+}
+  &--body{
+    font-size: 1rem;
+    color: $blue-d2;
+   
+}
+  &--stats{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+
+}
+
+&--stat{
+  color: $blue-d2;
+ align-items: center;
+ justify-content: center;
+ font-size: 1rem;
+}
+
+&--image{
+ 
+ border-top-left-radius: 15px;
+ border-top-right-radius: 15px;
+
+}
+
+}
 /* List */
 .list {
   margin: 0.5rem 0;
@@ -362,6 +409,7 @@ table th {
   width: 100%;
   border-bottom: solid 1px var(--primary-color);
   opacity: 0.9;
+  height:5vh;
   margin-bottom: 1rem;
 }
 

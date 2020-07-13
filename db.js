@@ -68,6 +68,8 @@ const Artist = db.define('artist', {
     allowNull: false
   },
   genre:DataTypes.STRING,
+  imageURL:Sequelize.STRING
+
   })
 const Album = db.define(	"album",{
 		id: {
@@ -305,32 +307,34 @@ add_users = [
 
 ];
 
+const bucket = 'https://waxhades123.bucket.us-east-2.amazonaws.com'
+
 add_artist = [
-	{ name: "Kanye West ", genre: "Rap" },
-	{ name: "Dua Lipa", genre: "Pop" },
-	{ name: "The Weeknd", genre: "R&B" },
-	{ name: "Lil Uzi Vert", genre: "Rap" },
-    { name: "Lil Wayne", genre: "Rap" },
-    { name: "Kid Cudi", genre: "Rap" },
-	{ name: "Lorde", genre: "Pop" },
-	{ name: "Marvin Gaye", genre: "R&B" },
-	{ name: "Playboy Carti", genre: "Rap" },
-    { name: "Young Thug", genre: "Rap" },
+	{ name: "Kanye West ", genre: "Rap" ,imageURL:"https://waxhades123.bucket.us-east-2.amazonaws.com/future_nostalgia.jpg"},
+	{ name: "Dua Lipa", genre: "Pop" ,  imageURL:`${bucket}/Dua-Lipa.webp` },
+	{ name: "The Weeknd", genre: "R&B" ,imageURL:`${bucket}` },
+	{ name: "Lil Uzi Vert", genre: "Rap" ,imageURL:`${bucket}`},
+    { name: "Lil Wayne", genre: "Rap", imageURL:`${bucket}`},
+    { name: "Kid Cudi", genre: "Rap",imageURL:`${bucket}` },
+	{ name: "Lorde", genre: "Pop", imageURL:`${bucket}`},
+	{ name: "Marvin Gaye", genre: "R&B",imageURL:`${bucket}` },
+	{ name: "Playboy Carti", genre: "Rap",imageURL:`${bucket}` },
+    { name: "Young Thug", genre: "Rap",imageURL:`${bucket}` },
   ];
   
   add_album = [
-	{ name: "Yeezus ", artistID:1,runtime: 1500,genre: "Rap" },
-	{ name: "ye", artistID:1,runtime: 2500,genre: "Rap" },
-	{ name: "College dropout ", artistID:1,runtime: 4500,genre: "Rap" },
-	{ name: "Graduation ", artistID:1,runtime: 1500,genre: "Rap" },
-	{ name: "Watch the throne ", artistID:1,runtime: 5500,genre: "Rap" },
-	{ name: "Future Nostalgia",artistID:2,runtime: 5200,genre: "Pop" },
-	{ name: "Trilogy",artistID:3, runtime: 5005,genre: "R&B" },
-    { name: "After Hours", artistID:3, runtime: 5040,genre: "R&B" },
-    { name: "Starboy",artistID:3,  runtime: 5001,genre: "R&B" },
-    { name: "Beauty Behind the Madness",artistID:3,  runtime: 500,genre: "R&B" },
-	{ name: "Playboy Carti",artistID:9, runtime: 5090,genre: "Rap" },
-	{ name: "Die lit",artistID:9, runtime: 5070,genre: "Rap" },
+	{ name: "Yeezus ", artistID:1,runtime: 1500,genre: "Rap" ,imageURL: `${bucket}/yeezus.jpg`},
+	{ name: "ye", artistID:1,runtime: 2500,genre: "Rap" ,imageURL:`${bucket}/ye.webp` },
+	{ name: "College dropout ", artistID:1,runtime: 4500,genre: "Rap",imageURL: `${bucket}/college_dropout.webp`},
+	{ name: "Graduation ", artistID:1,runtime: 1500,genre: "Rap" ,imageURL: `${bucket}/graduation.jpg`},
+	{ name: "Watch the throne ", artistID:1,runtime: 5500,genre: "Rap",imageURL: `${bucket}/Watch_The_Throne.jpg` },
+	{ name: "Future Nostalgia",artistID:2,runtime: 5200,genre: "Pop" ,imageURL:`${bucket}/future_nostalgia.jpg`},
+	{ name: "Trilogy",artistID:3, runtime: 5005,genre: "R&B" ,imageURL:`${bucket}` },
+    { name: "After Hours", artistID:3, runtime: 5040,genre: "R&B" ,imageURL:`${bucket}/after_hours.jpg` },
+    { name: "Starboy",artistID:3,  runtime: 5001,genre: "R&B" ,imageURL:`${bucket}/starboy.jpg` },
+    { name: "Beauty Behind the Madness",artistID:3,  runtime: 500,genre: "R&B" ,imageURL:`${bucket}/beauty_behind_the_madness.jfif` },
+	{ name: "Playboy Carti",artistID:9, runtime: 5090,genre: "Rap" ,imageURL: `${bucket}/playboy_carti.png`},
+	{ name: "Die lit",artistID:9, runtime: 5070,genre: "Rap" ,imageURL:`${bucket}/die_lit.webp` },
 	
   ];
   
@@ -416,7 +420,6 @@ add_artist = [
 
   // User.hasMany(Album_favorite)
   // Album.hasMany(Album_favorite)
-
 
 
 exports.User = User

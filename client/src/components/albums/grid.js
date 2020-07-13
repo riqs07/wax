@@ -1,7 +1,25 @@
 import React,{Fragment , useContext } from 'react'
 import AlbumContext from '../../contex/album/AlbumContext'
-import GridItem from '../albums/item'
+import AlbumItem from '../albums/item'
 import AlbumForm from '../albums/form'
+import Filter from '../albums/albumsFilter'
+
+import styled from 'styled-components'
+
+
+
+const Grid = styled.ul`
+display:flex;
+align-content:center;
+flex-wrap: wrap;
+`
+
+const Li = styled.li`
+list-style:none;
+flex-basis: 15%;
+padding:1rem;
+    `
+
 
  const AlbumsGrid = () => {
 
@@ -12,11 +30,15 @@ import AlbumForm from '../albums/form'
     return (
 
         <Fragment>
-            <AlbumForm/>
+            <Grid>
+
          {albums.map(album => (
-               <GridItem key = {album.id} album = {album}/>
+             <Li key = {album.id} >
+               <AlbumItem album = {album}/>
+             </Li>
            ))}
 
+           </Grid>
         </Fragment>
     )
 }

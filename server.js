@@ -1,5 +1,7 @@
 let express = require('express')
 let server = express() 
+const router = express.Router();
+
 const PORT = process.env.PORT || 9001;
 
 server.listen (PORT, ()=>{
@@ -9,6 +11,13 @@ server.listen (PORT, ()=>{
 
 // Middleware
 server.use(express.json({extended:false}))
+
+router.get("/api/health", async (req, res) => {
+	res.send({
+    status:"Alive",
+    version:"v1"
+  })
+  });
 
 
 

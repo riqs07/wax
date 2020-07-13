@@ -9,7 +9,7 @@ import Albums from './components/pages/AlbumsPage';
 
 import AlbumState from './contex/album/AlbumState'
 
-import './App.css';
+import './App.scss';
 
 function App() {
 
