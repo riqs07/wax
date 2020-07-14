@@ -21,7 +21,8 @@
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
     "mysql2": "^2.1.0",
-    "sequelize": "^6.3.0"
+    "sequelize": "^6.3.0",
+    "sequelize-views-support": "^1.2.2"
   },
   "devDependencies": {
     "concurrently": "^5.2.0",

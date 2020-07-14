@@ -1,8 +1,7 @@
 const config = require("config");
 const dbName = config.get("dbName");
 const dbPassword = config.get("dbPassword");
-const {Sequelize, DataTypes} = require('sequelize');
-
+const { Sequelize,DataTypes,QueryTypes} = require('sequelize');
 
 
 /////////// DB CONNECTION
@@ -288,6 +287,39 @@ userID: {
 }
 })
 
+
+// Pointing to a view
+const AlbumFavLike = db.define('AlbumFavLike', {
+  artistID:{type:Sequelize.INTEGER,
+     references: {
+    model: 'artists',
+    key: 'id'
+},},
+  artist: Sequelize.INTEGER,
+  id: {
+    type:Sequelize.INTEGER,
+    primaryKey:true,
+    references: {
+      model: 'albums',
+      key: 'id'
+  },
+  },
+  name:Sequelize.STRING,
+  likes:Sequelize.INTEGER,
+  favs:Sequelize.INTEGER,
+  avg:Sequelize.INTEGER,
+  release_year:Sequelize.DATE,
+  runtime:Sequelize.INTEGER,
+  genre:Sequelize.STRING,
+  artist_ImageURL:Sequelize.STRING,
+  imageURL:Sequelize.STRING
+
+  
+}, {timestamps: false});
+
+
+
+
 //// BULK DATA ADD
 add_users = [
   { name: "Terriq ", password:"FAKEPASS",email:"riqs07@email.com"},
@@ -307,7 +339,7 @@ add_users = [
 
 ];
 
-const bucket = 'https://waxhades123.bucket.us-east-2.amazonaws.com'
+const bucket = 'https://waxhades123.us-east-2.amazonaws.com'
 
 add_artist = [
 	{ name: "Kanye West ", genre: "Rap" ,imageURL:"https://waxhades123.bucket.us-east-2.amazonaws.com/future_nostalgia.jpg"},
@@ -404,23 +436,23 @@ add_artist = [
    {albumID:10,userID:9, rating:100},
   ];
 
-
   // --Insert first half
 
   // User.bulkCreate(add_users)
   // Artist.bulkCreate(add_artist)
   // Album.bulkCreate(add_album)
 
-
   //////////////////
   // Album_favorite.bulkCreate(add_albumFavs)
   // Album_like.bulkCreate(add_albumLikes)
   // Album_rating.bulkCreate(add_albumRatings)
+  
+
+  // then add view
  
 
   // User.hasMany(Album_favorite)
   // Album.hasMany(Album_favorite)
-
 
 exports.User = User
 exports.Album = Album
@@ -429,7 +461,7 @@ exports.Album_favorite = Album_favorite
 exports.Album_like = Album_like
 exports.Album_rating = Album_rating
 exports.Artist = Artist
-
+exports.AlbumFavLike = AlbumFavLike
 
 
 

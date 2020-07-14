@@ -105,11 +105,26 @@ insert into album_favorites (user_id,album_id) values
 (1,10),(3,2),(2,12),(3,4),(3,9),(1,12);
 
 insert into artist_favorites (user_id,artist_id) values
-(1,1),(10,1),(14,1),(6,1),(10,15),(12,15);
+(1,2),(10,2),(14,2),(6,6),(10,8),(12,1);
 
 -- genre leader board 
 select genre,count(*) as 'favs' from artists inner join artist_favorites on artists.id = artist_favorites.user_id group by genre;
 
--- album leader board 
-select name,genre from artists inner join albums on artist_id = albums.artist_id ;
+-- album like leader board 
+select artists.name,albums.name,count(*) as `Likes`  from artists 
+inner join albums on artists.id = albums.artist_id
+inner join album_likes on albums.id = album_likes.album_id
+group by album.name
+ ;
+ -- album fav
+ select artists.name,albums.name,count(*) as `favs`  from artists 
+inner join albums on artists.id = albums.artist_id
+inner join album_favorites on albums.id = album_favorites.album_id
+group by album.name
+ ;
+ 
+ 
+
 -- artist leader board 
+
+select * from albums;

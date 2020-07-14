@@ -6,8 +6,7 @@ import AlbumsGrid from '../albums/grid'
     return (
         <div className ="grid 2">
         <div>
-
-            <AlbumsGrid/>
+<h1>Hello. Welcome Home 🏠</h1>
         </div>
     </div>
     )

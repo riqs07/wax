@@ -1,8 +1,9 @@
-import React, { Fragment, useContext } from "react";
+import React, { Fragment, useContext,useState, } from "react";
 import AlbumContext from "../../contex/album/AlbumContext";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import LazyLoad from 'react-lazyload';
+import Hover from '../utils/onHover'
 
 const I = styled.i`
 	padding: 0.5rem;
@@ -19,22 +20,25 @@ const GridItem = ({ album }) => {
 
    
 	// destructure the album being passed in
-	const { id, name, artistID, genre, runtime, release_year, imageURL } = album;
+	const { id, name, artistID, genre, runtime, release_year, imageURL ,artist,likes,favs, avg} = album;
 
+
+	// show medium card
     const onClick = (e) =>{
-        console.log(`Open med card modal albumID:${id} artistID:${artistID}`)
-    }
-
+		console.log(`Open med card modal albumID:${id} artistID:${artistID}`)
+		console.log(imageURL,albumContext[1])
+	}
+	
+	
 
 	// convert seconds to mins
 	const secs = Math.floor(runtime / 60);
+	const rating = Math.floor(avg)
 
-	//figure out lazy loading for images && get smaller images :)
+	//figure out lazy loading suspense for images && get smaller images :)
 
 	// get join table data to bring this in as well as artist name
-	const likes = 30;
-	const favs = 14;
-	const grade =  90;
+	
 	
 	// hard coded url for now
 	const image_url2 =
@@ -44,28 +48,21 @@ const GridItem = ({ album }) => {
 		// deleteAlbum(id)
 	};
 	return (
-		<div className="album-card bg-light" onClick = {onClick}>
+		<div className="album-card bg-light" onClick = {onClick} >
 			{image_url2 && (
 				<div className="album-card--image">
+					
 					<li>
-                
+
 						<img src={image_url2} alt="artist image "></img>
 					</li>
 				</div>
 			)}
 
-			<h3 className="album-card--title ">{name} </h3>
+			{/* <h3 className="album-card--title ">{name} </h3> */}
 			<div className="album-card--body">
-				<ul className = "album-card--stats">
-					{/* {artistID && (
-						<li>
-							<I className="fas fa-portrait"></I>
-							{`artist name  : ${artistID}`}
-						</li>
-					)} */}
-					
-				</ul>
-			
+						<h2>{name}</h2>
+						<h3>{artist}</h3>
 					<ul className="album-card--stats">
                     {genre && (
 						<li className ="album-card--stat">
@@ -74,18 +71,18 @@ const GridItem = ({ album }) => {
 						</li>
 					)}
 				
-
+{/* 
 					{release_year && (
 						<li className ="album-card--stat">
 							<I className="fas fa-calender-week"></I>
 							{release_year}
 						</li>
-					)}
-						{grade && (
+					)} */}
+						{avg && (
 							<li className =  "album-card--stat">
 								<I className="fas fa-flag-checkered " style={{ color: "black" }}></I>
                                 
-								{grade}
+								{rating}
 							</li>
 						)}
 						{favs && (

@@ -5,10 +5,9 @@ import React from 'react'
         <div>
             <h1>About wax</h1>
             <p className = "my-1">
-                This is a FULL STACK Javascrip application
+                This is a FULL STACK Javascrip application. Documentation and High level concepts will go here 
             </p>
-            <p className = 'bg-dark p'></p>
-            Version 1.0.0
+            
         </div>
     )
 }

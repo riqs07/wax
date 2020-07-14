@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Album, Album_favorite, Album_like, Album_rating } = require("../db");
+const { Album, Album_favorite, Album_like, Album_rating,AlbumFavLike } = require("../db");
 
 ////////////////// GET ////////////////
 
@@ -8,10 +8,11 @@ const { Album, Album_favorite, Album_like, Album_rating } = require("../db");
 // @desc    Get all albums
 // @access  Public
 router.get("/all", async (req, res) => {
-	Album.findAll()
-		.then((x) => res.send(x))
+	AlbumFavLike.findAll()
+		.then(x => res.send(x))
 		.catch((err) => console.log(err));
 });
+
 
 // @route   GET albums/genre
 // @desc    Get all albums by genre
@@ -220,5 +221,7 @@ router.delete("/", async (req, res) => {
 		where: { id },
 	});
 });
+
+
 
 module.exports = router;

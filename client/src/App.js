@@ -5,11 +5,14 @@ import {BrowserRouter as Router,Route,Switch} from 'react-router-dom'
 import Navbar from './components/layout/Navbar';
 import About from './components/pages/About';
 import Home from './components/pages/Home';
-import Albums from './components/pages/AlbumsPage';
+import AlbumsPage from './components/pages/AlbumsPage';
 
+import ArtistState from './contex/artists/ArtistState'
 import AlbumState from './contex/album/AlbumState'
-
+import ArtistsPage from './components/pages/ArtistsPage'
+import PageNotFound from './components/pages/PageNotFound';
 import './App.scss';
+
 
 function App() {
 
@@ -17,6 +20,7 @@ function App() {
   return (
    
 <AlbumState>
+  <ArtistState>
 <Router>
       <Fragment>
       <Navbar/>
@@ -27,7 +31,9 @@ function App() {
 
        <Route exact path = '/about' component = {About}/>
        <Route exact path = '/' component = {Home}/>
-       <Route exact path = '/test' component = {Home}/>
+       <Route exact path = '/artists' component = {ArtistsPage}/>
+       <Route exact path = '/albums' component = {AlbumsPage}/>
+       <Route render={PageNotFound} />
 
     </Switch>
 
@@ -35,6 +41,7 @@ function App() {
 
       </Fragment>
 </Router>
+</ArtistState>
 </AlbumState>
   );
 }
