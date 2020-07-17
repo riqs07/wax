@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Album, Album_favorite, Album_like, Album_rating,AlbumFavLike } = require("../db");
+const { Album, Album_favorite, Album_like, Album_rating,AlbumFavLike,SongFavLike} = require("../db");
 
 ////////////////// GET ////////////////
 
@@ -12,6 +12,20 @@ router.get("/all", async (req, res) => {
 		.then(x => res.send(x))
 		.catch((err) => console.log(err));
 });
+
+
+// @route   GET album/:id/songs
+// @desc    Get all songs in an album
+// @access  Public
+router.get("/test", async (req, res) => {
+    const { albumID } = req.body;
+    console.log(albumID)
+	SongFavLike.findAll({ where: { albumID } 
+    })
+		.then((x) => res.send(x))
+		.catch((err) => console.log(err));
+});
+
 
 
 // @route   GET albums/genre
@@ -210,7 +224,6 @@ router.post("/", async (req, res) => {
 		.then(res.send("Album added"))
 		.catch((err) => console.log(err));
 });
-
 // @route   DELETE /albums
 // @desc    Delete Album
 // @access  Private

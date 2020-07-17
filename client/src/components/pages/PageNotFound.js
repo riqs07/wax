@@ -15,17 +15,17 @@ const linkStyle = {
 
 
 }
+const quotes = [
+    'Its dangerous to go alone. Take this 🗡',
+    'All that is gold does not glitter',
+    'Not all those who wander are lost',
+    'The old that is strong does not wither',
+    'Deep roots are not reached by the frost.',
+   
+]
 
 const PageNotFound = () => {
 
-    const quotes = [
-        'Its dangerous to go alone. Take this',
-        'All that is gold does not glitter',
-        'Not all those who wander are lost',
-        'The old that is strong does not wither',
-        'Deep roots are not reached by the frost.',
-       
-    ]
 
     const num = Math.floor(Math.random() * quotes.length)
  
@@ -35,9 +35,9 @@ const PageNotFound = () => {
         <Fragment>
 
             <h1>404 Page Not Found....</h1>
+          <h3>Sorry, what you are looking for does not exist 😔</h3>
               <h2>💍 {quotes[num]} 💍</h2>
                 <Link style={linkStyle} to="/">🏡 Return to Safety</Link>
-          
 
         </Fragment>
 

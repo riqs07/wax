@@ -1,9 +1,10 @@
 import React from 'react'
+import CardMd from '../albums/albumsCardMd'
 
  const ArtistPage = () => {
     return (
         <div>
-            <h2>Artist Page go here</h2>
+            <CardMd/>
         </div>
     )
 }

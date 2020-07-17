@@ -1,6 +1,7 @@
 import React, { Fragment, useContext } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import AlbumContext from "../../contex/album/AlbumContext";
 
 
 const I = styled.i`
@@ -13,10 +14,11 @@ const I = styled.i`
 // once user clicks on it will go into an in depth artist page
 //  that page will have info joining the two together
 // somhow going to need to find a way to get the artist id in here
-const cardMd = ({ album }) => {
+const cardMd = ({ artists }) => {
 
+	const artistsContext = useContext(AlbumContext);
 
-    let sample = {followers:10,likes:30,score:413,imageURL:'https://waxhades123.s3.us-east-2.amazonaws.com/after_hours.jpg'}
+    let sample = {name:'the weeknd',followers:10,likes:30,score:413,imageURL:'https://waxhades123.s3.us-east-2.amazonaws.com/after_hours.jpg'}
 
 
     const {name ,followers, likes, score,imageURL} = sample
@@ -74,7 +76,7 @@ const cardMd = ({ album }) => {
 };
 
 cardMd.propTypes = {
-	album: PropTypes.object.isRequired,
+	artists: PropTypes.object.isRequired,
 };
 
 export default cardMd;

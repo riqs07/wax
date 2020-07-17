@@ -198,7 +198,6 @@ const Song = db.define('song', {
   linkURL:Sequelize.STRING
 });
 
-
  
   const Artist_favorite = db.define('artist_favorite',{
     artistID: {
@@ -223,7 +222,7 @@ const Song = db.define('song', {
   })
   
 
-  const song_favorite = db.define('song_favorite',{
+  const Song_favorite = db.define('song_favorite',{
     songID: {
       type: Sequelize.INTEGER,
       primaryKey:true,
@@ -241,7 +240,7 @@ const Song = db.define('song', {
   },
 },
   })
-  const song_rating = db.define('song_rating',{
+  const Song_rating = db.define('song_rating',{
     songID: {
       type: Sequelize.INTEGER,
       primaryKey:true,
@@ -265,7 +264,7 @@ const Song = db.define('song', {
 
 },
 })
-const song_like = db.define('song_like',{
+const Song_like = db.define('song_like',{
   songID: {
     type: Sequelize.INTEGER,
     primaryKey:true,
@@ -288,14 +287,14 @@ userID: {
 })
 
 
-// Pointing to a view
+// Pointing to stored dql data views
 const AlbumFavLike = db.define('AlbumFavLike', {
   artistID:{type:Sequelize.INTEGER,
      references: {
     model: 'artists',
     key: 'id'
 },},
-  artist: Sequelize.INTEGER,
+  artist: Sequelize.STRING,
   id: {
     type:Sequelize.INTEGER,
     primaryKey:true,
@@ -313,6 +312,32 @@ const AlbumFavLike = db.define('AlbumFavLike', {
   genre:Sequelize.STRING,
   artist_ImageURL:Sequelize.STRING,
   imageURL:Sequelize.STRING
+
+  
+}, {timestamps: false});
+
+const SongFavLike = db.define('SongFavLike', {
+  albumID:{type:Sequelize.INTEGER,
+     references: {
+    model: 'albums',
+    key: 'id'
+},},
+  album: Sequelize.STRING,
+  id: {
+    type:Sequelize.INTEGER,
+    primaryKey:true,
+    references: {
+      model: 'songs',
+      key: 'id'
+  },
+  },
+  name:Sequelize.STRING,
+  likes:Sequelize.INTEGER,
+  favs:Sequelize.INTEGER,
+  avg:Sequelize.INTEGER,
+  runtime:Sequelize.INTEGER,
+  genre:Sequelize.STRING,
+  linkURL:Sequelize.STRING,
 
   
 }, {timestamps: false});
@@ -436,20 +461,107 @@ add_artist = [
    {albumID:10,userID:9, rating:100},
   ];
 
+const youtube = 'https://www.youtube.com/watch?v='
+
+add_Songs = [
+  {artistID:1,albumID:1,name:'Send it up',runtime:'160',genre:'Rap',linkURL: `${youtube}vUFiVwa6U_c`},
+  {artistID:1,albumID:1,name:'Bound 2',runtime:'250',genre:'Rap',linkURL: `${youtube}BBAtAM7vtgc`},
+  {artistID:1,albumID:1,name:'Im in it',runtime:'120',genre:'Rap',linkURL:`${youtube}_jZuz3NEr18`},
+  {artistID:1,albumID:1,name:'New Slaves',runtime:'180',genre:'Rap',linkURL:`${youtube}vQ0u09mFodw`},
+  {artistID:1,albumID:1,name:'Blood on the Leaves',runtime:'180',genre:'Rap',linkURL:`${youtube}KEA0btSNkpw`},
+  {artistID:2,albumID:6,name:'Levitating',runtime:'203',genre:'Pop',linkURL:`${youtube}q4az-Q9k4-E`},
+  {artistID:2,albumID:6,name:'Hallucinate',runtime:'203',genre:'Pop',linkURL:`${youtube}sxqd60Nhj2k`},
+  {artistID:2,albumID:6,name:'Pretty Please',runtime:'194',genre:'Pop',linkURL:`${youtube}WmqFvL93ofY`},
+  {artistID:2,albumID:6,name:'Future Nostalgia',runtime:'194',genre:'Pop',linkURL:`${youtube}G0-lES8o84A`},
+  {artistID:2,albumID:6,name:'Good in Bed',runtime:'218',genre:'Pop',linkURL:`${youtube}ElAQ_geBsG4`},
+
+]
+
+
+add_songLikes = [
+  {songID:1,userID:1},
+  {songID:1,userID:2},
+  {songID:1,userID:3},
+  {songID:1,userID:4},
+  {songID:1,userID:5},
+  {songID:1,userID:6},
+  {songID:2,userID:1},
+  {songID:2,userID:2},
+  {songID:2,userID:3},
+  {songID:2,userID:4},
+  {songID:2,userID:5},
+  {songID:2,userID:6},
+  {songID:4,userID:1},
+  {songID:5,userID:1},
+  {songID:6,userID:1},
+  {songID:7,userID:1},
+ ];
+
+ add_songFavs = [
+  {songID:1,userID:1},
+  {songID:1,userID:2},
+  {songID:1,userID:3},
+  {songID:2,userID:1},
+  {songID:2,userID:2},
+  {songID:2,userID:3},
+  {songID:2,userID:5},
+  {songID:2,userID:8},
+  {songID:3,userID:1},
+  {songID:3,userID:2},
+  {songID:3,userID:3},
+  {songID:4,userID:1},
+  {songID:3,userID:8},
+   {songID:5,userID:2},
+  {songID:5,userID:3},
+  {songID:6,userID:1},
+  {songID:1,userID:8},
+  
+  
+  
+ ];
+
+ add_songRatings = [
+   {songID:1,userID:1, rating:100},
+  {songID:1,userID:2, rating:20},
+  {songID:1,userID:3, rating:30},
+  {songID:2,userID:1, rating:100},
+  {songID:2,userID:2, rating:20},
+  {songID:2,userID:3, rating:30},
+  {songID:3,userID:3, rating:50},
+  {songID:4,userID:1, rating:100},
+  {songID:4,userID:2, rating:20},
+  {songID:4,userID:3, rating:30},
+  {songID:5,userID:1, rating:100},
+  {songID:5,userID:2, rating:20},
+  {songID:5,userID:3, rating:30},
+  {songID:6,userID:3, rating:50},
+  {songID:6,userID:1, rating:100},
+  {songID:6,userID:2, rating:20},
+  {songID:6,userID:10, rating:90},
+  {songID:6,userID:9, rating:50},
+  {songID:6,userID:8, rating:55},
+  {songID:6,userID:6, rating:10},
+  {songID:10,userID:10, rating:100},
+  {songID:10,userID:9, rating:100},
+ ];
   // --Insert first half
 
   // User.bulkCreate(add_users)
   // Artist.bulkCreate(add_artist)
   // Album.bulkCreate(add_album)
+    // Song.bulkCreate(add_Songs)
 
   //////////////////
   // Album_favorite.bulkCreate(add_albumFavs)
   // Album_like.bulkCreate(add_albumLikes)
   // Album_rating.bulkCreate(add_albumRatings)
-  
+  // Song_favorite.bulkCreate(add_songFavs)
+  // Song_like.bulkCreate(add_songLikes)
+  // Song_rating.bulkCreate(add_songRatings)
+
 
   // then add view
- 
+
 
   // User.hasMany(Album_favorite)
   // Album.hasMany(Album_favorite)
@@ -462,6 +574,7 @@ exports.Album_like = Album_like
 exports.Album_rating = Album_rating
 exports.Artist = Artist
 exports.AlbumFavLike = AlbumFavLike
+exports.SongFavLike = SongFavLike
 
 
 

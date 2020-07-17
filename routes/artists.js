@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Artist, Artist_favorite } = require("../db");
+const { Artist, Artist_favorite,Song } = require("../db");
 
 // @route   GET Artists/all
 // @desc    Get all Artists
@@ -20,6 +20,17 @@ router.get("/", async (req, res) => {
 		.catch((err) => console.log(err));
 });
 
+// @route   GET album/:id/songs
+// @desc    Get all songs by an artist
+// @access  Public
+router.get("/test", async (req, res) => {
+    const { albumID } = req.body;
+    console.log(albumID)
+	Song.findAll({ where: { albumID } 
+    })
+		.then((x) => res.send(x))
+		.catch((err) => console.log(err));
+});
 
 // @route   POST artist/:id
 // @desc    GET Specific Artists info

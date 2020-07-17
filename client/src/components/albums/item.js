@@ -1,4 +1,4 @@
-import React, { Fragment, useContext,useState, } from "react";
+import React, { Fragment, useContext,useState,useEffect } from "react";
 import AlbumContext from "../../contex/album/AlbumContext";
 import PropTypes from "prop-types";
 import styled from "styled-components";
@@ -15,20 +15,23 @@ const I = styled.i`
 // once user clicks on it will go into an in depth artist page
 //  that page will have info joining the two together
 // somhow going to need to find a way to get the artist id in here
+
+
+
+//medium card not working and card select is wonky
 const GridItem = ({ album }) => {
 	const albumContext = useContext(AlbumContext);
 
-   
+	
+
 	// destructure the album being passed in
 	const { id, name, artistID, genre, runtime, release_year, imageURL ,artist,likes,favs, avg} = album;
 
-
+	
 	// show medium card
     const onClick = (e) =>{
-		console.log(`Open med card modal albumID:${id} artistID:${artistID}`)
-		console.log(imageURL,albumContext[1])
+		console.log(imageURL)
 	}
-	
 	
 
 	// convert seconds to mins
@@ -49,7 +52,9 @@ const GridItem = ({ album }) => {
 	};
 	return (
 		<div className="album-card bg-light" onClick = {onClick} >
-			{image_url2 && (
+
+		
+			{imageURL && (
 				<div className="album-card--image">
 					
 					<li>

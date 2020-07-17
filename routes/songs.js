@@ -5,14 +5,16 @@ const router = express.Router()
 const { Song} = require("../db");
 
 
-// @route   GET albums/all
-// @desc    Get all albums
+// @route   GET songs/all
+// @desc    Get all songs
 // @access  Public
 router.get("/all", async (req, res) => {
 	Song.findAll()
 		.then((x) => res.send(x))
 		.catch((err) => console.log(err));
 });
+
+
 
 // @route   POST api/songs/:id/like
 // @desc    Add a like to SONG 

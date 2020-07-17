@@ -27,8 +27,13 @@ const Navbar = ({ title, icon }) => {
 					<Link to="/songs">Songs </Link>
 				</li>
 				<li>
-					<Link to="/">Leaderboard </Link>
+					<Link to="/leaderboard">Leaderboard </Link>
 				</li>
+				
+				<li>
+					<Link to="/playlists">Playlists </Link>
+				</li>
+				
 			</ul>
 		</div>
 	);

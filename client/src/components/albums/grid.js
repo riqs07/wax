@@ -1,9 +1,10 @@
-import React,{Fragment , useContext } from 'react'
+import React,{Fragment , useContext ,useState,useEffect} from 'react'
 import AlbumContext from '../../contex/album/AlbumContext'
 import CardSm from '../albums/item'
+import CardMd from '../albums/albumsCardMd'
 
 import AlbumForm from '../albums/form'
-import Filter from '../albums/albumsFilter'
+import Filter from './albumsList.js'
 
 import styled from 'styled-components'
 
@@ -12,7 +13,7 @@ const Grid = styled.ul`
 display:flex;
 align-content:center;
 flex-wrap: wrap;
-padding;1rem;
+padding:1rem;
 `
 
 const Li = styled.li`
@@ -27,14 +28,25 @@ padding:1rem;
     const context = useContext(AlbumContext)
 
     const {albums } = context
-    return (
+
+    const [selected,setSelected] = useState()
+
+    useEffect(() => {
+      console.log(`open modal ${selected}`)
+  }, [selected])
+  
+
+      return (
 
         <Fragment>
+         
             <Grid>
-
+            {selected && (
+             <CardSm album = {albums[selected]} />
+          )}
             {albums.map(album => (
-              <Li key = {album.id} >
-               <CardSm album = {album}/>
+              <Li key = {album.id} onClick = {() =>setSelected(album.id)}>
+               <CardSm album = {album} />
              </Li>
    
            ))}

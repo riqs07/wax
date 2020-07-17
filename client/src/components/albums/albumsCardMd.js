@@ -1,6 +1,7 @@
 import React, { Fragment, useContext } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import AlbumContext from "../../contex/album/AlbumContext";
 
 
 const I = styled.i`
@@ -16,10 +17,9 @@ const I = styled.i`
 const cardMd = ({ album }) => {
 
 
-    let sample = {name:"the weeknd",followers:10,likes:30,score:413,imageURL:'https://waxhades123.s3.us-east-2.amazonaws.com/after_hours.jpg'}
+    // not taking in props
 
 
-    const {name ,followers, likes, score,imageURL} = sample
 	return (
         <div class="wrapper">
 
@@ -28,12 +28,12 @@ const cardMd = ({ album }) => {
        
 
           <div class="artist-card__img">
-              <img src = {imageURL} ></img>
+              <img src = {"https://waxhades123.s3.us-east-2.amazonaws.com/after_hours.jpg"} ></img>
           </div>
           
       
           <div class="artist-card__cnt js-artist-cnt">
-            <div class="artist-card__name">{name}</div>
+            <div class="artist-card__name">{'The Weekend'}</div>
             
             <div class="ribbon ribbon-top-left">
              <span>🏆</span>
@@ -41,19 +41,19 @@ const cardMd = ({ album }) => {
       
             <div class="artist-card-inf">
               <div class="artist-card-inf__item">
-                <div class="artist-card-inf__title">{followers}</div>
+                <div class="artist-card-inf__title">{'130'}</div>
                 <div class="artist-card-inf__txt"><i className="fas fa-users fa-2x"></i></div>
               </div>
       
               
       
               <div class="artist-card-inf__item">
-                <div class="artist-card-inf__title">{score}</div>
+                <div class="artist-card-inf__title">{'1200'}</div>
                 <div class="artist-card-inf__txt"><i className="fas fa-flag-checkered fa-2x"></i></div>
               </div>
       
               <div class="artist-card-inf__item">
-                <div class="artist-card-inf__title">{likes}</div>
+                <div class="artist-card-inf__title">{'290'}</div>
                 <div class="artist-card-inf__txt"><i className="fa fa-thumbs-up fa-2x"></i></div>
               </div>
             </div>
