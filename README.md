@@ -18,6 +18,9 @@ API yadayadayada
 [Node]()
 Backend
 
+[Sequelize]()
+ORM to talk to MYSQL using javascript.
+
 [mySQL]()
 MYSQL
 
