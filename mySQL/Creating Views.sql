@@ -51,4 +51,9 @@ left join song_favorites on songs.id = song_favorites.songID
 left join song_ratings on songs.id = song_ratings.songID
 group by songs.name;
 
-select * from AlbumFavLikes order by favs;
+
+CREATE VIEW UserAlbums AS
+select userID,albumID from album_favorites 
+inner join users on album_favorites.userID = users.id
+order by users.id
+

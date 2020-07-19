@@ -288,6 +288,7 @@ userID: {
 
 
 // Pointing to stored dql data views
+// Need views in db first b4 cand be run 
 const AlbumFavLike = db.define('AlbumFavLike', {
   artistID:{type:Sequelize.INTEGER,
      references: {
@@ -295,7 +296,7 @@ const AlbumFavLike = db.define('AlbumFavLike', {
     key: 'id'
 },},
   artist: Sequelize.STRING,
-  id: {
+  albumID: {
     type:Sequelize.INTEGER,
     primaryKey:true,
     references: {
@@ -323,7 +324,7 @@ const SongFavLike = db.define('SongFavLike', {
     key: 'id'
 },},
   album: Sequelize.STRING,
-  id: {
+  songID: {
     type:Sequelize.INTEGER,
     primaryKey:true,
     references: {
@@ -338,6 +339,33 @@ const SongFavLike = db.define('SongFavLike', {
   runtime:Sequelize.INTEGER,
   genre:Sequelize.STRING,
   linkURL:Sequelize.STRING,
+
+  
+}, {timestamps: false});
+
+
+
+const UserAlbum = db.define('User_Album', {
+  albumID:{
+    type:Sequelize.INTEGER,
+    primaryKey:true,
+
+    references: {
+    model: 'albums',
+    key: 'id'
+},
+},
+  userID: {
+    type:Sequelize.INTEGER,
+    primaryKey:true,
+    references: {
+      model: 'users',
+      key: 'id'
+  },
+},
+name:Sequelize.STRING,
+imageURL:Sequelize.STRING,
+
 
   
 }, {timestamps: false});
@@ -575,6 +603,7 @@ exports.Album_rating = Album_rating
 exports.Artist = Artist
 exports.AlbumFavLike = AlbumFavLike
 exports.SongFavLike = SongFavLike
+exports.UserAlbum = UserAlbum
 
 
 

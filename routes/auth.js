@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const config = require("config");
 const { check, validationResult } = require("express-validator");
 const auth = require('../middleware/auth')
+const { User} = require("../db");
 
 
 const bcrypt = require("bcryptjs");
@@ -12,13 +13,11 @@ const bcrypt = require("bcryptjs");
 // @route   GET api/auth
 // @desc    Get logged in user // Accept Token 
 // @access  Private
-//@issue At some poiunt the req.user is empty
 router.get("/",auth,async (req, res) => {
   try {
-    // USER IS EMPTY 
-    console.log(req.user.id)
-    // const user = await getUserByID(req.user.id)
-    res.json(req.user)
+    //req.user coming in from middleware
+    const user = await User.findByPk(req.user.id)
+    res.json(user)
   } catch (error) {
     console.error(error.message)
     res.status(500).send('Server Error')
@@ -28,20 +27,8 @@ router.get("/",auth,async (req, res) => {
 
 
 
-async function getUserByID(id){
-  let q = `SELECT * from USERS where id = "${id}"`;
-  db.query(q, (error, results, fields) => {
-    if (error) throw error;
-    console.log(results[0])
-
-    })
-    return results[0]
-
-}
-
-
 // @route   POST api/auth
-// @desc    Auth User & get token
+// @desc    Auth User & get token AND LOG IN
 // @access  Public
 router.post("/",
   [
@@ -60,52 +47,49 @@ router.post("/",
     const { email, password } = req.body;
 
     try {
-      let q = `SELECT * from USERS where email = "${email}"`;
-      db.query(q, (error, results, fields) => {
-        if (error) throw error;
-
-        // IF EMAIL EXISTS
-        if (results.length > 0) {
-          const User = {
-            email: results[0].email,
-            password: results[0].password,
-          };
-
-          // @issue 2 
-          // AWAIT STORE VALUE 
-          // PW VALIDATION
-          // const isMatch = await bcrypt.compare(password,User.password)
-
-          // if (!isMatch){
-          //     return res.status(400).json({msg:'Wrong Password'})
-          // }
-
-          const payload = {
-            user: {
-              id: User.id,
-            },
-          };
-
-          jwt.sign(
-            payload,
-            config.get("jwtSecret"),
-            {
-              expiresIn: 360000,
-            },
-            (err, token) => {
-              if (err) throw err;
-              res.json({ token });
-            }
-          );
-        } else {
-          return res.status(400).json({ msg: "Email not Valid" });
-        }
+      let user = await User.findOne({
+        where:{email}
       });
-    } catch (error) {
-      console.error(error.message);
-      res.status(500).send("Server Error");
-    }
+
+      if (!user) {
+        return res.status(400).json({msg: 'Emails do not Match!'});
+      }
+
+      const isMatch = await bcrypt.compare(password,user.password)
+
+      if (!isMatch){
+        return res.status(400).json({msg:'Passwords do not Match!'})
+      }
+    
+      sendPayload(user.id,res)
+     
+   } catch (error){
+    console.log(error.message)
+    return res.status(500).send({msg:'Server Error'})
+   } 
+  
   }
 );
+
+
+function sendPayload(id, res) {
+	const payload = {
+		user: {
+			id: id,
+		},
+	};
+
+	jwt.sign(
+		payload,
+		config.get("jwtSecret"),
+		{
+			expiresIn: 360000,
+		},
+		(err, token) => {
+			if (err) throw err;
+			res.json({ token });
+		}
+	);
+}
 
 module.exports = router;

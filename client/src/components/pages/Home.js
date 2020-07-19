@@ -86,6 +86,10 @@ const Home = () => {
 
 					<Img src={placeHolder}></Img>
 				</TopAlbumsGrid>
+				<Title>Your Reviews. 🖊 </Title>
+				<TopAlbumsGrid>
+					
+				</TopAlbumsGrid>
 			</div>
 			
 		</Row50>

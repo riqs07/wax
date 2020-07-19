@@ -3,12 +3,12 @@ const router = express.Router();
 const { check, validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 const config = require("config");
-const { User,Album_favorite, Album_like } = require("../db");
-
+const {User,Album,UserAlbum} = require("../db");
+const auth = require('../middleware/auth');
 const bcrypt = require("bcryptjs");
 
 // @route   POST api/users/
-// @desc    REGISTER OR LOGIN
+// @desc    REGISTER 
 // @access  Private
 
 router.post(
@@ -22,58 +22,62 @@ router.post(
 		).isLength({ min: 6 }),
 	],
 	async (req, res) => {
-		const { name, password, email } = req.body;
-		valid = validatePassword(password)
 
-		
-		try {
-			
-		} catch (error) {
-			
-		}
-		/// New user validate and encyprt password
-		valid = validatePassword
-		if (valid === true){
-			
-			const salt = await bcrypt.genSalt(10);
-			hash = await bcrypt.hash(password, salt);
+
+		const { name,password, email } = req.body;
+
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			return res.status(400).json({ errors: errors.array() });
 		}
 
-		// curreent user 
-		// encrypt and compare to plain text passowrd 
+try {
+	user = await User.findOne({
+		where:{email}
+	})
 
-		const [user, created] = await User.findOrCreate({
-			where: { email: email },
-			defaults: {
-				name,
-				password,
-				email,
-			},
-		});
 
-		sendPayload(user.id, res);
+	if (user){
+		return res.status(400).json({msg: 'User already exists'});
+	}
+
+	user = User.build({
+		name,
+		email,
+		password
+	})
+	
+	const salt = await bcrypt.genSalt(10);
+	user.password = await bcrypt.hash(password, salt);
+
+	user.save();
+
+	res.status(201).send({msg:'User Saved'})
+
+} catch (error) {
+	res.status(500).send.json({msg:'Server Error'})
+}
+	
 	}
 );
 
 // @route   DELETE api/users/
 // @desc    Delete User
 // @access  Private
-router.delete("/", async (req, res) => {
+router.delete("/",auth, async (req, res) => {
 	// on front end have a you sure statement
-	const { id } = req.body;
+	const { id } = req.user.id;
 	User.destroy({
-		where: { id	},
+		where: { id },
 	});
 });
-
-
 
 // @route   GET user/all
 // @desc    Get all Users
 // @access  Public
 router.get("/all", async (req, res) => {
 	User.findAll()
-		.then(x => res.send(x))
+		.then((x) => res.send(x))
 		.catch((err) => console.log(err));
 });
 
@@ -85,78 +89,29 @@ router.get("/", async (req, res) => {
 	User.findOne({ where: { id } }).then((x) => res.send(x));
 });
 
+// @route   GET users/albums
+// @desc    GET User albums
+// @access  Private
+router.get("/albums",auth,async(req,res) => {
 
-// @route   GET users/favs
-// @desc    Get USER TOTAL Likes
-// @access  Public
-router.get("/likes", async (req, res) => {
-	const {userID } = req.body
-	  Album_like.findAndCountAll({
-	  where: {userID}
-	}) 
-		  .then((x) => res.send(x))
-		  .catch((err) => console.log(err));
-  });
-
-// @route   GET users/favs
-// @desc    Get USER FAVS 
-// @access  Public
-router.get("/favs", async (req, res) => {
-	const {userID } = req.body
-	  Album_favorite.findAndCountAll({
-	  where: {userID}
-	}) 
-		  .then((x) => res.send(x))
-		  // Needs to take num array and get albums 
-  
-    
-  
-	// let albums = await Album_favorite.findAll({
-	//   where: { userID:id }
-	// })
-	// .then(favs => favs.map(fav => favs.push(fav.id)))
-  
-   
-	// // Needs to take num array and get albums 
-	// .then(ids =>ids.map(x => getAlbumByID(x)))
-	// .them(x => console.log('Sent',x))
-		  .catch((err) => console.log(err));
-  });
+	// req.body works with token 
+	// hardcoded users dont have hashed pw so dosent work rn 
+	// not until i redo hard data
+	//idk ig i should make one big table view and pull from there
+	// this works but as of now no way to order data 
+	 console.log(req.user.id)
+	try {
+		const albums = await UserAlbum.findAll({
+			where:{userID:2},
+		})
+		
+		res.json(albums)
+	} catch (error) {
+		
+	}
+})
 
 
 
 
-function sendPayload(id, res) {
-	const payload = {
-		user: {
-			id: id,
-		},
-	};
-
-	jwt.sign(
-		payload,
-		config.get("jwtSecret"),
-		{
-			expiresIn: 360000,
-		},
-		(err, token) => {
-			if (err) throw err;
-			res.json({ token });
-		}
-	);
-}
-
-function validatePassword(pw){
-	// validation rules
-	// min 6 charecters
-	// one lowercase 
-	// one numeric 
- const regex = new RegExp("^(?=.*[0-9])(?=.*[a-z]).{6,32}$")
- valid = regex.test(pw)
-
- return valid
-
-}
-
-
-module.exports = router;
+module.exports = router
