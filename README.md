@@ -1,7 +1,12 @@
 # wax
 Full stack music app 
 
-React
+[styled-components](https://styled-components.com/)
+💅 CSS-in-JS
+
+[React](https://reactjs.org/) 
+Utilizes Hooks and State Management using Context API. 
+
 Express  
 NODE 
 MYSQL
