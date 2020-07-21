@@ -1,9 +1,9 @@
 import React from "react";
-import AlbumsGrid from "../albums/grid";
-import { Row50 } from "../layout/Grids";
+import { Column50 } from "../layout/Grids";
 import styled from "styled-components";
 
-const TopArtistGrid = styled.ul`
+
+const Grid3 = styled.ul`
 	display: grid;
 	align-content: center;
 
@@ -12,10 +12,10 @@ const TopArtistGrid = styled.ul`
 	grid-template-columns: repeat(3, 1fr);
 	box-shadow: 0px 8px 60px -10px rgba(13, 28, 39, 0.6);
 	background: #fff;
-	border-radius: 12px;
+	border-radius: 2rem;
 `;
 // MAybe figure out how to change the grid basis with styled css
-const TopAlbumsGrid = styled.ul`
+const Grid5 = styled.ul`
 	display: grid;
 	align-content: center;
 
@@ -24,7 +24,7 @@ const TopAlbumsGrid = styled.ul`
 	grid-template-columns: repeat(5, 1fr);
 	box-shadow: 0px 8px 60px -10px rgba(13, 28, 39, 0.6);
 	background: #fff;
-	border-radius: 12px;
+	border-radius: 2rem;
 `;
 
 const Img = styled.img`
@@ -48,35 +48,38 @@ const Home = () => {
 
     // really jiust need the id and the name and the image 
 	const placeHolder =
-		"https://waxhades123.s3.us-east-2.amazonaws.com/future_nostalgia.jpg";
+		"https://waxhades123.s3.us-east-2.amazonaws.com/ye.webp";
 
+
+		// also gonna need to have the name show up under the iamge 
 	return (
-		<Row50>
+		<Column50>
 			<div class="col-1">
 				<Title>Top Artists 🎵</Title>
-				<TopArtistGrid>
+				<Grid3>
 					<Img src={placeHolder}></Img>
 					<Img src={placeHolder}></Img>
 					<Img src={placeHolder}></Img>
-				</TopArtistGrid>
+				</Grid3>
 				<Title> Recently Liked Songs 🎺 </Title>
-				<TopAlbumsGrid>
+				<Grid5>
 					<Img src={placeHolder}></Img>
 					<Img src={placeHolder}></Img>
 					<Img src={placeHolder}></Img>
 					<Img src={placeHolder}></Img>
 					<Img src={placeHolder}></Img>
-				</TopAlbumsGrid>
+				</Grid5>
 			</div>
 			<div class="col-2">
+				
 				<Title>Favorite Albums 🎧</Title>
-				<TopArtistGrid>
+				<Grid3>
 					<Img src={placeHolder}></Img>
 					<Img src={placeHolder}></Img>
 					<Img src={placeHolder}></Img>
-				</TopArtistGrid>
+				</Grid3>
 				<Title>Just For You 🎸 </Title>
-				<TopAlbumsGrid>
+				<Grid5>
 					<Img src={placeHolder}></Img>
 
 					<Img src={placeHolder}></Img>
@@ -85,14 +88,29 @@ const Home = () => {
 					<Img src={placeHolder}></Img>
 
 					<Img src={placeHolder}></Img>
-				</TopAlbumsGrid>
-				<Title>Your Reviews. 🖊 </Title>
-				<TopAlbumsGrid>
-					
-				</TopAlbumsGrid>
+				</Grid5>
+				<Title>More Algorithim goodness.🤖</Title>
+				<Grid5>
+					<Img src={placeHolder}></Img>
+
+					<Img src={placeHolder}></Img>
+
+					<Img src={placeHolder}></Img>
+					<Img src={placeHolder}></Img>
+
+					<Img src={placeHolder}></Img>
+					<Img src={placeHolder}></Img>
+
+					<Img src={placeHolder}></Img>
+
+					<Img src={placeHolder}></Img>
+					<Img src={placeHolder}></Img>
+
+					<Img src={placeHolder}></Img>
+				</Grid5>
 			</div>
 			
-		</Row50>
+		</Column50>
 	);
 };
 

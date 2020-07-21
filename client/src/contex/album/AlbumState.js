@@ -8,7 +8,7 @@ import axios from 'axios';
 import {
     SET_CURRENT,
     CLEAR_CURRENT,
-    ADD_ALBUM,
+    ADD_ALBUM_REVIEW,
     DELETE_ALBUM,
     GET_ALBUMS,
     CLEAR_ALBUMS,
@@ -214,10 +214,10 @@ const AlbumState = props => {
            
        }
     }
-    //ADD ALBUM
-    const addAlbum = album => {
+    //ADD Review
+    const addAlbumReview = review => {
         
-        dispatch({type: ADD_ALBUM,payload:album})
+        dispatch({type: ADD_ALBUM_REVIEW,payload:review})
     }
 
     // DELTE ALBUM
@@ -240,8 +240,8 @@ const AlbumState = props => {
        < AlbumContext.Provider
         value = {{
             albums :state.albums,
-            addAlbum,
-            deleteAlbum
+            deleteAlbum,
+            addAlbumReview
         }}>
 
 

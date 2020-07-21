@@ -1,9 +1,9 @@
 import React,{Fragment , useContext ,useState,useEffect} from 'react'
 import AlbumContext from '../../contex/album/AlbumContext'
-import CardSm from '../albums/item'
-import CardMd from '../albums/albumsCardMd'
+import CardSm from './albumCardSm'
+import CardMd from './albumCardMd'
 
-import AlbumForm from '../albums/form'
+
 import Filter from './albumsList.js'
 
 import styled from 'styled-components'

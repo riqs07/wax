@@ -1,6 +1,210 @@
 const express = require("express");
 const router = express.Router();
-const { Album, Album_favorite, Album_like, Album_rating,AlbumFavLike,SongFavLike} = require("../db");
+const {Album, Album_favorite, 
+	Album_like, Album_rating,
+	AlbumFavLike,SongFavLike,
+	Album_review,
+	User} = require("../db");
+const auth = require("../middleware/auth");
+
+
+//////////////					  POST				///////////////////
+
+
+
+
+// Need error handling besides auth. ideally tho they shouldnt be called unless they have proper info
+
+// @route   POST /albums/review
+// @desc    Add new review
+// @access  Private
+router.post("/review", auth, async (req, res) => {
+	// not sure where data would be coming from
+	// user id from auth
+	// album id from state
+	// text info request body
+
+	const { albumID, review } = req.body;
+
+
+		Album_review.create({
+			userID: req.user.id,
+			albumID,
+			review,
+		})
+		.then(res.status(201).send({ msg: "Sucess! Review Added" }))
+		
+		
+	
+});
+
+
+// @route   POST /albums/like
+// @desc    Add a like to albums
+// @access  Private
+
+router.post("/likes",auth, (req, res) => {
+	const { albumID } = req.body;
+	Album_like.create({
+		userID:req.user.id,
+		albumID,
+	})
+		.then(res.status(201).send({ msg: "Sucess! Like Added" }))
+});
+
+
+// @route   POST /albums/favs
+// @desc    Add a Favorite to albums
+// @access  Private
+
+router.post("/favs", auth,(req, res) => {
+	const { albumID } = req.body;
+	Album_favorite.create({
+		userID:req.user.id,
+		albumID,
+	}).then(res.status(201).send({ msg: "Sucess! Favorite Added" }));
+});
+
+// @route   POST /albums/rating
+// @desc    Add a rating to album
+// @access  Private
+
+router.post("/ratings", auth,(req, res) => {
+	const { albumID, rating } = req.body;
+	Album_rating.create({
+		userID:req.user.id,
+		albumID,
+		rating,
+	}).then(res.status(201).send({ msg: "Sucess! Rating Added" }));
+});
+
+
+//////////////					  PUT & PATCH				///////////////////
+
+// @route   PUT albums/reviews
+// @desc    Update album Review
+// @access  Private
+router.put("/reviews", auth, async (req, res) => {
+	const { albumID,review} = req.body;
+	
+	x = await Album_review.findOne({
+		where:{
+			userID:req.user.id,
+			albumID
+		}
+	})
+
+	x.review = review
+	x.save()
+	res.status(201).send({ msg: "Sucess! Rating Added" })
+
+
+	
+});
+
+// @route   PUT albums/ratings
+// @desc    Update album Rating
+// @access  Private
+router.put("/ratings", auth, async (req, res) => {
+	const { albumID,rating} = req.body;
+	
+	x = await Album_rating.findOne({
+		where:{
+			userID:req.user.id,
+			albumID
+		}
+	})
+
+	x.rating = rating
+	x.save()
+	res.status(201).send({ msg: "Sucess! Rating Added" })
+});
+
+
+
+
+
+
+
+
+
+////////////////////////// 	DELETE         ///////////
+
+
+/// DESTROY COMMAD IS BEING SPECIAL RN 
+
+// @route   DELETE /albums/favs
+// @desc    REmove a Favorite to albums
+// @access  Private
+
+router.delete("/favs",auth, (req, res) => {
+	const { albumID } = req.body;
+	Album_favorite.destroy({
+		userID:req.user.id,
+		albumID,
+	}).then(res.status(204).send({ msg: "Sucess! Favorite removed" }));
+});
+
+
+// @route   DELETE /albums/likes
+// @desc    Remove a like to albums
+// @access  Private
+// @issue
+
+router.delete("/likes",auth,async (req, res) => {
+	const { userID, albumID } = req.body;
+
+	Album_like.findOne({
+		where:{
+			userID:userID,
+			albumID:albumID
+		}
+	}).then(x => console.log(x))
+
+
+// 	Album_like.destroy({
+// 		userID,
+// 		albumID,
+//   })
+//   .then(res.status(204).send({data:null}))
+  
+});
+
+
+
+// @route   DELETE /albums/reviews
+// @desc    Delete a rating to reviews
+// @access  Private
+
+router.delete("/reviews",auth,(req, res) => {
+	const { userID, albumID } = req.body;
+	Album_rating.destroy({
+		userID,
+		albumID,
+		rating,
+	}).then(res.send("deleted a album rating"));
+});
+
+// @route   DELETE /albums
+// @desc    Delete a rating to album
+// @access  Private
+
+router.delete("/rating",auth,(req, res) => {
+	const { userID, albumID } = req.body;
+	Album_rating.destroy({
+		userID,
+		albumID,
+		rating,
+	}).then(res.send("deleted a album rating"));
+});
+
+
+
+
+
+
+
+
 
 ////////////////// GET ////////////////
 
@@ -14,7 +218,7 @@ router.get("/all", async (req, res) => {
 });
 
 
-// @route   GET album/:id/songs
+// @route   GET album/songs
 // @desc    Get all songs in an album
 // @access  Public
 router.get("/test", async (req, res) => {
@@ -111,100 +315,14 @@ router.get("/favs", async (req, res) => {
 		.catch((err) => console.log(err));
 });
 
-// @route   POST api/albums/:id/like
-// @desc    Add a like to albums
-// @access  Private
 
-router.post("/likes", (req, res) => {
-	const { userID, albumID } = req.body;
-	Album_like.create({
-		userID,
-		albumID,
-	})
-		.then(res.status(204).send({data:null}))
-});
 
-// @route   DELETE api/albums/:id/like
-// @desc    Remove a like to albums
-// @access  Private
+/// ADMIN CRUD /////
 
-router.delete("/likes", (req, res) => {
-	const { userID, albumID } = req.body;
-	Album_like.destroy({
-		userID,
-		albumID,
-  })
-  .then(res.status(204).send({data:null}))
-  
-});
+// @issue not sure how im going to implement just yet 
+// wheter that is via jwt or roles on back end
+// could make role user by default and then make user 0 an admin 
 
-// @route   POST api/albums/:id/favorite
-// @desc    Add a Favorite to albums
-// @access  Private
-
-router.post("/favs", (req, res) => {
-	const { userID, albumID } = req.body;
-	Album_favorite.create({
-		userID,
-		albumID,
-	}).then(res.send("favorited an album "));
-});
-// @route   DELETE /albums/:id/favorite
-// @desc    REmove a Favorite to albums
-// @access  Private
-
-router.delete("/favs", (req, res) => {
-	const { userID, albumID } = req.body;
-	Album_favorite.destroy({
-		userID,
-		albumID,
-	}).then(res.send("favorited on album deleted "));
-});
-
-// @route   DELETE /albums
-// @desc    Delete a rating to album
-// @access  Private
-
-router.delete("/rating", (req, res) => {
-	const { userID, albumID } = req.body;
-	Album_rating.destroy({
-		userID,
-		albumID,
-		rating,
-	}).then(res.send("deleted a album rating"));
-});
-
-// @route   POST /albums/rating
-// @desc    Add a rating to album
-// @access  Private
-
-router.post("/rating", (req, res) => {
-	const { userID, albumID, rating } = req.body;
-	Album_rating.create({
-		userID,
-		albumID,
-		rating,
-	}).then(res.send("album rating added "));
-});
-
-// @route   PUT albums/:id
-// @desc    Update album
-// @access  Private
-router.put("/", async (req, res) => {
-	const { name, artistID, release_year, runtime, genre } = req.body;
-	const [album, created] = await Album.findOrCreate({
-		where: { name },
-		defaults: {
-			name,
-			artistID,
-			release_year,
-			runtime,
-			genre,
-		},
-	})
-		.then(res.send("Album added"))
-		.catch((err) => console.log(err));
-});
 
 // @route   POST albums/:id
 // @desc    Add new album

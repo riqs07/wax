@@ -1,7 +1,6 @@
 import React, { Fragment, useContext } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import AlbumContext from "../../contex/album/AlbumContext";
 
 
 const I = styled.i`
@@ -54,7 +53,7 @@ const cardMd = ({ album }) => {
       
               <div class="artist-card-inf__item">
                 <div class="artist-card-inf__title">{'290'}</div>
-                <div class="artist-card-inf__txt"><i className="fa fa-thumbs-up fa-2x"></i></div>
+                <div class="artist-card-inf__txt"><i className="fa fa-heart fa-2x"></i></div>
               </div>
             </div>
       

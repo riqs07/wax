@@ -1,8 +1,8 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const {db }= require("../../db");
 
-const album_review = db.define("album_review", {
-	album_id: {
+const Album_review = db.define("album_review", {
+	albumID: {
 		type: Sequelize.INTEGER,
 		primaryKey: true,
 		references: {
@@ -10,7 +10,7 @@ const album_review = db.define("album_review", {
 			key: "id",
 		},
 	},
-	user_id: {
+	userID: {
 		type: Sequelize.INTEGER,
 		primaryKey: true,
 		references: {
@@ -22,7 +22,6 @@ const album_review = db.define("album_review", {
 		type: Sequelize.TEXT,
 		allowNull: false,
 	},
-	image_url: Sequelize.STRING,
 });
 
-module.exports = album_review;
+module.exports = Album_review;

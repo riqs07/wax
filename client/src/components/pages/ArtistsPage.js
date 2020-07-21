@@ -1,5 +1,5 @@
 import React from 'react'
-import CardMd from '../albums/albumsCardMd'
+import CardMd from '../albums/albumCardMd'
 
  const ArtistPage = () => {
     return (

@@ -34,6 +34,14 @@ const Navbar = ({ title, icon }) => {
 					<Link to="/playlists">Playlists </Link>
 				</li>
 				
+				
+				<li>
+					<Link to="/reviews">Reviews </Link>
+				</li>
+				<li>
+					<Link to="/reviews"><i class="fa fa-bars" aria-hidden="true"></i> </Link>
+				</li>
+				
 			</ul>
 		</div>
 	);

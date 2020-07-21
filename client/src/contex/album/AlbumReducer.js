@@ -2,6 +2,7 @@ import {
     SET_CURRENT,
     CLEAR_CURRENT,
     ADD_ALBUM,
+    ADD_ALBUM_REVIEW,
     DELETE_ALBUM,
     GET_ALBUMS,
     UPDATE_ALBUM,
@@ -28,6 +29,12 @@ export default (state,action) => {
             };
 
         case DELETE_ALBUM:
+            return{
+                ...state,
+                albums:state.albums.filter(album => album.id !== action.payload)
+            };
+
+        case ADD_ALBUM_REVIEW:
             return{
                 ...state,
                 albums:state.albums.filter(album => album.id !== action.payload)

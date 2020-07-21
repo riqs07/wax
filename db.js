@@ -4,6 +4,7 @@ const dbPassword = config.get("dbPassword");
 const { Sequelize,DataTypes,QueryTypes} = require('sequelize');
 
 
+
 /////////// DB CONNECTION
 
 var db = new Sequelize (dbName, 'root', dbPassword, {
@@ -19,7 +20,6 @@ var db = new Sequelize (dbName, 'root', dbPassword, {
 });
 
 db.authenticate()
-
 
 ///////// MODELS
 
@@ -161,6 +161,30 @@ const Album_rating = db.define("album_rating", {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
+});
+
+
+const Album_review = db.define("album_review", {
+	albumID: {
+		type: Sequelize.INTEGER,
+		primaryKey: true,
+		references: {
+			model: "albums",
+			key: "id",
+		},
+	},
+	userID: {
+		type: Sequelize.INTEGER,
+		primaryKey: true,
+		references: {
+			model: "users",
+			key: "id",
+		},
+	},
+	review: {
+		type: Sequelize.TEXT,
+		allowNull: false,
+	},
 });
 
 const Song = db.define('song', {
@@ -369,7 +393,6 @@ imageURL:Sequelize.STRING,
 
   
 }, {timestamps: false});
-
 
 
 
@@ -593,6 +616,9 @@ add_songLikes = [
 
   // User.hasMany(Album_favorite)
   // Album.hasMany(Album_favorite)
+  exports.db = db
+
+
 
 exports.User = User
 exports.Album = Album
@@ -604,7 +630,6 @@ exports.Artist = Artist
 exports.AlbumFavLike = AlbumFavLike
 exports.SongFavLike = SongFavLike
 exports.UserAlbum = UserAlbum
+exports.Album_review = Album_review
 
 
-
-exports.db = db

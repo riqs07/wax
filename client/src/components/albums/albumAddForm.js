@@ -1,7 +1,7 @@
 import React, {useState,useContext} from 'react'
 import AlbumContext from '../../contex/album/AlbumContext'
 
-const AlbumForm = () => {
+const AlbumAddForm = () => {
 
     const albumContext = useContext(AlbumContext)
     const [album, setAlbum] = useState({
@@ -63,4 +63,4 @@ const AlbumForm = () => {
     )
 }
 
-export default AlbumForm
+export default AlbumAddForm

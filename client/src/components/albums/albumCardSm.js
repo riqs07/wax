@@ -64,7 +64,6 @@ const GridItem = ({ album }) => {
 				</div>
 			)}
 
-			{/* <h3 className="album-card--title ">{name} </h3> */}
 			<div className="album-card--body">
 						<h2>{name}</h2>
 						<h3>{artist}</h3>
@@ -98,7 +97,7 @@ const GridItem = ({ album }) => {
 						)}
 						{likes && (
 							<li className = "album-card--stat" >
-								<I className="fa fa-thumbs-up"></I>
+								<I className="fa fa-heart"></I>
 								{likes}
 							</li>
 						)}

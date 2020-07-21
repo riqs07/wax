@@ -1,7 +1,13 @@
 // Albums
 export const GET_ALBUMS = 'GET_ALBUMS';
 export const ADD_ALBUM = 'ADD_ALBUM';
+export const ADD_ALBUM_REVIEW = 'ADD_ALBUM_REVIEW';
+
+
+
 export const UPDATE_ALBUM = 'UPDATE_ALBUM';
+
+
 export const DELETE_ALBUM = 'DELETE_ALBUM';
 export const SET_CURRENT = 'SET_CURRENT';
 export const CLEAR_CURRENT = 'CLEAR_CURRENT';

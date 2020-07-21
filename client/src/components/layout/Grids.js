@@ -1,24 +1,28 @@
 import styled from 'styled-components'
 
-const Row50 = styled.div`
+
+// NOW IDK IF IM STUPID BUT I THINK I HAVE IT BACKWARDS AND ROW50 shoudl be column 50 🤔
+
+
+const Column50 = styled.div`
 display:grid;
 grid-template-columns:repeat(2, 1fr);
 grid-gap: 2rem;
 
 `
 
-const Row25 = styled.div`
+const Column25 = styled.div`
 display:grid;
 grid-template-columns:repeat(4,1fr);
 `
 
 
-const Column50 = styled.div`
+const Row50 = styled.div`
 display:grid;
 grid-template-rows:repeat(2,1fr);
 `
 
-const Column25 = styled.div`
+const Row25 = styled.div`
 display:grid;
 grid-template-rows:repeat(4,1fr);
 `
