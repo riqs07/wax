@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useState ,useContext} from "react";
 import styled from "styled-components";
-import { Row50 } from "../layout/Grids";
-import Select from "react-select";
 import AlbumContext from "../../contex/album/AlbumContext";
+import {PrimaryButton} from "../layout/Buttons";
 
 const Form = styled.form`
 	background: #fff;
@@ -12,57 +11,45 @@ const Form = styled.form`
 	margin: 1rem;
 `;
 
-const Submit = styled.button`
-	padding: 0.8rem 1rem;
-	margin: 1rem;
-	box-shadow: 0px 8px 60px -10px rgba(13, 28, 39, 0.6);
-	background-color: blue;
-	border-radius: 0.8rem;
-	color: black;
-`;
-
 const ReviewTextArea = styled.textarea`
 	background: #fff;
 	color: black;
 `;
 
-// async fetch to backend for all albums
-// or pull in from context not sure 100%
-// value will be id
-const options = [
-	{ value: "1", label: "Yeezus" },
-	{ value: "2", label: "ye" },
-	{ value: "3", label: "MBDTF" },
-];
 
-const ReviewForm = () => {
+
+const ReviewForm = ({album}) => {
     // Form should be created on button click 
     // then dismiss itself after the form has submitted 
     
-	const albumContext = AlbumContext;
+	const albumContext = useContext(AlbumContext);
+	const {id ,name} = album
 
 	const [review, setReview] = useState();
-	const [albumID, setAlbum] = useState();
 
 	const onChange = (e) => setReview(e.target.value);
+
 	const onSubmit = (e) => {
         e.preventDefault();
-        // on Form submit send request to backedn with body info
-
-		albumContext.addAlbumReview(review);
+       
+		if(review){
+		albumContext.addAlbumReview({
+			albumID:id,
+			review
+		});
+	}
+		// trigger animatino or something
 	};
 
 
+	
 	return (
 		<Form onSubmit={onSubmit}>
-			<h1>Leave a Review 📜</h1>
-			<Select
-				onChange={(e) => setAlbum(e.value)}
-				placeholder="Select an Album"
-				options={options}
-			/>
+			<h1 style ={{paddingBottom:'1rem'}}> Review for <span style = {{color:'#1849a2'}}>{name}</span>📜</h1>
+			
 			<ReviewTextArea onChange={onChange}></ReviewTextArea>
-			<Submit>Submit</Submit>
+			<PrimaryButton>Submit</PrimaryButton>
+			
 		</Form>
 	);
 };

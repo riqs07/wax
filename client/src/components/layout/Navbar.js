@@ -15,7 +15,7 @@ const Navbar = ({ title, icon }) => {
 					<Link to="/"  >Home </Link>
 				</li>
 				<li>
-					<Link to="/about">About </Link>
+					<Link to="/about">Explore </Link>
 				</li>
 				<li>
 					<Link to="/artists">Artists </Link>
@@ -37,6 +37,9 @@ const Navbar = ({ title, icon }) => {
 				
 				<li>
 					<Link to="/reviews">Reviews </Link>
+				</li>
+				<li>
+					<Link to="/reviews">Logout </Link>
 				</li>
 				<li>
 					<Link to="/reviews"><i class="fa fa-bars" aria-hidden="true"></i> </Link>

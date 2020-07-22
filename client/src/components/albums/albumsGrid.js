@@ -1,12 +1,12 @@
 import React,{Fragment , useContext ,useState,useEffect} from 'react'
 import AlbumContext from '../../contex/album/AlbumContext'
 import CardSm from './albumCardSm'
-import CardMd from './albumCardMd'
 
 
 import Filter from './albumsList.js'
 
 import styled from 'styled-components'
+
 
 
 const Grid = styled.ul`
@@ -29,24 +29,34 @@ padding:1rem;
 
     const {albums } = context
 
-    const [selected,setSelected] = useState()
+    const [selectedAlbum,setSelectedAlbum] = useState()
 
-    useEffect(() => {
-      console.log(`open modal ${selected}`)
-  }, [selected])
-  
+    const onClick = (e) =>{
+      // pass in currnet state so it is a togglel 
+      console.log('e.target', e.target.id)
+      setSelectedAlbum(e.target.id)
+    }
+ 
+
+  // use effect on filter component 
+  // FILTER BY
+  // TOP RATED
+  // USER LIKED 
+  // USER FAV 
+  // GENRE
+  // RUNTIME 
+  // need to get api query params working for that
 
       return (
 
         <Fragment>
          
             <Grid>
-            {selected && (
-             <CardSm album = {albums[selected]} />
-          )}
+           
             {albums.map(album => (
-              <Li key = {album.id} onClick = {() =>setSelected(album.id)}>
+              <Li key = {album.id}  >
                <CardSm album = {album} />
+               
              </Li>
    
            ))}

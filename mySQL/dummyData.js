@@ -112,6 +112,10 @@ add_users = [
 	 {albumID:6,userID:6, rating:10},
 	];
   
+	for (let i = 0; i < array.length; i++) {
+		const element = array[i];
+		
+	}
   
 	// --Insert first half
   

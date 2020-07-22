@@ -18,7 +18,7 @@ const auth = require("../middleware/auth");
 // @route   POST /albums/review
 // @desc    Add new review
 // @access  Private
-router.post("/review", auth, async (req, res) => {
+router.post("/reviews", auth, async (req, res) => {
 	// not sure where data would be coming from
 	// user id from auth
 	// album id from state

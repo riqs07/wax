@@ -35,6 +35,24 @@ export default (state,action) => {
             };
 
         case ADD_ALBUM_REVIEW:
+            console.log('object')
+            return{
+                ...state,
+                albums:[...state.albums,action.payload]
+            };
+        // case ADD_ALBUM_RATING:
+        //     return{
+        //         ...state,
+        //         albums:[...state.albums,action.payload]
+        //     };
+
+        case SET_CURRENT:
+            return{
+                ...state,
+                albums:state.albums.filter(album => album.id !== action.payload)
+            };
+
+        case CLEAR_CURRENT:
             return{
                 ...state,
                 albums:state.albums.filter(album => album.id !== action.payload)

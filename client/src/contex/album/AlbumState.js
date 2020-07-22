@@ -191,7 +191,8 @@ const AlbumState = props => {
             }
             
             
-        ]
+        ],
+        current:null
         
     }
     
@@ -215,9 +216,44 @@ const AlbumState = props => {
        }
     }
     //ADD Review
-    const addAlbumReview = review => {
-        
-        dispatch({type: ADD_ALBUM_REVIEW,payload:review})
+    const addAlbumReview = async review => {
+       
+        console.log('review', review)
+        const config = {
+            headers:{
+                'Content-Type':'application/json'
+            }
+        }
+        try {
+            const res = await axios.post('http://localhost:9001/api/albums/reviews',review,config)
+            console.log(res.data)
+            dispatch({type: ADD_ALBUM_REVIEW,payload:res.data})
+
+        } catch(err){
+            console.log('object')
+        }
+    }
+
+   
+    //ADD RATING
+    const addAlbumRating= async rating => {
+       
+        console.log('rating', rating)
+        const config = {
+            headers:{
+                'Content-Type':'application/json',
+            }
+        }
+        try {
+            // axios going to react server @ 3000 not node server @ 90001
+            // and when it does get to 9001 it gives me same origin issue 
+            const res = await axios.post('/albums/ratings',rating,config)
+            console.log(res.data)
+            // dispatch({type: ADD_ALBUM_REVIEW,payload:res.data})
+
+        } catch(err){
+            console.log('object')
+        }
     }
 
     // DELTE ALBUM
@@ -225,6 +261,14 @@ const AlbumState = props => {
     const deleteAlbum = id => {
         
         dispatch({type: DELETE_ALBUM,payload:id})
+    }
+    const setCurrentAlbum = album => {
+        
+        dispatch({type: SET_CURRENT,payload:album})
+    }
+    const clearCurrentAlbum = album => {
+        
+        dispatch({type: CLEAR_CURRENT,payload:album})
     }
 
     // UPDATE ALBUM
@@ -241,7 +285,8 @@ const AlbumState = props => {
         value = {{
             albums :state.albums,
             deleteAlbum,
-            addAlbumReview
+            addAlbumReview,
+            addAlbumRating
         }}>
 
 
