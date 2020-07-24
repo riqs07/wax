@@ -198,10 +198,6 @@ const AlbumState = props => {
     
     const [state,dispatch] = useReducer(reducer,initialState)
 
-
-
-
-
     //get ALBUMS
     const getAlbums = async () => {
         
@@ -247,7 +243,7 @@ const AlbumState = props => {
         try {
             // axios going to react server @ 3000 not node server @ 90001
             // and when it does get to 9001 it gives me same origin issue 
-            const res = await axios.post('/albums/ratings',rating,config)
+            const res = await axios.post('api/albums/ratings',rating,config)
             console.log(res.data)
             // dispatch({type: ADD_ALBUM_REVIEW,payload:res.data})
 

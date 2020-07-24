@@ -44,12 +44,11 @@ const Tertiary = styled(Btn)`
     text-decoration: none;
 
     &:hover{
-        background-color:$red;
         color: #eee;
         box-shadow: 0;
+        opacity: 1;
         border-radius: 4px;
         transform: translateY(-3px);
-            box-shadow: $shadow-1;
 
     }
 `;
