@@ -1,5 +1,6 @@
 let express = require('express')
 let server = express() 
+let cors = require('cors')
 const router = express.Router();
 
 const PORT = process.env.PORT || 9001;
@@ -19,8 +20,8 @@ router.get("/api/health", async (req, res) => {
   })
   });
 
-
-
+  // allow cross orgin requests
+  server.use(cors())
 
   // Define Routes  and Foreward request 
   server.use('/api/users',require('./routes/users'))

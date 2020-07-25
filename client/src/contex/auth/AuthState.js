@@ -14,7 +14,8 @@ import {
     CLEAR_ALBUMS,
     UPDATE_ALBUM,
     FILTER_ALBUMS,
-    CLEAR_FILTER
+    REGISTER_FAIL,
+    REGISTER_SUCCESS
 } from '../types'
 
 
@@ -28,8 +29,33 @@ const AuthState = props => {
         
     }
 
+    const register = async formdata => {
+        const config = {
+            header: {
+                'Content-Type': 'application/json '
+            }
+        }
+
+        try {
+            const res = await axios.post('https://localhost:9001/api/users',formdata,config)
+            dispatch({
+                type:REGISTER_SUCCESS,
+                payload:res.data
+            })
+        } catch (error) {
+            dispatch({
+                type:REGISTER_FAIL,
+                payload:'error.response.data.msg'
+            })
+        }
+
+    }
 
 
+    const loadUser = () => {console.log('object')}
+    const login= () => {console.log('object')}
+    const logout = () => {console.log('object')}
+    const clearErrors = () => {console.log('object')}
 
     //Load user
     // login
@@ -44,7 +70,8 @@ const AuthState = props => {
            isAuth:state.isAuth,
            loading:true,
            user:state.user,
-           error:state.error
+           error:state.error,
+           register
         }}>
 
 

@@ -9,6 +9,47 @@ const I = styled.i`
 	padding: 0.5rem;
 `;
 
+
+const AlbumCard = styled.div`
+ border: #ccc 1px dotted;
+  border-radius: 5px;
+  margin: 0.7rem 0;
+  box-shadow: 0px 8px 60px -10px rgba(13,28,39,0.6);
+  transition: 0.3s;
+
+  &--title{
+    font-size: 1.75rem;
+    color: $blue-d1;
+    font-family: fira-sans,sans-serif;
+    
+}
+  &--body{
+    font-size: 1rem;
+    color: $blue-d2;
+   
+}
+  &--stats{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+
+}
+
+&--stat{
+  color: $blue-d2;
+ align-items: center;
+ justify-content: center;
+ font-size: 1rem;
+}
+
+&--image{
+ 
+ :hover {
+  opacity: 0.8;
+}
+
+}
+`
 // dont forget to send in as a object\
 
 /// working on small grid represntation of album

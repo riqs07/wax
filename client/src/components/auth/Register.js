@@ -1,9 +1,9 @@
 import React, { useState,useEffect,useContext } from "react";
 import AlertContext from '../../contex/alert/AlertContext'
-import styled from "styled-components";
+import AuthContext from '../../contex/auth/AuthContext'
+import styled, { keyframes } from 'styled-components';
 import { PrimaryButton } from "../layout/Buttons";
 import zxcvbn from 'zxcvbn';
-
 const Form = styled.form`
 	background: #fff;
 	border: 2px solid #1849a2;
@@ -13,10 +13,13 @@ const Form = styled.form`
 `;
 
 
+
 const Register = () => {
 
 	const alertContext = useContext(AlertContext)
+	const authContext = useContext(AuthContext)
 	const {setAlert} = alertContext
+	const {register} = authContext
 	
 	const [user, setUser] = useState({
 		username: "",
@@ -38,9 +41,16 @@ const Register = () => {
 
     const onSubmit = async (e) => {
 		e.preventDefault()
+	///since its a fake on submit none of the form gets submitted or default checks kick in 
+
 		if (username && email){
 			if(password === password2) {
 				if (strength > 1){
+					register({
+						name:username,
+						email,
+						password
+					})
 						setAlert('All good!','success')
 				} else {
 					setAlert('Passwords not strong enough. Need to be at least strength 2','danger')
@@ -66,7 +76,7 @@ const Register = () => {
 	return (
 		<div className = 'form-container'>
 			<h1>Register</h1>
-            {warnings && 
+		     {warnings && 
             <h2>{warnings.warning}</h2>
             
             }
