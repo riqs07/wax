@@ -21,7 +21,13 @@ router.get("/api/health", async (req, res) => {
   });
 
   // allow cross orgin requests
-  server.use(cors())
+  // server.use(cors())
+
+  server.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
   // Define Routes  and Foreward request 
   server.use('/api/users',require('./routes/users'))

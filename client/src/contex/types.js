@@ -1,7 +1,21 @@
 // Albums
 export const GET_ALBUMS = 'GET_ALBUMS';
+
 export const ADD_ALBUM = 'ADD_ALBUM';
+
+export const LIKE_ALBUM = 'LIKE_ALBUM'
+export const FAV_ALBUM = 'FAV_ALBUM'
 export const ADD_ALBUM_REVIEW = 'ADD_ALBUM_REVIEW';
+export const ADD_ALBUM_RATING = 'ADD_ALBUM_RATING';
+export const UPDATE_ALBUM_REVIEW = 'UPDATE_ALBUM_REVIEW';
+export const UPDATE_ALBUM_RATING = 'UPDATE_ALBUM_RATING';
+export const DELETE_ALBUM_REVIEW = 'DELETE_ALBUM_REVIEW';
+export const DELETE_ALBUM_RATING = 'DELETE_ALBUM_RATING';
+
+export const REVIEW_FAIL = 'REVIEW_FAIL';
+export const RATING_FAIL = 'RATING_FAIL';
+
+
 
 
 
@@ -20,6 +34,8 @@ export const ALBUM_ERROR = 'ALBUM_ERROR';
 export const CLEAR_FILTER = 'CLEAR_FILTER';
 export const SET_ALERT = 'SET_ALERT';
 export const REMOVE_ALERT = 'REMOVE_ALERT';
+
+// USER AUTH 
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_FAIL = 'REGISTER_FAIL';
 export const USER_LOADED = 'USER_LOADED';

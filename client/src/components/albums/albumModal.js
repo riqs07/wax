@@ -1,7 +1,7 @@
 // ON album grid item click modal will open with slightly more info and a bigger sized picture
 // will then have a button to take you to artist home page where you can then interact with database rather than view it
 
-import React, { Fragment, useContext, useState, useEffect } from "react";
+import React, { Fragment, useContext, useState,  } from "react";
 import AlbumContext from "../../contex/album/AlbumContext";
 import PropTypes from "prop-types";
 import styled from "styled-components";
@@ -50,7 +50,6 @@ const Actions = styled.div`
 	justify-content: flex-end;
 `;
 
-const Image = styled.div``;
 export const AlbumModal = ({ album, onCancel }) => {
 	// General idea is you get more info than on big scroller componentn and can interact with DB from here in various ways
 	// since this page only pops on click i could have it fire off some cool async functions to the db to get some intresting questions etc
@@ -117,7 +116,6 @@ export const AlbumModal = ({ album, onCancel }) => {
 					<h2>{name}</h2>
 					<h3>{artist}</h3>
 					<ul className="album-card--stats">
-						<AlbumScoreCard stats={stats} />
 
 						{genre && (
 							<li className="album-card--stat">
@@ -145,10 +143,11 @@ export const AlbumModal = ({ album, onCancel }) => {
 					</ul>
 				</div>
 
-				{reviewState && <ReviewForm album={album} />}
+				{reviewState && <ReviewForm manageReview = {manageReview} album={album} />}
 				{ratingState && <RatingForm album={album} />}
 			</Body>
 			<Actions>
+				
 				{reviewState ? (
 					<PrimaryButton onClick={manageReview}>Cancel 📜</PrimaryButton>
 				) : (

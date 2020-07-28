@@ -1,6 +1,6 @@
 # wax
 
-Music Database and Rankings
+MERN Stack Music Database and Rankings
 
 ## Demo
 
@@ -18,10 +18,12 @@ Music Database and Rankings
 [Overview](https://youtube.com/riqs07)
 [Playlist](https://youtube.com/riqs07)
 
+
+
 ## Built With
 
-- [Styled Components](https://styled-components.com/) - CSS-in-JS 💅🏽
-- [React](https://reactjs.org/) - A JavaScript library for building user interfaces
+- [Styled Components](https://styled-components.com/) - Custom CSS-in-JS 💅🏽
+- [React](https://reactjs.org/) - A JavaScript library for building user interfaces 👗
 - [Node](https://nodejs.org/en/) - Backend 🎮
 - [mqSQL](https://www.mysql.com/) - Database
 

@@ -1,15 +1,11 @@
 import React, { useState ,useContext} from "react";
 import styled from "styled-components";
 import AlbumContext from "../../contex/album/AlbumContext";
+import AlertContext from "../../contex/alert/AlertContext";
 import {PrimaryButton} from "../layout/Buttons";
+import Form from '../layout/Forms'
 
-const Form = styled.form`
-	background: #fff;
-	border: 2px solid black;
-	border-radius: 2rem;
-	padding: 1rem;
-	margin: 1rem;
-`;
+
 
 const ReviewTextArea = styled.textarea`
 	background: #fff;
@@ -18,11 +14,12 @@ const ReviewTextArea = styled.textarea`
 
 
 
-const ReviewForm = ({album}) => {
-    // Form should be created on button click 
-    // then dismiss itself after the form has submitted 
-    
+const ReviewForm = ({album,manageReview}) => {
+        
 	const albumContext = useContext(AlbumContext);
+	const alertContext = useContext(AlertContext);
+
+	const {setAlert} = alertContext
 	const {id ,name} = album
 
 	const [review, setReview] = useState();
@@ -37,8 +34,14 @@ const ReviewForm = ({album}) => {
 			albumID:id,
 			review
 		});
+
+		setAlert('Review Added','sucess')
+		manageReview()
+		// set alert needs to trigger inside of modal
+
+	} else {
+		
 	}
-		// trigger animatino or something
 	};
 
 
@@ -47,7 +50,7 @@ const ReviewForm = ({album}) => {
 		<Form onSubmit={onSubmit}>
 			<h1 style ={{paddingBottom:'1rem'}}> Review for <span style = {{color:'#1849a2'}}>{name}</span>📜</h1>
 			
-			<ReviewTextArea onChange={onChange}></ReviewTextArea>
+			<ReviewTextArea required onChange={onChange}></ReviewTextArea>
 			<PrimaryButton>Submit</PrimaryButton>
 			
 		</Form>

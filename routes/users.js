@@ -9,7 +9,7 @@ const bcrypt = require("bcryptjs");
 
 // @route   POST api/users/
 // @desc    REGISTER
-// @access  Private
+// @access  Public
 
 router.post(
 	"/",
@@ -47,14 +47,34 @@ router.post(
 			const salt = await bcrypt.genSalt(10);
 			user.password = await bcrypt.hash(password, salt);
 
-			user.save();
+			// SAVE TO DB & SIGN 
+			user.save().then((x) => {
+				// THEN SIGN JWT TOKEN WITH NEW ID
+				const payload = {
+					user: {
+						id: x.id,
+					},
+				};
 
-			res.status(201).send({ msg: "User Saved" });
+				jwt.sign(
+					payload,
+					config.get("jwtSecret"),
+					{
+						expiresIn: 360000,
+					},
+					(err, token) => {
+						if (err) throw err;
+						res.json({ token });
+					}
+				);
+			});
 		} catch (error) {
-			res.status(500).send.json({ msg: "Server Error" });
+			res.status(500).send({ msg: "Server Error" });
 		}
 	}
 );
+
+function prepToken() {}
 
 // @route   GET users/albums
 // @desc    GET User albums
@@ -75,29 +95,6 @@ router.get("/albums", auth, async (req, res) => {
 	} catch (error) {}
 });
 
-// @route   POST albums/review
-// @desc    Add new review
-// @access  Private
-router.post("/test", auth, async (req, res) => {
-	// not sure where data would be coming from
-	// user id from auth
-	// album id from state
-	// text info request body
-
-	const { albumID, review } = req.body;
-
-	try {
-		Album_review.create({
-			userID: req.user.id,
-			albumID,
-			review,
-		}).then(res.status(201).send({ msg: "Sucess! Review Added" }));
-	} catch (error) {
-		//  does not work 🤔
-		res.status(422).send({ msg: "Validation Error. Entry already exists" });
-	}
-});
-
 // @route   DELETE api/users/
 // @desc    Delete User
 // @access  Private
@@ -108,6 +105,8 @@ router.delete("/", auth, async (req, res) => {
 		where: { id },
 	});
 });
+
+//ADMIN SPECIAL AUTH
 
 // @route   GET user/all
 // @desc    Get all Users

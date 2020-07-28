@@ -1,25 +1,32 @@
 import React, { useState,useEffect,useContext } from "react";
 import AlertContext from '../../contex/alert/AlertContext'
 import AuthContext from '../../contex/auth/AuthContext'
-import styled, { keyframes } from 'styled-components';
 import { PrimaryButton } from "../layout/Buttons";
+import Form from '../layout/Forms'
 import zxcvbn from 'zxcvbn';
-const Form = styled.form`
-	background: #fff;
-	border: 2px solid #1849a2;
-	border-radius: 2rem;
-	padding: 1rem;
-	margin: 1rem;
-`;
 
 
 
-const Register = () => {
+const Register = (props) => {
 
 	const alertContext = useContext(AlertContext)
 	const authContext = useContext(AuthContext)
 	const {setAlert} = alertContext
-	const {register} = authContext
+	const {register,error,clearErrors,isAuth} = authContext
+
+	useEffect(()=>{
+
+		if (isAuth){
+			// go to user onboarding
+			// make them like fav stuff so we have base info 
+			props.history.push('/home')
+		}
+
+		if (error === 'User already exists'){
+			setAlert(error,'danger')
+			clearErrors()
+		}
+	},[error,isAuth,props.history])
 	
 	const [user, setUser] = useState({
 		username: "",
@@ -41,26 +48,20 @@ const Register = () => {
 
     const onSubmit = async (e) => {
 		e.preventDefault()
-	///since its a fake on submit none of the form gets submitted or default checks kick in 
 
-		if (username && email){
-			if(password === password2) {
-				if (strength > 1){
-					register({
-						name:username,
-						email,
-						password
-					})
-						setAlert('All good!','success')
-				} else {
-					setAlert('Passwords not strong enough. Need to be at least strength 2','danger')
-				}
+		if(password === password2) {
+			if (strength > 1){
+				register({
+					name:username,
+					email,
+					password
+				})
+					// setAlert('Start Onboard!','success')
 			} else {
-				setAlert('Passwords do not match','danger')
+				setAlert('Passwords not strong enough. Need to be at least strength 2','danger')
 			}
-
 		} else {
-			setAlert('Please Fill out Form Fields','danger')
+			setAlert('Passwords do not match','danger')
 		}
 		
     }
@@ -84,7 +85,7 @@ const Register = () => {
             <h3>{warnings.suggestions[0]}</h3>
             
             }
-			<Form>
+			<Form onSubmit = {onSubmit}>
 				<div className="form-group">
 					<label htmlFor="username">UserName</label>
 					<input type="text" name="username" value={username} onChange={onChange} required/>
@@ -117,7 +118,7 @@ const Register = () => {
 					/>
 				</div>
 
-                    <PrimaryButton onClick = {onSubmit}>Register</PrimaryButton>
+                    <PrimaryButton type = 'submit'>Register</PrimaryButton>
 			</Form>
 		</div>
 	);

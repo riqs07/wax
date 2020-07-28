@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import styled from "styled-components";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import PrivateRoute from './components/routing/PrivateRoute'
 import "./App.scss";
 
 import Register from "./components/auth/Register";
@@ -8,7 +9,7 @@ import Login from "./components/auth/Login";
 
 import Navbar from "./components/layout/Navbar";
 import Alerts from "./components/layout/Alerts";
-import About from "./components/pages/About";
+import Explore from "./components/pages/Explore";
 import Home from "./components/pages/Home";
 
 import AlbumsPage from "./components/pages/AlbumsPage";
@@ -21,6 +22,11 @@ import AlbumState from "./contex/album/AlbumState";
 import AuthState from "./contex/auth/AuthState";
 import AlertState from "./contex/alert/AlertState";
 
+import setAuthToken from './utils/setAuthToken'
+
+if(localStorage.token){
+	setAuthToken(localStorage.token)
+}
 const Wrapper = styled.div`
 	padding: 0 2rem;
 `;
@@ -38,11 +44,11 @@ function App() {
 							<Wrapper>
                 <Alerts/>
 								<Switch>
-									<Route exact path="/about" component={About} />
-									<Route exact path="/" component={Home} />
-									<Route exact path="/artists" component={ArtistsPage} />
-									<Route exact path="/albums" component={AlbumsPage} />
-									<Route exact path="/songs" component={SongsPage} />
+									<Route exact path="/explore" component={Explore} />
+									<PrivateRoute exact path="/home" component={Home} />
+									<PrivateRoute exact path="/artists" component={ArtistsPage} />
+									<PrivateRoute exact path="/albums" component={AlbumsPage} />
+									<PrivateRoute exact path="/songs" component={SongsPage} />
 									<Route exact path="/register" component={Register} />
 									<Route exact path="/login" component={Login} />
 									<Route render={PageNotFound} />

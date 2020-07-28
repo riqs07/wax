@@ -40,7 +40,5 @@
     ]
   },
   "proxy":"https://localhost:9001/",
-  "secure":false,
-  "Access-Control-Allow-Origin":"*"
- 
+  "secure":false 
 }

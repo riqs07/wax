@@ -51,7 +51,7 @@ const User = db.define('user', {
           isEmail: true,    
       },
   },
-
+  
 });
 
 const Artist = db.define('artist', {

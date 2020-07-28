@@ -25,14 +25,19 @@ router.post("/reviews", auth, async (req, res) => {
 	// text info request body
 
 	const { albumID, review } = req.body;
+try {
+	
+	Album_review.create({
+		userID: req.user.id,
+		albumID,
+		review,
+	})
+	.then(res.status(201).send({ msg: "Sucess! Review Added" }))
+} catch (error) {
+	return res.status(409).json({msg: 'Validation error'});
 
+}
 
-		Album_review.create({
-			userID: req.user.id,
-			albumID,
-			review,
-		})
-		.then(res.status(201).send({ msg: "Sucess! Review Added" }))
 		
 		
 	

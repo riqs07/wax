@@ -1,4 +1,5 @@
-import React from "react";
+import React ,{useContext,useEffect} from "react";
+import AuthContext from '../../contex/auth/AuthContext'
 import { Column50 } from "../layout/Grids";
 import styled from "styled-components";
 
@@ -44,14 +45,21 @@ const Home = () => {
     // on click lead to there page in app
     
 
-    /// grabbing info from users context
-
+	/// grabbing info from users context
+	
     // really jiust need the id and the name and the image 
 	const placeHolder =
 		"https://waxhades123.s3.us-east-2.amazonaws.com/ye.webp";
 
 
-		// also gonna need to have the name show up under the iamge 
+		const authContext = useContext(AuthContext)
+
+		useEffect(()=>{
+			authContext.loadUser()
+			console.log('object')
+		},[])
+
+
 	return (
 		<Column50>
 			<div class="col-1">

@@ -9,12 +9,14 @@ import {
     SET_CURRENT,
     CLEAR_CURRENT,
     ADD_ALBUM_REVIEW,
+    ADD_ALBUM_RATING,
     DELETE_ALBUM,
     GET_ALBUMS,
     CLEAR_ALBUMS,
     UPDATE_ALBUM,
     FILTER_ALBUMS,
-    CLEAR_FILTER
+    CLEAR_FILTER,
+    REVIEW_FAIL
 } from '../types'
 
 
@@ -47,7 +49,7 @@ const AlbumState = props => {
                 "runtime": 5200,
                 "genre": "Pop",
                 "artist_ImageURL": "https://waxhades123.us-east-2.amazonaws.com/Dua-Lipa.webp",
-                "imageURL": "https://waxhades123.us-east-2.amazonaws.com/future_nostalgia.jpg"
+                "imageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/future_nostalgia.jpg"
             },
             {
                 "artistID": 1,
@@ -61,7 +63,7 @@ const AlbumState = props => {
                 "runtime": 5500,
                 "genre": "Rap",
                 "artist_ImageURL": "https://waxhades123.bucket.us-east-2.amazonaws.com/future_nostalgia.jpg",
-                "imageURL": "https://waxhades123.us-east-2.amazonaws.com/Watch_The_Throne.jpg"
+                "imageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/Watch_The_Throne.jpg"
             },
             {
                 "artistID": 1,
@@ -192,29 +194,30 @@ const AlbumState = props => {
             
             
         ],
-        current:null
+        current:null,
+        error:null
         
     }
     
     const [state,dispatch] = useReducer(reducer,initialState)
 
-    //get ALBUMS
+  
     const getAlbums = async () => {
         
        try {
-           const res = await axios.get('/api/albums/all')
+           const res = await axios.get('http://localhost:9001/api/albums/all')
            dispatch({
                type:GET_ALBUMS,
                payload:res.data
            })
-       } catch (error) {
-           
+       } catch (err) {
+           console.log(err)
        }
     }
+
     //ADD Review
     const addAlbumReview = async review => {
        
-        console.log('review', review)
         const config = {
             headers:{
                 'Content-Type':'application/json'
@@ -222,11 +225,14 @@ const AlbumState = props => {
         }
         try {
             const res = await axios.post('http://localhost:9001/api/albums/reviews',review,config)
-            console.log(res.data)
             dispatch({type: ADD_ALBUM_REVIEW,payload:res.data})
 
-        } catch(err){
+        } catch(error){
             console.log('object')
+            dispatch({
+				type: REVIEW_FAIL,
+				payload: error.response.data.msg,
+			});
         }
     }
 
@@ -241,11 +247,9 @@ const AlbumState = props => {
             }
         }
         try {
-            // axios going to react server @ 3000 not node server @ 90001
-            // and when it does get to 9001 it gives me same origin issue 
+            
             const res = await axios.post('api/albums/ratings',rating,config)
-            console.log(res.data)
-            // dispatch({type: ADD_ALBUM_REVIEW,payload:res.data})
+            dispatch({type: ADD_ALBUM_RATING,payload:res.data})
 
         } catch(err){
             console.log('object')

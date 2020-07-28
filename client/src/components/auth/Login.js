@@ -1,40 +1,56 @@
-import React, { useState } from "react";
+import React, { useState,useContext,useEffect } from "react";
 import styled from "styled-components";
+import AlertContext from '../../contex/alert/AlertContext'
+import AuthContext from '../../contex/auth/AuthContext'
 import { PrimaryButton } from "../layout/Buttons";
-
-const Form = styled.form`
-	background: #fff;
-	border: 2px solid black;
-	border-radius: 2rem;
-	padding: 1rem;
-	margin: 1rem;
-`;
+import Form from '../layout/Forms'
 
 
-const Register = () => {
+const Login = (props) => {
+	const alertContext = useContext(AlertContext)
+	const authContext = useContext(AuthContext)
+
+	const {setAlert} = alertContext
+	const {login,error,clearErrors,isAuth} = authContext
+
+	useEffect(()=>{
+		if (isAuth){
+			props.history.push('/home')
+		}
+
+		if (error === 'Invalid Credentials'){
+			setAlert(error,'danger')
+			clearErrors()
+		}
+	},[error,isAuth,props.history])
+
 	const [user, setUser] = useState({
 		email: "",
 		password: "",
 		});
-	const { name, email, password, password2 } = user;
+
+	const { email, password } = user;
 
 	const onChange = (e) => { 
         setUser({...user,[e.target.name]:e.target.value})
     };
 
     const onSubmit = (e) => {
-        e.preventDefault()
-        console.log('login submit ')
+		e.preventDefault()
+		login({
+			email,
+			password
+		})
     }
 
 	return (
 		<div className = 'form-container'>
 			<h1>Login</h1>
-			<Form>
+			<Form onSubmit = {onSubmit}>
 				
 				<div className="form-group">
 					<label htmlFor="email">Email</label>
-					<input type="email" name="email" value={email} onChange={onChange} />
+					<input type="email" name="email" required value={email} onChange={onChange} />
 				</div>
 				<div className="form-group">
 					<label htmlFor="password">Password</label>
@@ -43,6 +59,7 @@ const Register = () => {
 						name="password"
 						value={password}
 						onChange={onChange}
+						required
 					/>
 				</div>
 				
@@ -53,4 +70,4 @@ const Register = () => {
 	);
 };
 
-export default Register;
+export default Login;

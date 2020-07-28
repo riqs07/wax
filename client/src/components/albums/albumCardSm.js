@@ -88,11 +88,13 @@ const GridItem = ({ album }) => {
 		setModal(!modalState);
 	};
 	const manageHover = () => {
-		setHover(!hoverState);
+		setHover(!hoverState);	
+		console.log(imageURL)
 	};
 
 	// hard coded url for now
-	const image_url2 = "https://waxhades123.s3.us-east-2.amazonaws.com/ye.webp";
+	const image_url2 = "https://waxhades123.s3.us-east-2.amazonaws.com/future_nostalgia.jpg";
+	
 
 	const onDelete = () => {
 		// deleteAlbum(id)
@@ -106,7 +108,7 @@ const GridItem = ({ album }) => {
 							onMouseEnter = {manageHover}
 							onMouseLeave = {manageHover}
 							onClick={manageModal}
-							src={image_url2}
+							src={imageURL}
 							alt="artist image "></img>
 					</li>
 				</div>

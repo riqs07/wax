@@ -3,7 +3,7 @@ import Form from "../albums/albumAddForm"
 
 
 
- const About = () => {
+ const Explore = () => {
     return (
         <Fragment>
          <Form/>
@@ -12,4 +12,4 @@ import Form from "../albums/albumAddForm"
     )
 }
 
-export default About
+export default Explore

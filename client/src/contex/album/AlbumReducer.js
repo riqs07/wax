@@ -35,7 +35,6 @@ export default (state,action) => {
             };
 
         case ADD_ALBUM_REVIEW:
-            console.log('object')
             return{
                 ...state,
                 albums:[...state.albums,action.payload]
