@@ -11,10 +11,13 @@ background:rgba(0,0,0,0.75);
 `
 
 
- const Backdrop = () => {
+ const Backdrop = ({manageModal}) => {
      
+    const onClick = () =>{
+        manageModal()
+    }
     return (
-        <Style>
+        <Style onClick = {onClick}>
             
         </Style>
     )

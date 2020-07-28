@@ -10,52 +10,6 @@ const I = styled.i`
 `;
 
 
-const AlbumCard = styled.div`
- border: #ccc 1px dotted;
-  border-radius: 5px;
-  margin: 0.7rem 0;
-  box-shadow: 0px 8px 60px -10px rgba(13,28,39,0.6);
-  transition: 0.3s;
-
-  &--title{
-    font-size: 1.75rem;
-    color: $blue-d1;
-    font-family: fira-sans,sans-serif;
-    
-}
-  &--body{
-    font-size: 1rem;
-    color: $blue-d2;
-   
-}
-  &--stats{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr;
-
-}
-
-&--stat{
-  color: $blue-d2;
- align-items: center;
- justify-content: center;
- font-size: 1rem;
-}
-
-&--image{
- 
- :hover {
-  opacity: 0.8;
-}
-
-}
-`
-// dont forget to send in as a object\
-
-/// working on small grid represntation of album
-// once user clicks on it will go into an in depth artist page
-//  that page will have info joining the two together
-// somhow going to need to find a way to get the artist id in here
 
 const GridItem = ({ album }) => {
 	const albumContext = useContext(AlbumContext);
@@ -74,11 +28,7 @@ const GridItem = ({ album }) => {
 		avg,
 	} = album;
 
-	// show modal
-
-	// convert seconds to mins
-	const secs = Math.floor(runtime / 60);
-	const rating = Math.floor(avg);
+	
 
 	//figure out lazy loading suspense for images && get smaller images :)
 	const [modalState, setModal] = useState(false);
@@ -88,19 +38,11 @@ const GridItem = ({ album }) => {
 		setModal(!modalState);
 	};
 	const manageHover = () => {
-		setHover(!hoverState);	
-		console.log(imageURL)
+		// setHover(!hoverState);	
 	};
 
-	// hard coded url for now
-	const image_url2 = "https://waxhades123.s3.us-east-2.amazonaws.com/future_nostalgia.jpg";
-	
-
-	const onDelete = () => {
-		// deleteAlbum(id)
-	};
 	return (
-		<div className="album-card bg-light">
+		<div className="album-card">
 			{imageURL && (
 				<div className="album-card--image">
 					<li>
@@ -115,14 +57,19 @@ const GridItem = ({ album }) => {
 			)}
 			{modalState && (
 				<Fragment>
-					<Backdrop />
-					<AlbumModal onCancel={manageModal} album={album} />
+					<Backdrop manageModal ={manageModal} />
+					<AlbumModal manageModal={manageModal} album={album} />
 				</Fragment>
 			)}
 
 			<div className="album-card--body">
 				<h2>{name}</h2>
-				{hoverState &&  <h3>{artist}</h3>}
+				{hoverState &&  
+				<h3>{artist}</h3>
+				
+				
+				
+				}
 				<ul className="album-card--stats">
 				
 					{favs && (

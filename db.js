@@ -288,6 +288,7 @@ const Song = db.define('song', {
 
 },
 })
+
 const Song_like = db.define('song_like',{
   songID: {
     type: Sequelize.INTEGER,
@@ -308,6 +309,28 @@ userID: {
     key: 'id'
 },
 }
+})
+
+const Playlist = db.define('playlists',{
+  id:{
+    type: Sequelize.INTEGER,
+    primaryKey:true,
+  },
+  songID: {
+    type: Sequelize.INTEGER,
+    references: {
+      model: 'songs',
+      key: 'id'
+  },
+},
+userID: {
+  type: Sequelize.INTEGER,
+  references: {
+    model: 'users',
+    key: 'id'
+},
+}
+
 })
 
 

@@ -19,11 +19,9 @@ const auth = require("../middleware/auth");
 // @desc    Add new review
 // @access  Private
 router.post("/reviews", auth, async (req, res) => {
-	// not sure where data would be coming from
-	// user id from auth
-	// album id from state
-	// text info request body
+	
 
+	// first check to see if they alredy have one if not then add
 	const { albumID, review } = req.body;
 try {
 	

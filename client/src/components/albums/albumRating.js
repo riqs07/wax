@@ -29,7 +29,8 @@ const AlbumRating = ({ album }) => {
 				onChange={(e) => setRating(e.target.value)}
 				type="number"
 				max="100"
-				min="0"></input>
+				min="0"
+				required></input>
 			<PrimaryButton>Submit</PrimaryButton>
 		</Form>
 	);

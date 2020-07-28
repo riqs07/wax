@@ -34,8 +34,8 @@ const AlbumState = props => {
                 "release_year": null,
                 "runtime": 500,
                 "genre": "R&B",
-                "artist_ImageURL": "https://waxhades123.us-east-2.amazonaws.com",
-                "imageURL": "https://waxhades123.us-east-2.amazonaws.com/beauty_behind_the_madness.jfif"
+                "artist_ImageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/artists/the-weekend.webp",
+                "imageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/beauty_behind_the_madness.jfif"
             },
             {
                 "artistID": 2,
@@ -46,9 +46,9 @@ const AlbumState = props => {
                 "favs": 1,
                 "avg": "53.5714",
                 "release_year": null,
-                "runtime": 5200,
+                "runtime": 3700,
                 "genre": "Pop",
-                "artist_ImageURL": "https://waxhades123.us-east-2.amazonaws.com/Dua-Lipa.webp",
+                "artist_ImageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/artists/dua-lipa.jpg",
                 "imageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/future_nostalgia.jpg"
             },
             {
@@ -62,7 +62,7 @@ const AlbumState = props => {
                 "release_year": null,
                 "runtime": 5500,
                 "genre": "Rap",
-                "artist_ImageURL": "https://waxhades123.bucket.us-east-2.amazonaws.com/future_nostalgia.jpg",
+                "artist_ImageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/artists/kanye-west.webp",
                 "imageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/Watch_The_Throne.jpg"
             },
             {
@@ -76,8 +76,8 @@ const AlbumState = props => {
                 "release_year": null,
                 "runtime": 4500,
                 "genre": "Rap",
-                "artist_ImageURL": "https://waxhades123.bucket.us-east-2.amazonaws.com/future_nostalgia.jpg",
-                "imageURL": "https://waxhades123.us-east-2.amazonaws.com/college_dropout.webp"
+                "artist_ImageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/artists/kanye-west.webp",
+                "imageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/college_dropout.webp"
             },
             {
                 "artistID": 1,
@@ -90,8 +90,8 @@ const AlbumState = props => {
                 "release_year": null,
                 "runtime": 2500,
                 "genre": "Rap",
-                "artist_ImageURL": "https://waxhades123.bucket.us-east-2.amazonaws.com/future_nostalgia.jpg",
-                "imageURL": "https://waxhades123.us-east-2.amazonaws.com/ye.webp"
+                "artist_ImageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/artists/kanye-west.webp",
+                "imageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/ye.webp"
             },
             {
                 "artistID": 1,
@@ -104,8 +104,8 @@ const AlbumState = props => {
                 "release_year": null,
                 "runtime": 1500,
                 "genre": "Rap",
-                "artist_ImageURL": "https://waxhades123.bucket.us-east-2.amazonaws.com/future_nostalgia.jpg",
-                "imageURL": "https://waxhades123.us-east-2.amazonaws.com/yeezus.jpg"
+                "artist_ImageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/artists/kanye-west.webp",
+                "imageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/yeezus.jpg"
             },
             {
                 "artistID": 1,
@@ -118,8 +118,8 @@ const AlbumState = props => {
                 "release_year": null,
                 "runtime": 1500,
                 "genre": "Rap",
-                "artist_ImageURL": "https://waxhades123.bucket.us-east-2.amazonaws.com/future_nostalgia.jpg",
-                "imageURL": "https://waxhades123.us-east-2.amazonaws.com/graduation.jpg"
+                "artist_ImageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/artists/kanye-west.webp",
+                "imageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/graduation.jpg"
             },
             {
                 "artistID": 3,
@@ -132,8 +132,8 @@ const AlbumState = props => {
                 "release_year": null,
                 "runtime": 5040,
                 "genre": "R&B",
-                "artist_ImageURL": "https://waxhades123.us-east-2.amazonaws.com",
-                "imageURL": "https://waxhades123.us-east-2.amazonaws.com/after_hours.jpg"
+                "artist_ImageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/artists/the-weekend.webp",
+                "imageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/after_hours.jpg"
             },
             {
                 "artistID": 3,
@@ -146,8 +146,8 @@ const AlbumState = props => {
                 "release_year": null,
                 "runtime": 5005,
                 "genre": "R&B",
-                "artist_ImageURL": "https://waxhades123.us-east-2.amazonaws.com",
-                "imageURL": "https://waxhades123.us-east-2.amazonaws.com"
+                "artist_ImageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/artists/the-weekend.webp",
+                "imageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/albums/trilogy.png"
             },
             {
                 "artistID": 9,
@@ -160,8 +160,8 @@ const AlbumState = props => {
                 "release_year": null,
                 "runtime": 5070,
                 "genre": "Rap",
-                "artist_ImageURL": "https://waxhades123.us-east-2.amazonaws.com",
-                "imageURL": "https://waxhades123.us-east-2.amazonaws.com/die_lit.webp"
+                "artist_ImageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/artists/playboy-carti.webp",
+                "imageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/die_lit.webp"
             },
             {
                 "artistID": 9,
@@ -174,8 +174,8 @@ const AlbumState = props => {
                 "release_year": null,
                 "runtime": 5090,
                 "genre": "Rap",
-                "artist_ImageURL": "https://waxhades123.us-east-2.amazonaws.com",
-                "imageURL": "https://waxhades123.us-east-2.amazonaws.com/playboy_carti.png"
+                "artist_ImageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/artists/playboy-carti.webp",
+                "imageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/playboy_carti.png"
             },
             {
                 "artistID": 3,
@@ -188,8 +188,8 @@ const AlbumState = props => {
                 "release_year": null,
                 "runtime": 5001,
                 "genre": "R&B",
-                "artist_ImageURL": "https://waxhades123.us-east-2.amazonaws.com",
-                "imageURL": "https://waxhades123.us-east-2.amazonaws.com/starboy.jpg"
+                "artist_ImageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/artists/the-weekend.webp",
+                "imageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/starboy.jpg"
             }
             
             
@@ -215,7 +215,9 @@ const AlbumState = props => {
        }
     }
 
-    //ADD Review
+    //ADD Review 
+    // NEED ERROR HANDLING for when reviews exists
+    // but it should never show add state if review exists already but still
     const addAlbumReview = async review => {
        
         const config = {
@@ -248,7 +250,7 @@ const AlbumState = props => {
         }
         try {
             
-            const res = await axios.post('api/albums/ratings',rating,config)
+            const res = await axios.post('http://localhost:9001/api/albums/ratings',rating,config)
             dispatch({type: ADD_ALBUM_RATING,payload:res.data})
 
         } catch(err){

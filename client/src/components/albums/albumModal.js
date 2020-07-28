@@ -13,6 +13,8 @@ import {
 	SecondaryButton,
 	TertiaryButton,
 } from "../layout/Buttons";
+
+import {Column50} from '../layout/Grids'
 //// weird media queris look into it
 const Modal = styled.div`
 	width: 90%;
@@ -20,7 +22,7 @@ const Modal = styled.div`
 	background: white;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
 	position: fixed;
-	top: 20vh;
+	top: 10vh;
     left: 5%;
 
 	@media (mid-width: 768px) {
@@ -38,8 +40,8 @@ const Header = styled.h1`
 	padding: 1rem;
     color: white;
     background-color:#1849a2;
-    font-size: 1.75rem;
-
+    font-size: 2rem;
+	text-align:center;
 `;
 
 const Body = styled.section`
@@ -50,7 +52,27 @@ const Actions = styled.div`
 	justify-content: flex-end;
 `;
 
-export const AlbumModal = ({ album, onCancel }) => {
+
+
+const AlbumStat = styled.ul`
+
+ align-items: center;
+ justify-content: center;
+ font-size: 1rem;`
+
+
+
+const Image = styled.img`
+ width: 200px;
+    height: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50%;
+    position: relative;
+    z-index: 4;
+    box-shadow: 0px 5px 50px 0px rgb(52, 152, 218), 0px 0px 0px 7px rgba(52, 152, 218,0.5);
+`
+export const AlbumModal = ({ album, manageModal }) => {
 	// General idea is you get more info than on big scroller componentn and can interact with DB from here in various ways
 	// since this page only pops on click i could have it fire off some cool async functions to the db to get some intresting questions etc
 
@@ -65,6 +87,7 @@ export const AlbumModal = ({ album, onCancel }) => {
 		runtime,
 		release_year,
 		imageURL,
+		artist_ImageURL,
 		artist,
 		likes,
 		favs,
@@ -76,12 +99,23 @@ export const AlbumModal = ({ album, onCancel }) => {
 		favs,
 		avg,
 	};
+
 	// convert seconds to mins
 	const secs = Math.floor(runtime / 60);
-	const image_url2 = "https://waxhades123.us-east-2.amazonaws.com/starboy.jpg";
+
+	// useEffect(()=>{
+	// 	// On open check if user has a like / fav / review/ rating 
+	// 	// associated with this entity then 
+	// if something is in there then show UPDATE STATES 
+	// will have to change rating and review to display conditonally based on state
+	// update state will have delete action within it
+
+	// })
 
 	const [reviewState, setAddReviewState] = useState(false);
 	const [ratingState, setAddRatingState] = useState(false);
+
+	// EDIT STATES BASED ON WHAT USER HAS ALREDY DONE 
 
 	const manageReview = () => {
         if (ratingState){
@@ -101,47 +135,42 @@ export const AlbumModal = ({ album, onCancel }) => {
 		<Modal>
 			<Header>{name}</Header>
 			<Body>
-				{/* 
-			{imageURL && (
-				<div className="album-card--image">
-					
-					<li>
+				
+				{imageURL && (
+				<Column50>
+								{/* first image is stretchd idk why */}
 
-						<img src={image_url2} alt="artist image "></img>
-						
-					</li>
-				</div>
-			)} */}
-				<div className="album-card--body">
-					<h2>{name}</h2>
-					<h3>{artist}</h3>
+						<Image src={artist_ImageURL} alt="Artist Image"></Image>	
+						<Image src={imageURL} alt="Artist Image"></Image>	
+				</Column50>
+			)}
+{artist}
 					<ul className="album-card--stats">
-
+						<AlbumScoreCard stats = {stats}/>
 						{genre && (
-							<li className="album-card--stat">
+							<AlbumStat>
 								<I className="fas fa-music"></I>
 								{genre}
-							</li>
+							</AlbumStat>
 						)}
 
 						{runtime && (
-							<li className="album-card--stat">
+							<AlbumStat>
 								<I
 									className="fas fa-stopwatch fa-2x"
 									style={{ color: "black" }}></I>
 								{`${secs}m`}
-							</li>
+							</AlbumStat>
 						)}
 						{release_year && (
-							<li className="album-card--stat">
+							<AlbumStat>
 								<I
 									className="fas fa-stopwatch fa-2x"
 									style={{ color: "black" }}></I>
 								{release_year}
-							</li>
+							</AlbumStat>
 						)}
 					</ul>
-				</div>
 
 				{reviewState && <ReviewForm manageReview = {manageReview} album={album} />}
 				{ratingState && <RatingForm album={album} />}
@@ -159,7 +188,7 @@ export const AlbumModal = ({ album, onCancel }) => {
                     <SecondaryButton onClick={manageRating}>Add Rating 🏁 </SecondaryButton>
                     )}
 
-				<TertiaryButton onClick={onCancel}>❌</TertiaryButton>
+				<TertiaryButton onClick={manageModal}>❌</TertiaryButton>
 			</Actions>
 		</Modal>
 	);
