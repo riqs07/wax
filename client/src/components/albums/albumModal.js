@@ -107,22 +107,26 @@ export const AlbumModal = ({ album, manageModal }) => {
 	// convert seconds to mins
 	const secs = Math.floor(runtime / 60);
 
-	// useEffect(()=>{
-	// 	// On open check if user has a like / fav / review/ rating 
-	// 	// associated with this entity then 
-	// if something is in there then show UPDATE STATES 
-	// will have to change rating and review to display conditonally based on state
-	// update state will have delete action within it
 
-	// })
 	async function fetchMyAPI() {
 		
-		const response = await axios.get('http://localhost:9001/api/albums/editState?albumID=2');
-		console.log(response,'s');
+
+		// Need to get the auth token to send
+		// const response = await axios.post('http://localhost:9001/api/albums/editState',{
+		// 	userID:22,
+		// 	albumID:2
+		// })
+		// console.log(response,'e')
 	  }  
 	const [reviewState, setAddReviewState] = useState(false);
 	const [ratingState, setAddRatingState] = useState(false);
 
+	const [editState,setEditStates]= useState({
+		review: null,
+		rating: null,
+		fav: false,
+		like: false
+	})
 	// EDIT STATES BASED ON WHAT USER HAS ALREDY DONE 
 
 	const manageReview = () => {
@@ -142,6 +146,7 @@ export const AlbumModal = ({ album, manageModal }) => {
 	const seeReviews = () => {
 		console.log('Show all reviews with associated with this album id')
 	}
+
 	return (
 		<Modal>
 			<Header>{name}</Header>
@@ -203,7 +208,7 @@ export const AlbumModal = ({ album, manageModal }) => {
 						<SecondaryButton onClick = {seeReviews}>See Reviews </SecondaryButton>
 							<SecondaryButton onClick = {seeReviews}>Show Songs 🎵</SecondaryButton>
 
-				<TertiaryButton onClick={fetchMyAPI}>❌</TertiaryButton>
+				<TertiaryButton onClick={manageModal}>❌</TertiaryButton>
 			</Actions>
 		</Modal>
 	);

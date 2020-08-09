@@ -3,6 +3,8 @@ import styled from "styled-components";
 import AlbumContext from "../../contex/album/AlbumContext";
 import { PrimaryButton } from "../layout/Buttons";
 import Form from "../layout/Forms";
+import Colors from '../layout/Colors'
+
 
 const AlbumRating = ({ album }) => {
 	const { name, id } = album;
@@ -23,7 +25,7 @@ const AlbumRating = ({ album }) => {
 		<Form onSubmit={onSubmit}>
 			<h1 style={{ paddingBottom: "1rem" }}>
 				{" "}
-				Rating for <span style={{ color: "#1849a2" }}>{name}</span>🏁
+				Rating for <span style={{ color: Colors.primary }}>{name}</span>🏁
 			</h1>
 			<input
 				onChange={(e) => setRating(e.target.value)}

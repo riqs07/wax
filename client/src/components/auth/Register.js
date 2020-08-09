@@ -1,9 +1,12 @@
 import React, { useState,useEffect,useContext } from "react";
 import AlertContext from '../../contex/alert/AlertContext'
 import AuthContext from '../../contex/auth/AuthContext'
+import AlbumContext from "../../contex/album/AlbumContext";
+
 import { PrimaryButton } from "../layout/Buttons";
 import Form from '../layout/Forms'
 import zxcvbn from 'zxcvbn';
+import {Column50} from '../layout/Grids'
 
 
 
@@ -11,8 +14,16 @@ const Register = (props) => {
 
 	const alertContext = useContext(AlertContext)
 	const authContext = useContext(AuthContext)
+	const albumContext = useContext(AlbumContext)
+
+
 	const {setAlert} = alertContext
 	const {register,error,clearErrors,isAuth} = authContext
+	const {albums} = albumContext
+
+
+	let rand = Math.floor(Math.random() * albums.length);
+    const {name,imageURL} = albums[rand]
 
 	useEffect(()=>{
 
@@ -75,6 +86,10 @@ const Register = (props) => {
     
 
 	return (
+		<Column50>
+		<img style = {{borderRadius:"50%"}}src = {imageURL}></img>
+	
+
 		<div className = 'form-container'>
 			<h1>Register</h1>
 		     {warnings && 
@@ -121,6 +136,7 @@ const Register = (props) => {
                     <PrimaryButton type = 'submit'>Register</PrimaryButton>
 			</Form>
 		</div>
+		</Column50>
 	);
 };
 

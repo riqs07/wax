@@ -4,6 +4,7 @@ import AlbumContext from "../../contex/album/AlbumContext";
 import AlertContext from "../../contex/alert/AlertContext";
 import {PrimaryButton} from "../layout/Buttons";
 import Form from '../layout/Forms'
+import Colors from '../layout/Colors'
 
 
 
@@ -48,7 +49,7 @@ const ReviewForm = ({album,manageReview}) => {
 	
 	return (
 		<Form onSubmit={onSubmit}>
-			<h1 style ={{paddingBottom:'1rem'}}> Review for <span style = {{color:'#1849a2'}}>{name}</span>📜</h1>
+			<h1 style ={{paddingBottom:'1rem'}}> Review for <span style = {{color:Colors.primary}}>{name}</span>📜</h1>
 			
 			<ReviewTextArea required onChange={onChange}></ReviewTextArea>
 			<PrimaryButton>Submit</PrimaryButton>

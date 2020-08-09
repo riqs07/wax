@@ -15,6 +15,7 @@ const ArtistState = props => {
         "name": "Kanye West ",
         "genre": "Rap",
         "createdAt": "2020-07-11T02:27:57.000Z",
+        "imageURL":"https://waxhades123.s3.us-east-2.amazonaws.com/artists/kanye-west.webp",
         "updatedAt": "2020-07-11T02:27:57.000Z"
     },
     {
@@ -22,6 +23,7 @@ const ArtistState = props => {
         "name": "Dua Lipa",
         "genre": "Pop",
         "createdAt": "2020-07-11T02:27:57.000Z",
+        "imageURL":"https://waxhades123.s3.us-east-2.amazonaws.com/artists/dua-lipa.jpg",
         "updatedAt": "2020-07-11T02:27:57.000Z"
     },
     {
@@ -29,6 +31,7 @@ const ArtistState = props => {
         "name": "The Weeknd",
         "genre": "R&B",
         "createdAt": "2020-07-11T02:27:57.000Z",
+        "imageURL":"https://waxhades123.s3.us-east-2.amazonaws.com/artists/the-weekend.webp",
         "updatedAt": "2020-07-11T02:27:57.000Z"
     },
     {
@@ -97,7 +100,7 @@ const ArtistState = props => {
 
         {props.children}
         </ ArtistContext.Provider>
-
+    
     )
 }
 

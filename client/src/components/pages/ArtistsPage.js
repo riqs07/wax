@@ -1,10 +1,10 @@
 import React from 'react'
-import CardMd from '../artists/artistsCardMd'
+import ArtistsGrid from '../../components/artists/artistsGrid'
 
  const ArtistPage = () => {
     return (
         <div>
-            <CardMd/>
+            <ArtistsGrid/>
         </div>
     )
 }

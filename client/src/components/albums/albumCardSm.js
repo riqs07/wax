@@ -13,7 +13,7 @@ const I = styled.i`
 
 const GridItem = ({ album }) => {
 	const albumContext = useContext(AlbumContext);
-
+	
 	const {
 		id,
 		name,
@@ -30,7 +30,6 @@ const GridItem = ({ album }) => {
 
 	
 
-	//figure out lazy loading suspense for images && get smaller images :)
 	const [modalState, setModal] = useState(false);
 	const [hoverState, setHover] = useState(false);
 

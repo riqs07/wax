@@ -2,17 +2,25 @@ import React, { useState,useContext,useEffect } from "react";
 import styled from "styled-components";
 import AlertContext from '../../contex/alert/AlertContext'
 import AuthContext from '../../contex/auth/AuthContext'
+import AlbumContext from "../../contex/album/AlbumContext";
 import { PrimaryButton } from "../layout/Buttons";
+import {Column50} from '../layout/Grids'
+
 import Form from '../layout/Forms'
 
 
 const Login = (props) => {
 	const alertContext = useContext(AlertContext)
 	const authContext = useContext(AuthContext)
+	const albumContext = useContext(AlbumContext)
 
 	const {setAlert} = alertContext
 	const {login,error,clearErrors,isAuth} = authContext
+	const {albums} = albumContext
 
+
+    let rand = Math.floor(Math.random() * albums.length);
+    const {name,imageURL} = albums[rand]
 	useEffect(()=>{
 		if (isAuth){
 			props.history.push('/home')
@@ -44,7 +52,10 @@ const Login = (props) => {
     }
 
 	return (
-		<div className = 'form-container'>
+		<Column50>
+			             <img src = {imageURL}></img>
+
+				<div className = 'form-container'>
 			<h1>Login</h1>
 			<Form onSubmit = {onSubmit}>
 				
@@ -67,6 +78,9 @@ const Login = (props) => {
 
 			</Form>
 		</div>
+	
+		</Column50>
+
 	);
 };
 

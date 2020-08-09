@@ -366,6 +366,7 @@ router.delete("/", async (req, res) => {
 router.get("/editState",auth, async (req, res) => {
 
 	//// Promise all????/ but need to -find a way to pass in user id 
+	// refractor canidate 
 
 	const { albumID } = req.body;
 

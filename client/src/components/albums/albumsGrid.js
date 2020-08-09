@@ -14,12 +14,15 @@ display:flex;
 align-content:center;
 flex-wrap: wrap;
 padding:1rem;
+
 `
 
 const Li = styled.li`
 list-style:none;
 flex-basis: 12%;
 padding:1rem;
+
+
     `
 
 
@@ -47,6 +50,8 @@ padding:1rem;
   // RUNTIME 
   // need to get api query params working for that
 
+
+ 
       return (
 
         <Fragment>

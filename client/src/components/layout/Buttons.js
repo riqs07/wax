@@ -29,6 +29,8 @@ border: 2px solid ${Colors.primary};
   background-color: ${Colors.primary} ;
   color: ${Colors.text};
 `;
+
+
 const Secondary = styled(Btn)`  
  color:${Colors.primary};
       background-color: ${Colors.text};
