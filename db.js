@@ -646,10 +646,17 @@ add_songLikes = [
 exports.User = User
 exports.Album = Album
 exports.Song = Song
+exports.Song_rating = Song_rating
+exports.Song_favorite = Song_favorite
+exports.Song_like = Song_like
 exports.Album_favorite = Album_favorite
 exports.Album_like = Album_like
 exports.Album_rating = Album_rating
 exports.Artist = Artist
+
+
+
+
 exports.AlbumFavLike = AlbumFavLike
 exports.SongFavLike = SongFavLike
 exports.UserAlbum = UserAlbum

@@ -37,9 +37,3 @@ router.get("/api/health", async (req, res) => {
   server.use('/api/auth',require('./routes/auth'))
   
   
-
-
-
-
-
-

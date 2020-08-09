@@ -31,6 +31,8 @@ const Wrapper = styled.div`
 	padding: 0 2rem;
 `;
 
+
+
 function App() {
 	return (
 		<AuthState>
@@ -62,5 +64,4 @@ function App() {
 		</AuthState>
 	);
 }
-
 export default App;

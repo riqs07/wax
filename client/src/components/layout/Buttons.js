@@ -1,5 +1,5 @@
 import React from "react";
-
+import Colors from "./Colors"
 import styled from 'styled-components'
 
 
@@ -25,14 +25,14 @@ const Btn = styled.button`
 
 
 const Primary = styled(Btn)`
-border: 2px solid #1849a2;
-  background-color: #1849a2;
-  color: #eee;
+border: 2px solid ${Colors.primary};
+  background-color: ${Colors.primary} ;
+  color: ${Colors.text};
 `;
 const Secondary = styled(Btn)`  
- color:#1849a2;
-      background-color: #eee;
-      border:2px solid #1849a2;
+ color:${Colors.primary};
+      background-color: ${Colors.text};
+      border:2px solid ${Colors.primary};
       text-decoration: none;
 `;
 
@@ -40,11 +40,11 @@ const Tertiary = styled(Btn)`
   
   font-size: 18px;
     padding: 12px 16px;
-    color:#1849a2;
+    color:${Colors.primary};
     text-decoration: none;
 
     &:hover{
-        color: #eee;
+        color: ${Colors.text};
         box-shadow: 0;
         opacity: 1;
         border-radius: 4px;

@@ -2,6 +2,26 @@ import React, { Fragment, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import AuthContext from "../../contex/auth/AuthContext";
+import Colors from "./Colors"
+import styled from 'styled-components'
+
+const Nav = styled.div`
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.7rem 2rem;
+    z-index: 1;
+    width: 100%;
+    border-bottom: solid 1px ${Colors.primary};
+    opacity: 0.9;
+    height:5vh;
+    margin-bottom: 1rem;
+ 
+  background: ${Colors.primary};
+  color: ${Colors.text};
+`
+
 
 const Navbar = ({ title, icon }) => {
 	const authContext = useContext(AuthContext);
@@ -64,8 +84,9 @@ const Navbar = ({ title, icon }) => {
 		</Fragment>
 	);
 
+	// styled component messed up flex box
 	return (
-		<div className="navbar bg-primary">
+		<div class = 'navbar bg-primary' >
 			<h1>
 				<Link to="/">
 					<i className={icon} /> {title}{" "}

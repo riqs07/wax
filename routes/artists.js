@@ -74,7 +74,7 @@ router.post("/", async (req, res) => {
 // @route   GET artists/:id//best
 // @desc    Get Artist Top Rated songs
 // @access  Public
-router.post("/", async (req, res) => {
+router.post("/", async (req, res) => {v 
 	Artist.findAll()
 
 });

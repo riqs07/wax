@@ -18,7 +18,7 @@ padding:1rem;
 
 const Li = styled.li`
 list-style:none;
-flex-basis: 20%;
+flex-basis: 12%;
 padding:1rem;
     `
 

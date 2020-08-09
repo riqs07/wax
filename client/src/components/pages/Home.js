@@ -97,6 +97,17 @@ const Home = () => {
 
 					<Img src={placeHolder}></Img>
 				</Grid5>
+				<Title>Recently Rated / Reviwed </Title>
+				<Grid5>
+					<Img src={placeHolder}></Img>
+
+					<Img src={placeHolder}></Img>
+
+					<Img src={placeHolder}></Img>
+					<Img src={placeHolder}></Img>
+
+					<Img src={placeHolder}></Img>
+				</Grid5>
 				<Title>More Algorithim goodness.🤖</Title>
 				<Grid5>
 					<Img src={placeHolder}></Img>

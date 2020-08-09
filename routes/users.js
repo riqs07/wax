@@ -47,7 +47,7 @@ router.post(
 			const salt = await bcrypt.genSalt(10);
 			user.password = await bcrypt.hash(password, salt);
 
-			// SAVE TO DB & SIGN 
+			// SAVE TO DB & SIGN
 			user.save().then((x) => {
 				// THEN SIGN JWT TOKEN WITH NEW ID
 				const payload = {
@@ -74,25 +74,19 @@ router.post(
 	}
 );
 
-function prepToken() {}
-
 // @route   GET users/albums
 // @desc    GET User albums
 // @access  Private
+// find a way to rank these so we can sort
+// prob jsut bring in avg on the view 
 router.get("/albums", auth, async (req, res) => {
-	// req.body works with token
-	// hardcoded users dont have hashed pw so dosent work rn
-	// not until i redo hard data
-	//idk ig i should make one big table view and pull from there
-	// this works but as of now no way to order data
-	console.log(req.user.id);
-	try {
-		const albums = await UserAlbum.findAll({
-			where: { userID: 2 },
-		});
-
-		res.json(albums);
-	} catch (error) {}
+	UserAlbum.findAndCountAll({
+		where: {
+			userID: req.user.id,
+		},
+	})
+		.then((x) => res.status(200).send(x))
+		.catch((err) => console.log(err));
 });
 
 // @route   DELETE api/users/

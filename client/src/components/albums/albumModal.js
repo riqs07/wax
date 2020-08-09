@@ -1,18 +1,21 @@
 // ON album grid item click modal will open with slightly more info and a bigger sized picture
 // will then have a button to take you to artist home page where you can then interact with database rather than view it
 
-import React, { Fragment, useContext, useState,  } from "react";
+import React, { Fragment, useContext, useState,useEffect  } from "react";
 import AlbumContext from "../../contex/album/AlbumContext";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import AlbumScoreCard from "./albumScoreCard";
 import ReviewForm from "./albumReview";
 import RatingForm from "./albumRating";
+import Colors from "../layout/Colors" 
+
 import {
 	PrimaryButton,
 	SecondaryButton,
 	TertiaryButton,
 } from "../layout/Buttons";
+import axios from 'axios'
 
 import {Column50} from '../layout/Grids'
 //// weird media queris look into it
@@ -38,8 +41,8 @@ const I = styled.i`
 
 const Header = styled.h1`
 	padding: 1rem;
-    color: white;
-    background-color:#1849a2;
+    color: ${Colors.text};
+    background-color:${Colors.primary};
     font-size: 2rem;
 	text-align:center;
 `;
@@ -100,6 +103,7 @@ export const AlbumModal = ({ album, manageModal }) => {
 		avg,
 	};
 
+	
 	// convert seconds to mins
 	const secs = Math.floor(runtime / 60);
 
@@ -111,7 +115,11 @@ export const AlbumModal = ({ album, manageModal }) => {
 	// update state will have delete action within it
 
 	// })
-
+	async function fetchMyAPI() {
+		
+		const response = await axios.get('http://localhost:9001/api/albums/editState?albumID=2');
+		console.log(response,'s');
+	  }  
 	const [reviewState, setAddReviewState] = useState(false);
 	const [ratingState, setAddRatingState] = useState(false);
 
@@ -131,6 +139,9 @@ export const AlbumModal = ({ album, manageModal }) => {
         setAddRatingState(!ratingState);
 	};
 
+	const seeReviews = () => {
+		console.log('Show all reviews with associated with this album id')
+	}
 	return (
 		<Modal>
 			<Header>{name}</Header>
@@ -175,8 +186,10 @@ export const AlbumModal = ({ album, manageModal }) => {
 				{reviewState && <ReviewForm manageReview = {manageReview} album={album} />}
 				{ratingState && <RatingForm album={album} />}
 			</Body>
+			
 			<Actions>
-				
+						
+				{/* Maybe have add reveiw button after user clicks reviews to cut down on ui buttons*/}
 				{reviewState ? (
 					<PrimaryButton onClick={manageReview}>Cancel 📜</PrimaryButton>
 				) : (
@@ -187,8 +200,10 @@ export const AlbumModal = ({ album, manageModal }) => {
 				) : (
                     <SecondaryButton onClick={manageRating}>Add Rating 🏁 </SecondaryButton>
                     )}
+						<SecondaryButton onClick = {seeReviews}>See Reviews </SecondaryButton>
+							<SecondaryButton onClick = {seeReviews}>Show Songs 🎵</SecondaryButton>
 
-				<TertiaryButton onClick={manageModal}>❌</TertiaryButton>
+				<TertiaryButton onClick={fetchMyAPI}>❌</TertiaryButton>
 			</Actions>
 		</Modal>
 	);
