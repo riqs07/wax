@@ -371,6 +371,13 @@ const SongFavLike = db.define('SongFavLike', {
     key: 'id'
 },},
   album: Sequelize.STRING,
+  artistID:{
+    type:Sequelize.INTEGER,
+    references: {
+      model: 'artists',
+      key: 'id'
+  },
+  },
   songID: {
     type:Sequelize.INTEGER,
     primaryKey:true,
@@ -623,7 +630,7 @@ add_songLikes = [
   // User.bulkCreate(add_users)
   // Artist.bulkCreate(add_artist)
   // Album.bulkCreate(add_album)
-    // Song.bulkCreate(add_Songs)
+  //   Song.bulkCreate(add_Songs)
 
   //////////////////
   // Album_favorite.bulkCreate(add_albumFavs)
@@ -636,9 +643,11 @@ add_songLikes = [
 
   // then add view
 
-
   // User.hasMany(Album_favorite)
   // Album.hasMany(Album_favorite)
+
+ 
+
   exports.db = db
 
 

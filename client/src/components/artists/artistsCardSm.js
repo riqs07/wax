@@ -1,5 +1,5 @@
 import React from 'react'
-import {PrimaryButton} from '../layout/Buttons'
+import {PrimaryButton,SecondaryButton,} from '../layout/Buttons'
 
  const artistsCardSm = ({artist}) => {
 
@@ -40,6 +40,7 @@ import {PrimaryButton} from '../layout/Buttons'
                 <div class="artist-card-inf__txt"><i className="fa fa-heart fa-2x"></i></div>
               </div>
               <PrimaryButton>Follow </PrimaryButton>
+              <SecondaryButton><i class="fas fa-info-circle"></i></SecondaryButton>
             </div>
       
       

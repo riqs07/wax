@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const {
 	Album,
+	
 	Album_favorite,
 	Album_like,
 	Album_rating,
@@ -9,9 +10,9 @@ const {
 	SongFavLike,
 	Album_review,
 	User,
+	Song,
 } = require("../db");
 const auth = require("../middleware/auth");
-
 
 
 //////////////			  POST				///////////////////
@@ -36,7 +37,9 @@ router.post("/reviews", auth, async (req, res) => {
 // @route   POST /albums/like
 // @desc    Add a like to albums
 // @access  Private
-// @issue giving foreign key erroro but all others are working?
+// @issue giving foreign key erroro but all others are working? 
+// //@issue naming error in view sequlize 
+
 router.post("/likes", auth, (req, res) => {
 	const { albumID } = req.body;
 	Album_like.create({
@@ -78,6 +81,46 @@ router.post("/ratings", auth, (req, res) => {
 	} catch (error) {
 		return res.status(409).json({ msg: "Validation error" });
 	}
+});
+
+
+// FILTER ///
+
+// @route   POST albums/songs/best
+// @desc    Get albums Songs by rating
+// @access  Public
+router.post("/songs/best", async (req, res) => {
+	const { albumID } = req.body;
+	SongFavLike.findAll({
+		where: { albumID },
+		order: [["avg", "DESC"]],
+	})
+		.then((x) => res.send(x))
+		.catch((err) => console.log(err));
+});
+// @route   POST albums/songs/favs
+// @desc    Get albums Songs by favs
+// @access  Public
+router.post("/songs/favs", async (req, res) => {
+	const { albumID } = req.body;
+	SongFavLike.findAll({
+		where: { albumID },
+		order: [["favs", "DESC"]],
+	})
+		.then((x) => res.send(x))
+		.catch((err) => console.log(err));
+});
+// @route   POST albums/songs/likes
+// @desc    Get albums Songs by likes
+// @access  Public
+router.post("/songs/likes", async (req, res) => {
+	const { albumID } = req.body;
+	SongFavLike.findAll({
+		where: { albumID },
+		order: [["likes", "DESC"]],
+	})
+		.then((x) => res.send(x))
+		.catch((err) => console.log(err));
 });
 
 //////////////					  PUT & PATCH				///////////////////
@@ -138,7 +181,7 @@ router.delete("/favs", auth, (req, res) => {
 // @route   DELETE /albums/likes
 // @desc    Remove a like to albums
 // @access  Private
-// @issue
+
 
 router.delete("/likes", auth, async (req, res) => {
 	const { albumID } = req.body;
@@ -207,21 +250,36 @@ router.delete("/ratings", auth, (req, res) => {
 
 ////////////////// GET ////////////////
 
-// @route   GET albums/all
-// @desc    Get all albums
+// // @route   GET albums/all
+// // @desc    Get all albums
+// // @access  Public
+// router.get("/all", async (req, res) => {
+// 	Album.findAll()
+// 		.then((x) => res.send(x))
+// 		.catch((err) => console.log(err));
+// });
+
+
+// @route   GET albums//
+// @desc    Get all albums stats
 // @access  Public
-router.get("/all", async (req, res) => {
-	Album.findAll()
+//@issue naming error in view sequlize thinks its albumID but its in view as id
+
+router.get("/", async (req, res) => {
+	AlbumFavLike.findAll()
 		.then((x) => res.send(x))
 		.catch((err) => console.log(err));
 });
-
-
-// @route   GET albums/all/stats
-// @desc    Get all albums stats
+// @route   GET albums/reviews
+// @desc    Get all albums reviews
 // @access  Public
-router.get("/all", async (req, res) => {
-	AlbumFavLike.findAll()
+//@issue naming error in view sequlize thinks its albumID but its in view as id
+
+router.get("/reviews", async (req, res) => {
+	const {albumID} = req.body
+	Album_review.findAll({
+		where:{albumID}
+	})
 		.then((x) => res.send(x))
 		.catch((err) => console.log(err));
 });
@@ -230,9 +288,9 @@ router.get("/all", async (req, res) => {
 // @route   GET album/songs
 // @desc    Get all songs in an album
 // @access  Public
-router.get("/test", async (req, res) => {
+router.get("/songs", async (req, res) => {
 	const { albumID } = req.body;
-	SongFavLike.findAll({ where: { albumID } })
+	Song.findAll({ where: { albumID } })
 		.then((x) => res.send(x))
 		.catch((err) => console.log(err));
 });
@@ -251,7 +309,7 @@ router.post("/genre", async (req, res) => {
 // @route   GET albums/:id
 // @desc    GET Specific album
 // @access  Public
-router.get("/", async (req, res) => {
+router.post("/", async (req, res) => {
 	const { id } = req.body;
 	Album.findOne({ where: { id } }).then((x) => res.send(x));
 });
