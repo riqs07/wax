@@ -21,7 +21,7 @@ router.get("/api/health", async (req, res) => {
   });
 
   // allow cross orgin requests
-  // server.use(cors())
+  server.use(cors())
 
   server.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");

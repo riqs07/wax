@@ -13,7 +13,7 @@ const ReviewTextArea = styled.textarea`
 	color: black;
 `;
 
-
+	
 
 const ReviewForm = ({album,manageReview}) => {
         
@@ -27,7 +27,7 @@ const ReviewForm = ({album,manageReview}) => {
 
 	const onChange = (e) => setReview(e.target.value);
 
-	const onSubmit = (e) => {
+	const onSubmit = async (e) => {
         e.preventDefault();
        
 		if(review){
@@ -35,6 +35,7 @@ const ReviewForm = ({album,manageReview}) => {
 			albumID:id,
 			review
 		});
+
 
 		setAlert('Review Added','sucess')
 		manageReview()

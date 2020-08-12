@@ -201,11 +201,11 @@ const AlbumState = props => {
     
     const [state,dispatch] = useReducer(reducer,initialState)
 
-  
+  // get all albums list 
     const getAlbums = async () => {
         
        try {
-           const res = await axios.get('http://localhost:9001/api/albums/all')
+           const res = await axios.get('http://localhost:9001/api/albums/')
            dispatch({
                type:GET_ALBUMS,
                payload:res.data
@@ -230,7 +230,7 @@ const AlbumState = props => {
             dispatch({type: ADD_ALBUM_REVIEW,payload:res.data})
 
         } catch(error){
-            console.log('object')
+            console.log(error)
             dispatch({
 				type: REVIEW_FAIL,
 				payload: error.response.data.msg,
@@ -242,7 +242,6 @@ const AlbumState = props => {
     //ADD RATING
     const addAlbumRating= async rating => {
        
-        console.log('rating', rating)
         const config = {
             headers:{
                 'Content-Type':'application/json',
@@ -254,9 +253,256 @@ const AlbumState = props => {
             dispatch({type: ADD_ALBUM_RATING,payload:res.data})
 
         } catch(err){
-            console.log('object')
+            console.log(err)
         }
     }
+
+
+    // ADD LIKE 
+    const addAlbumLike= async id => {
+       
+        const config = {
+            headers:{
+                'Content-Type':'application/json',
+            }
+        }
+        try {
+            
+            const res = await axios.post('http://localhost:9001/api/albums/ratings',id,config)
+            dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+
+        } catch(err){
+            console.log(err)
+        }
+    }
+    
+    // ADD FAV 
+    const addAlbumFav= async id => {
+       
+        const config = {
+            headers:{
+                'Content-Type':'application/json',
+            }
+        }
+        try {
+            
+            const res = await axios.post('http://localhost:9001/api/albums/ratings',id,config)
+            dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+
+        } catch(err){
+            console.log(err)
+        }
+    }
+
+    // show songs in album 
+    const showAlbumSongs= async id => {
+       
+        const config = {
+            headers:{
+                'Content-Type':'application/json',
+            }
+        }
+        try {
+            
+            const res = await axios.post('http://localhost:9001/api/albums/ratings',id,config)
+            dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+
+        } catch(err){
+            console.log(err)
+        }
+    }
+
+    // show all album reviws 
+    const showAlbumReviews= async id => {
+       
+        const config = {
+            headers:{
+                'Content-Type':'application/json',
+            }
+        }
+        try {
+            
+            const res = await axios.post('http://localhost:9001/api/albums/ratings',id,config)
+            dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+
+        } catch(err){
+            console.log(err)
+        }
+    }
+    // Update Review
+    const updateAlbumReview= async review => {
+       
+        const config = {
+            headers:{
+                'Content-Type':'application/json',
+            }
+        }
+        try {
+            
+            const res = await axios.post('http://localhost:9001/api/albums/ratings',review,config)
+            dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+
+        } catch(err){
+            console.log(err)
+        }
+    }
+
+    // Update Rating
+    const updateAlbumRating= async rating => {
+       
+        const config = {
+            headers:{
+                'Content-Type':'application/json',
+            }
+        }
+        try {
+            
+            const res = await axios.post('http://localhost:9001/api/albums/ratings',rating,config)
+            dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+
+        } catch(err){
+            console.log(err)
+        }
+    }
+
+    // Delete Review 
+    const deleteAlbumReview= async id => {
+       
+        const config = {
+            headers:{
+                'Content-Type':'application/json',
+            }
+        }
+        try {
+            
+            const res = await axios.post('http://localhost:9001/api/albums/ratings',id,config)
+            dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+
+        } catch(err){
+            console.log(err)
+        }
+    }
+
+    // Delete Rating
+    const deleteAlbumRating= async id => {
+       
+        const config = {
+            headers:{
+                'Content-Type':'application/json',
+            }
+        }
+        try {
+            
+            const res = await axios.post('http://localhost:9001/api/albums/ratings',id,config)
+            dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+
+        } catch(err){
+            console.log(err)
+        }
+    }
+    // Delete Like
+    const deleteAlbumLike= async id => {
+       
+        const config = {
+            headers:{
+                'Content-Type':'application/json',
+            }
+        }
+        try {
+            
+            const res = await axios.post('http://localhost:9001/api/albums/ratings',id,config)
+            dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+
+        } catch(err){
+            console.log(err)
+        }
+    }
+    // Delete Fav 
+ const deleteAlbumFav= async id => {
+       
+        const config = {
+            headers:{
+                'Content-Type':'application/json',
+            }
+        }
+        try {
+            
+            const res = await axios.post('http://localhost:9001/api/albums/ratings',id,config)
+            dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+
+        } catch(err){
+            console.log(err)
+        }
+    }
+    // Filter by rating
+    const filterAlbumsByRating= async id => {
+       
+        const config = {
+            headers:{
+                'Content-Type':'application/json',
+            }
+        }
+        try {
+            
+            const res = await axios.post('http://localhost:9001/api/albums/ratings',id,config)
+            dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+
+        } catch(err){
+            console.log(err)
+        }
+    }
+    // Filter by favs
+    const filterAlbumsByFavs= async id  => {
+       
+        const config = {
+            headers:{
+                'Content-Type':'application/json',
+            }
+        }
+        try {
+            
+            const res = await axios.post('http://localhost:9001/api/albums/ratings',id,config)
+            dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+
+        } catch(err){
+            console.log(err)
+        }
+    }
+    // Filter by likes
+    const filterAlbumsByLikes= async id => {
+       
+        const config = {
+            headers:{
+                'Content-Type':'application/json',
+            }
+        }
+        try {
+            
+            const res = await axios.post('http://localhost:9001/api/albums/ratings',id,config)
+            dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+
+        } catch(err){
+            console.log(err)
+        }
+    }
+    // Filter by genre
+    const filterAlbumsByGenre= async id => {
+       
+        const config = {
+            headers:{
+                'Content-Type':'application/json',
+            }
+        }
+        try {
+            
+            const res = await axios.post('http://localhost:9001/api/albums/ratings',id,config)
+            dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+
+        } catch(err){
+            console.log(err)
+        }
+    }
+    
 
     // DELTE ALBUM
 
@@ -288,7 +534,8 @@ const AlbumState = props => {
             albums :state.albums,
             deleteAlbum,
             addAlbumReview,
-            addAlbumRating
+            addAlbumRating,
+            getAlbums
         }}>
 
 

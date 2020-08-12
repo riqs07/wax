@@ -16,11 +16,10 @@ const Colors = {
     accent:'#624046 ',
     text:'#eee',
     textDark:'hsl(205,40,30)',
-
-   
-
-    
+ 
 }
+
+
 
 const Shadows = {
 

@@ -8,7 +8,7 @@ import Form from '../layout/Forms'
 import zxcvbn from 'zxcvbn';
 import {Column50} from '../layout/Grids'
 
-
+// @issue img reloads on every key press???
 
 const Register = (props) => {
 
@@ -22,7 +22,7 @@ const Register = (props) => {
 	const {albums} = albumContext
 
 
-	let rand = Math.floor(Math.random() * albums.length);
+	const rand = Math.floor(Math.random() * albums.length);
     const {name,imageURL} = albums[rand]
 
 	useEffect(()=>{
@@ -87,7 +87,9 @@ const Register = (props) => {
 
 	return (
 		<Column50>
+		<div><h2>{name}</h2>
 		<img style = {{borderRadius:"50%"}}src = {imageURL}></img>
+		</div>
 	
 
 		<div className = 'form-container'>

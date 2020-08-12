@@ -21,6 +21,16 @@ const Login = (props) => {
 
     let rand = Math.floor(Math.random() * albums.length);
     const {name,imageURL} = albums[rand]
+
+
+	const [user, setUser] = useState({
+		email: "",
+		password: "",
+		});
+
+	const { email, password } = user;
+
+
 	useEffect(()=>{
 		if (isAuth){
 			props.history.push('/home')
@@ -30,15 +40,8 @@ const Login = (props) => {
 			setAlert(error,'danger')
 			clearErrors()
 		}
-	},[error,isAuth,props.history])
-
-	const [user, setUser] = useState({
-		email: "",
-		password: "",
-		});
-
-	const { email, password } = user;
-
+	},[error,isAuth,props.history,email])
+	
 	const onChange = (e) => { 
         setUser({...user,[e.target.name]:e.target.value})
     };

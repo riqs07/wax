@@ -88,7 +88,214 @@ const ArtistState = props => {
     
     const [state,dispatch] = useReducer(reducer,initialState)
 
+    // // Get all artists 
+    // const getAllArtists= async id=> {
+       
+    //     const config = {
+    //         headers:{
+    //             'Content-Type':'application/json',
+    //         }
+    //     }
+    //     try {
+            
+    //         const res = await axios.post('http://localhost:9001/api/albums/ratings',rating,config)
+    //         dispatch({type: ADD_ALBUM_RATING,payload:res.data})
 
+    //     } catch(err){
+    //         console.log(err)
+    //     }
+    // }
+    // // Get all artists songs
+    // const getArtistSongs= async id=> {
+       
+    //     const config = {
+    //         headers:{
+    //             'Content-Type':'application/json',
+    //         }
+    //     }
+    //     try {
+            
+    //         const res = await axios.post('http://localhost:9001/api/albums/ratings',rating,config)
+    //         dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+
+    //     } catch(err){
+    //         console.log(err)
+    //     }
+    // }
+    //   // Filter Songs by rating
+    //   const filterArtistSongsByRating= async id=> {
+       
+    //     const config = {
+    //         headers:{
+    //             'Content-Type':'application/json',
+    //         }
+    //     }
+    //     try {
+            
+    //         const res = await axios.post('http://localhost:9001/api/albums/ratings',rating,config)
+    //         dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+
+    //     } catch(err){
+    //         console.log(err)
+    //     }
+    // }
+    // // Filter Songs by favs
+    // const filterArtistSongsByFavs= async id => {
+       
+    //     const config = {
+    //         headers:{
+    //             'Content-Type':'application/json',
+    //         }
+    //     }
+    //     try {
+            
+    //         const res = await axios.post('http://localhost:9001/api/albums/ratings',rating,config)
+    //         dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+
+    //     } catch(err){
+    //         console.log(err)
+    //     }
+    // }
+    // // Filter  Songsby likes
+    // const filterArtistSongsByLikes= async id  => {
+       
+    //     const config = {
+    //         headers:{
+    //             'Content-Type':'application/json',
+    //         }
+    //     }
+    //     try {
+            
+    //         const res = await axios.post('http://localhost:9001/api/albums/ratings',rating,config)
+    //         dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+
+    //     } catch(err){
+    //         console.log(err)
+    //     }
+    // }
+
+
+    // // get all artist albums 
+    // const getArtistAlbums= async id=> {
+       
+    //     const config = {
+    //         headers:{
+    //             'Content-Type':'application/json',
+    //         }
+    //     }
+    //     try {
+            
+    //         const res = await axios.post('http://localhost:9001/api/albums/ratings',rating,config)
+    //         dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+
+    //     } catch(err){
+    //         console.log(err)
+    //     }
+    // }
+   
+    //   // Filter albums by rating
+    //   const filterArtistAlbumsByRating= async id=> {
+       
+    //     const config = {
+    //         headers:{
+    //             'Content-Type':'application/json',
+    //         }
+    //     }
+    //     try {
+            
+    //         const res = await axios.post('http://localhost:9001/api/albums/ratings',rating,config)
+    //         dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+
+    //     } catch(err){
+    //         console.log(err)
+    //     }
+    // }
+    // // Filter albums by favs
+    // const filterArtistAlbumsByFavs= async id => {
+       
+    //     const config = {
+    //         headers:{
+    //             'Content-Type':'application/json',
+    //         }
+    //     }
+    //     try {
+            
+    //         const res = await axios.post('http://localhost:9001/api/albums/ratings',rating,config)
+    //         dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+
+    //     } catch(err){
+    //         console.log(err)
+    //     }
+    // }
+    // // Filter  albumsby likes
+    // const filterArtistAlbumsByLikes= async id  => {
+       
+    //     const config = {
+    //         headers:{
+    //             'Content-Type':'application/json',
+    //         }
+    //     }
+    //     try {
+            
+    //         const res = await axios.post('http://localhost:9001/api/albums/ratings',rating,config)
+    //         dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+
+    //     } catch(err){
+    //         console.log(err)
+    //     }
+    // }
+
+
+    // // add a favorite / follow
+    // const followArtist= async id => {
+       
+    //     const config = {
+    //         headers:{
+    //             'Content-Type':'application/json',
+    //         }
+    //     }
+    //     try {
+            
+    //         const res = await axios.post('http://localhost:9001/api/albums/ratings',rating,config)
+    //         dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+
+    //     } catch(err){
+    //         console.log(err)
+    //     }
+    // }
+
+    // // delete a favorite / follow
+    // const unfollowArtist= async id => {
+       
+    //     const config = {
+    //         headers:{
+    //             'Content-Type':'application/json',
+    //         }
+    //     }
+    //     try {
+            
+    //         const res = await axios.post('http://localhost:9001/api/albums/ratings',rating,config)
+    //         dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+
+    //     } catch(err){
+    //         console.log(err)
+    //     }
+    // }
+
+
+
+
+
+
+
+
+
+
+    //CRUD
+
+    // Add new artist 
+    // update artist info
+    // delete artist 
 
     return (
        < ArtistContext.Provider

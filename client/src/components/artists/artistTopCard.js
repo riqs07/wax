@@ -2,7 +2,6 @@ import React from 'react'
 import {PrimaryButton,SecondaryButton} from '../layout/Buttons'
 
 const artistTopCard = ({artist}) => {
-    console.log(artist)
     const {name,imageURL} = artist
     return (
         <div class="wrapper">

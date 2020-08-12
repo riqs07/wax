@@ -4,6 +4,8 @@ import ArtistContext from '../../contex/artists/ArtistContext'
 import Card from '../artists/artistsCardSm'
 import TopRankCard from '../artists/artistTopCard'
 import styled from 'styled-components'
+import {SecondaryButton} from './../layout/Buttons'
+import Colors from './../layout/Colors'
 
 
 
@@ -34,7 +36,12 @@ transition: transform 450ms;
 
     `
 
-
+const Filter = styled.ul`
+display:flex;
+border:2px solid ${Colors.primary};
+border-Radius:20px;
+justify-content:center;
+`
  const ArtistGrid = () => {
     // default sort by ratings 
     const context = useContext(ArtistContext)
@@ -43,15 +50,33 @@ transition: transform 450ms;
 
 
   
-    let top = artists.shift()
-    let two = artists.shift()
-    let three = artists.shift()
-    console.log(top,two)
-    console.log(artists)
+    let top = artists[0]
+    let two = artists[1]
+    let three = artists[2]
+  
+    const [filter,setFilter] = useState('Rating')
+    const options = ['Score','Likes','Favs','Followers']
+
+
+    useEffect(() => {
+      console.log(`Fetch ${filter}`)
+    }, [filter])
 
       return (
 
         <Fragment>
+               <Filter >
+        {options.map((option) => (
+            <li key={option}>
+                <SecondaryButton
+                    
+                    style={option === filter ? { color: 'rgb(187,46,31)' } : null}
+                    onClick={() => setFilter(option)}>
+                    {option}
+                </SecondaryButton>
+            </li>
+        ))}
+    </Filter>
           <TopRankGrid>
 
            <TopRankCard artist = {top}/>

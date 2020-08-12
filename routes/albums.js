@@ -314,6 +314,22 @@ router.post("/", async (req, res) => {
 	Album.findOne({ where: { id } }).then((x) => res.send(x));
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+// not sure if i need these 3 because context as acess to view of the tables
+
+
 // @route   GET albums/likes
 // @desc    Get ALBUM TOTAL LIKES
 // @access  Public
