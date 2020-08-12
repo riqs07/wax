@@ -1,27 +1,38 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
+import AlbumContext from '../../contex/album/AlbumContext'
+
 const Card = styled.div`
 	display: flex;
+	padding:1rem;
+	margin-top:.5rem;
 `;
 
-const AlbumScoreCard = ({ stats }) => {
+const AlbumScoreCard = ({info }) => {
 	// check if user has favorited this album if not then display outline
 	// on click display full and add to db
 	// toggle to add / delete
-	// animation to let you know something is happening if i cant make it show the outlined version
 
-	const { likes, favs, avg } = stats;
+
+	const context = useContext(AlbumContext)
+
+	const {addAlbumFav,addAlbumLike} = context
+
+	
+
+	const { likes, favs, avg,albumID } = info;
 	const [isFav, setIsFav] = useState(false);
 	const [isLike, setIsLiked] = useState(false);
-
 	const Like = (e) => {
 		setIsLiked(!isLike);
-		console.log("Add like to db");
-		// Needs to update DB
+		// now dislik if state = full 
+		// need state to be passed in so its aware if user has like or nbot other than that its working 
+
+		addAlbumLike({albumID})
 	};
 	const Fav = (e) => {
 		setIsFav(!isFav);
-		console.log("Add fav to db");
+		addAlbumFav({albumID})
 
 		// Needs to update DB
 	};

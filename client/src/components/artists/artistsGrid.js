@@ -55,7 +55,7 @@ justify-content:center;
     let three = artists[2]
   
     const [filter,setFilter] = useState('Rating')
-    const options = ['Score','Likes','Favs','Followers']
+    const options = ['Score','Likes','Favs','Followers','Genre']
 
 
     useEffect(() => {

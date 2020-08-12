@@ -1,5 +1,4 @@
 import React, {useReducer} from 'react';
-import uuid from 'uuid';
 import AlbumContext from './AlbumContext';
 import reducer from './AlbumReducer';
 import axios from 'axios';
@@ -12,190 +11,20 @@ import {
     ADD_ALBUM_RATING,
     DELETE_ALBUM,
     GET_ALBUMS,
+    REVIEW_FAIL,
+    RATING_FAIL,
     CLEAR_ALBUMS,
     UPDATE_ALBUM,
     FILTER_ALBUMS,
     CLEAR_FILTER,
-    REVIEW_FAIL
 } from '../types'
 
 
 const AlbumState = props => {
     const initialState = {
-        albums:[
-            {
-                "artistID": 3,
-                "artist": "The Weeknd",
-                "id": 10,
-                "name": "Beauty Behind the Madness",
-                "likes": 0,
-                "favs": 0,
-                "avg": "100.0000",
-                "release_year": null,
-                "runtime": 500,
-                "genre": "R&B",
-                "artist_ImageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/artists/the-weekend.webp",
-                "imageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/beauty_behind_the_madness.jfif"
-            },
-            {
-                "artistID": 2,
-                "artist": "Dua Lipa",
-                "id": 6,
-                "name": "Future Nostalgia",
-                "likes": 1,
-                "favs": 1,
-                "avg": "53.5714",
-                "release_year": null,
-                "runtime": 3700,
-                "genre": "Pop",
-                "artist_ImageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/artists/dua-lipa.jpg",
-                "imageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/future_nostalgia.jpg"
-            },
-            {
-                "artistID": 1,
-                "artist": "Kanye West ",
-                "id": 5,
-                "name": "Watch the throne ",
-                "likes": 1,
-                "favs": 2,
-                "avg": "50.0000",
-                "release_year": null,
-                "runtime": 5500,
-                "genre": "Rap",
-                "artist_ImageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/artists/kanye-west.webp",
-                "imageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/Watch_The_Throne.jpg"
-            },
-            {
-                "artistID": 1,
-                "artist": "Kanye West ",
-                "id": 3,
-                "name": "College dropout ",
-                "likes": 0,
-                "favs": 4,
-                "avg": "50.0000",
-                "release_year": null,
-                "runtime": 4500,
-                "genre": "Rap",
-                "artist_ImageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/artists/kanye-west.webp",
-                "imageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/college_dropout.webp"
-            },
-            {
-                "artistID": 1,
-                "artist": "Kanye West ",
-                "id": 2,
-                "name": "ye",
-                "likes": 6,
-                "favs": 5,
-                "avg": "50.0000",
-                "release_year": null,
-                "runtime": 2500,
-                "genre": "Rap",
-                "artist_ImageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/artists/kanye-west.webp",
-                "imageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/ye.webp"
-            },
-            {
-                "artistID": 1,
-                "artist": "Kanye West ",
-                "id": 1,
-                "name": "Yeezus ",
-                "likes": 6,
-                "favs": 4,
-                "avg": "50.0000",
-                "release_year": null,
-                "runtime": 1500,
-                "genre": "Rap",
-                "artist_ImageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/artists/kanye-west.webp",
-                "imageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/yeezus.jpg"
-            },
-            {
-                "artistID": 1,
-                "artist": "Kanye West ",
-                "id": 4,
-                "name": "Graduation ",
-                "likes": 1,
-                "favs": 1,
-                "avg": "50.0000",
-                "release_year": null,
-                "runtime": 1500,
-                "genre": "Rap",
-                "artist_ImageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/artists/kanye-west.webp",
-                "imageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/graduation.jpg"
-            },
-            {
-                "artistID": 3,
-                "artist": "The Weeknd",
-                "id": 8,
-                "name": "After Hours",
-                "likes": 0,
-                "favs": 0,
-                "avg": null,
-                "release_year": null,
-                "runtime": 5040,
-                "genre": "R&B",
-                "artist_ImageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/artists/the-weekend.webp",
-                "imageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/after_hours.jpg"
-            },
-            {
-                "artistID": 3,
-                "artist": "The Weeknd",
-                "id": 7,
-                "name": "Trilogy",
-                "likes": 1,
-                "favs": 0,
-                "avg": null,
-                "release_year": null,
-                "runtime": 5005,
-                "genre": "R&B",
-                "artist_ImageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/artists/the-weekend.webp",
-                "imageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/albums/trilogy.png"
-            },
-            {
-                "artistID": 9,
-                "artist": "Playboy Carti",
-                "id": 12,
-                "name": "Die lit",
-                "likes": 0,
-                "favs": 0,
-                "avg": null,
-                "release_year": null,
-                "runtime": 5070,
-                "genre": "Rap",
-                "artist_ImageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/artists/playboy-carti.webp",
-                "imageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/die_lit.webp"
-            },
-            {
-                "artistID": 9,
-                "artist": "Playboy Carti",
-                "id": 11,
-                "name": "Playboy Carti",
-                "likes": 0,
-                "favs": 0,
-                "avg": null,
-                "release_year": null,
-                "runtime": 5090,
-                "genre": "Rap",
-                "artist_ImageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/artists/playboy-carti.webp",
-                "imageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/playboy_carti.png"
-            },
-            {
-                "artistID": 3,
-                "artist": "The Weeknd",
-                "id": 9,
-                "name": "Starboy",
-                "likes": 0,
-                "favs": 0,
-                "avg": null,
-                "release_year": null,
-                "runtime": 5001,
-                "genre": "R&B",
-                "artist_ImageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/artists/the-weekend.webp",
-                "imageURL": "https://waxhades123.s3.us-east-2.amazonaws.com/starboy.jpg"
-            }
-            
-            
-        ],
-        current:null,
-        error:null
+        albums:null,
+        error:null,
+        loading:true
         
     }
     
@@ -205,7 +34,7 @@ const AlbumState = props => {
     const getAlbums = async () => {
         
        try {
-           const res = await axios.get('http://localhost:9001/api/albums/')
+           const res = await axios.get('http://localhost:9001/api/albums')
            dispatch({
                type:GET_ALBUMS,
                payload:res.data
@@ -259,7 +88,7 @@ const AlbumState = props => {
 
 
     // ADD LIKE 
-    const addAlbumLike= async id => {
+    const addAlbumLike= async albumID => {
        
         const config = {
             headers:{
@@ -268,8 +97,8 @@ const AlbumState = props => {
         }
         try {
             
-            const res = await axios.post('http://localhost:9001/api/albums/ratings',id,config)
-            dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+            const res = await axios.post('http://localhost:9001/api/albums/likes',albumID,config)
+        console.log('foo')
 
         } catch(err){
             console.log(err)
@@ -277,7 +106,7 @@ const AlbumState = props => {
     }
     
     // ADD FAV 
-    const addAlbumFav= async id => {
+    const addAlbumFav= async albumID => {
        
         const config = {
             headers:{
@@ -286,8 +115,7 @@ const AlbumState = props => {
         }
         try {
             
-            const res = await axios.post('http://localhost:9001/api/albums/ratings',id,config)
-            dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+            await axios.post('http://localhost:9001/api/albums/favs',albumID,config)
 
         } catch(err){
             console.log(err)
@@ -295,7 +123,7 @@ const AlbumState = props => {
     }
 
     // show songs in album 
-    const showAlbumSongs= async id => {
+    const getAlbumSongs= async id => {
        
         const config = {
             headers:{
@@ -304,9 +132,10 @@ const AlbumState = props => {
         }
         try {
             
-            const res = await axios.post('http://localhost:9001/api/albums/ratings',id,config)
-            dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+            const res = await axios.post('http://localhost:9001/api/albums/songs',id,config)
+            console.log(res)
 
+            return res
         } catch(err){
             console.log(err)
         }
@@ -532,10 +361,14 @@ const AlbumState = props => {
        < AlbumContext.Provider
         value = {{
             albums :state.albums,
+            error:state.error,
             deleteAlbum,
             addAlbumReview,
             addAlbumRating,
-            getAlbums
+            addAlbumFav,
+            addAlbumLike,
+            getAlbums,
+            getAlbumSongs
         }}>
 
 

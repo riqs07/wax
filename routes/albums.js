@@ -84,6 +84,16 @@ router.post("/ratings", auth, (req, res) => {
 });
 
 
+// @route   GET album/songs
+// @desc    Get all songs in an album
+// @access  Public
+router.post("/songs", async (req, res) => {
+	const { albumID } = req.body;
+	Song.findAll({ where: { albumID } })
+		.then((x) => res.send(x))
+		.catch((err) => console.log(err));
+});
+
 // FILTER ///
 
 // @route   POST albums/songs/best
@@ -285,15 +295,7 @@ router.get("/reviews", async (req, res) => {
 });
 
 
-// @route   GET album/songs
-// @desc    Get all songs in an album
-// @access  Public
-router.get("/songs", async (req, res) => {
-	const { albumID } = req.body;
-	Song.findAll({ where: { albumID } })
-		.then((x) => res.send(x))
-		.catch((err) => console.log(err));
-});
+
 
 // @route   GET albums/genre
 // @desc    Get all albums by genre

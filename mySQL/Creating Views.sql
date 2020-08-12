@@ -48,5 +48,10 @@ order by users.id;
 
 
 use wax2;
-select * from album_reviews;
+
+select * from albums;
+
+insert into albums  (name,artistID,runtime,genre,createdAt,updatedAt)values
+('808s',1,300,'Rap','2020-08-10 19:29:16','2020-08-10 19:29:16');
+
 

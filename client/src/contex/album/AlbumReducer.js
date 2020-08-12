@@ -1,13 +1,15 @@
 import {
     SET_CURRENT,
     CLEAR_CURRENT,
-    ADD_ALBUM,
+    CREATE_ALBUM,
     ADD_ALBUM_REVIEW,
     DELETE_ALBUM,
     GET_ALBUMS,
+    LIKE_ALBUM,
     UPDATE_ALBUM,
     FILTER_ALBUMS,
-    CLEAR_FILTER
+    CLEAR_FILTER,
+    REVIEW_FAIL
 } from '../types'
 
 
@@ -22,7 +24,7 @@ export default (state,action) => {
                 loading:false
             };
 
-        case ADD_ALBUM:
+        case CREATE_ALBUM:
             return{
                 ...state,
                 albums:[...state.albums,action.payload]
@@ -38,6 +40,13 @@ export default (state,action) => {
             return{
                 ...state,
                 albums:[...state.albums,action.payload]
+            };
+     
+
+            case REVIEW_FAIL:
+            return {
+                ...state,
+                error:action.payload
             };
         // case ADD_ALBUM_RATING:
         //     return{

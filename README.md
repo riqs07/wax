@@ -41,10 +41,14 @@
 - [Express](https://expressjs.com/) Building API
 - [Postman](https://www.postman.com/) Testing API 
 - [Sequelize](https://sequelize.org/) ORM Tool for mySQL & Node
-- [JWT](https://jwt.io/) User Auth
 - [S3](https://aws.amazon.com/s3/) Hosting for static images
 - [Elastic Beanstalk](https://aws.amazon.com/elasticbeanstalk) Hosting SQL database and Server
 
-
+## Misc Libaries
+-[bcrypt] Hashing User Passwords
+-[JWT](https://jwt.io/) User Auth
+-[Axios] Fetching 
+-[zxcvbn] Password Stregth checker
+-[react-router] Routing Of app 
 
 Made with 🎵 

@@ -8,6 +8,7 @@ left:0;
 height:100vh;
 width:100%;
 background:rgba(0,0,0,0.75);
+z-index:9;
 `
 
 

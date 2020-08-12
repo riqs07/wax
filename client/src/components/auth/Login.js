@@ -40,7 +40,7 @@ const Login = (props) => {
 			setAlert(error,'danger')
 			clearErrors()
 		}
-	},[error,isAuth,props.history,email])
+	},[error,isAuth,props.history])
 	
 	const onChange = (e) => { 
         setUser({...user,[e.target.name]:e.target.value})

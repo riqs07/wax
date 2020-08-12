@@ -3,7 +3,7 @@ import AlbumContext from '../../contex/album/AlbumContext'
 import CardSm from './albumCardSm'
 import {SecondaryButton} from './../layout/Buttons'
 import Colors from './../layout/Colors'
-
+import Spinner from './../layout/Spinner'
 
 import styled from 'styled-components'
 
@@ -24,7 +24,7 @@ justify-content:center;
 
 const Li = styled.li`
 list-style:none;
-flex-basis: 12%;
+flex-basis: 20%;
 padding:1rem;
     `
 
@@ -39,14 +39,16 @@ padding:1rem;
  
     const context = useContext(AlbumContext)
 
-    const {albums } = context
+    const {albums ,getAlbums,loading} = context
+
+    
 
     const [filter,setFilter] = useState('Rating')
-    const options = ['Rating','Likes','Favs','Genre']
+    const options = ['Rating','Likes','Favs','Genre','Runtime','Date']
 
     useEffect(() => {
-      console.log(`Fetch ${filter}`)
-    }, [filter])
+     getAlbums()
+    }, [])
 
     const onClick = (e) =>{
       // pass in currnet state so it is a togglel 
@@ -71,20 +73,23 @@ padding:1rem;
         ))}
     </Filter>
          
-         
-            <Grid>
+         {albums !== null && !loading ? ( 
+
+<Grid>
            
-            {albums.map(album => (
-              <Li key = {album.id}  >
-               <CardSm album = {album} />
-               
-             </Li>
+{albums.map(album => (
+  <Li key = {album.id}  >
+   <CardSm album = {album} />
    
-           ))}
+ </Li>
+
+))}
 
 
 
-           </Grid>
+</Grid>
+         ):<Spinner/>}
+           
         </Fragment>
     )
 }

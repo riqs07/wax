@@ -9,13 +9,42 @@ const I = styled.i`
 	padding: 0.5rem;
 `;
 
+// Play around with shadows the one on info card needs to bigger
+const Image = styled.img`
+	border-radius: 2rem;
+	box-shadow: 0px 8px 60px -10px rgba(13, 28, 39, 0.6);
+	transition: transform 450ms;
+	&:hover{ 
+		transform:scale(1.08);
+		opacity:0.8
+}
+`;
+const Stats = styled.ul`
+display:flex;
+justify-content:space-around;
+
+`
+const Body = styled.div`
+	background-color: #eee;
+	border-radius: 1rem;
+	box-shadow: 0px 8px 60px -10px rgba(13, 28, 39, 0.6);
+	padding:.5rem;
+`;
+
+
+const Wrapper = styled.div`
+	margin-top: -4rem;
+	padding: 0 1rem;
+	position: relative;
+`;
+
 
 
 const GridItem = ({ album }) => {
 	const albumContext = useContext(AlbumContext);
-	
+
 	const {
-		id,
+		albumID,
 		name,
 		artistID,
 		genre,
@@ -28,8 +57,6 @@ const GridItem = ({ album }) => {
 		avg,
 	} = album;
 
-	
-
 	const [modalState, setModal] = useState(false);
 	const [hoverState, setHover] = useState(false);
 
@@ -37,58 +64,49 @@ const GridItem = ({ album }) => {
 		setModal(!modalState);
 	};
 	const manageHover = () => {
-		// setHover(!hoverState);	
+		// setHover(!hoverState);
 	};
 
 	return (
-		<div className="album-card">
-			{imageURL && (
-				<div className="album-card--image">
-					<li>
-						<img
-							onMouseEnter = {manageHover}
-							onMouseLeave = {manageHover}
-							onClick={manageModal}
-							src={imageURL}
-							alt="artist image "></img>
-					</li>
-				</div>
-			)}
+		<>
+		
+			<Image
+				onMouseEnter={manageHover}
+				onMouseLeave={manageHover}
+				onClick={manageModal}
+				src={imageURL}
+				alt="artist image "></Image>
+			<Wrapper>
+				
+				<Body>
+					<h2>{name}</h2>
+					{hoverState && <h3>{artist}</h3>}
+					<Stats>
+						
+							<li>
+								<I
+									className="fas fa fa-star fa-2x"
+									style={{ color: "orange" }}></I>
+									{favs}
+							</li>
+						
+					
+							<li>
+								{likes}
+								<I className="fa fa-heart fa-2x" style={{ color: "red" }}></I>
+							</li>
+						
+					</Stats>
+				</Body>
+			</Wrapper>
 			{modalState && (
 				<Fragment>
-					<Backdrop manageModal ={manageModal} />
+					<Backdrop manageModal={manageModal} />
 					<AlbumModal manageModal={manageModal} album={album} />
 				</Fragment>
 			)}
-
-			<div className="album-card--body">
-				<h2>{name}</h2>
-				{hoverState &&  
-				<h3>{artist}</h3>
-				
-				
-				
-				}
-				<ul className="album-card--stats">
-				
-					{favs && (
-						<li className="album-card--stat">
-							<I
-								className="fas fa fa-star fa-2x"
-								style={{ color: "orange" }}></I>
-							{favs}
-						</li>
-					)}
-					{likes && (
-						<li className="album-card--stat">
-							<I className="fa fa-heart fa-2x" style={{ color: "red" }}></I>
-							{likes}
-						</li>
-					)}
-					
-				</ul>
-			</div>
-		</div>
+		
+		</>
 	);
 };
 
