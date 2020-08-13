@@ -96,6 +96,39 @@ router.post("/songs", async (req, res) => {
 
 // FILTER ///
 
+// @route   GET albums/ratings
+// @desc    Filter all albums by ratings 
+// @access  Public
+router.get("/ratings", async (req, res) => {
+	AlbumFavLike.findAll({
+		order: [["avg", "DESC"]],
+	})
+		.then((x) => res.send(x))
+		.catch((err) => console.log(err));
+});
+// @route   GET albums/ratings
+// @desc    Filter all albums by Favs 
+// @access  Public
+router.get("/favs", async (req, res) => {
+	AlbumFavLike.findAll({
+		order: [["favs", "DESC"]],
+	})
+		.then((x) => res.send(x))
+		.catch((err) => console.log(err));
+});
+// @route   GET albums/ratings
+// @desc    Filter all albums by likes 
+// @access  Public
+router.get("/likes", async (req, res) => {
+	AlbumFavLike.findAll({
+		order: [["likes", "DESC"]],
+	})
+		.then((x) => res.send(x))
+		.catch((err) => console.log(err));
+});
+
+
+
 // @route   POST albums/songs/best
 // @desc    Get albums Songs by rating
 // @access  Public
@@ -332,65 +365,65 @@ router.post("/", async (req, res) => {
 // not sure if i need these 3 because context as acess to view of the tables
 
 
-// @route   GET albums/likes
-// @desc    Get ALBUM TOTAL LIKES
-// @access  Public
-router.get("/likes", async (req, res) => {
-	const { albumID } = req.body;
+// // @route   GET albums/likes
+// // @desc    Get ALBUM TOTAL LIKES
+// // @access  Public
+// router.get("/likes", async (req, res) => {
+// 	const { albumID } = req.body;
 
-	Album_like.findAndCountAll({
-		where: { albumID },
-	})
-		.then((x) => res.send(x))
-		.catch((err) => console.log(err));
-});
-// @route   GET albums/avg
-// @desc    Get ALBUM AVG RATINGS
-// @access  Public
-router.get("/avg", async (req, res) => {
-	// IDK WHY This not taking in request but it works
+// 	Album_like.findAndCountAll({
+// 		where: { albumID },
+// 	})
+// 		.then((x) => res.send(x))
+// 		.catch((err) => console.log(err));
+// });
+// // @route   GET albums/avg
+// // @desc    Get ALBUM AVG RATINGS
+// // @access  Public
+// router.get("/avg", async (req, res) => {
+// 	// IDK WHY This not taking in request but it works
 
 
 
-	Album_rating.findAndCountAll({
-		where: { albumID:req.body.albumID },
-	})
-		.then((ratings) => {
-			/// Maybe later run one on each thing rating like favs
+// 	Album_rating.findAndCountAll({
+// 		where: { albumID:req.body.albumID },
+// 	})
+// 		.then((ratings) => {
+// 			/// Maybe later run one on each thing rating like favs
 
-			// have bunch of mini fucntions called
-			// this entire one just returns the avg number which is good but would take up one little space in ui
-			// like get album rating info
-			//  or show user who gave this top ranking idk
-			// the info for someting like that would be inside of ros
-			const { count, rows } = ratings;
+// 			// have bunch of mini fucntions called
+// 			// this entire one just returns the avg number which is good but would take up one little space in ui
+// 			// like get album rating info
+// 			//  or show user who gave this top ranking idk
+// 			// the info for someting like that would be inside of ros
+// 			const { count, rows } = ratings;
 
-			let avg = rows.map((row) => row.rating);
-			avg = avg.reduce((acc, val) => {
-				return acc + val;
-			}, 0);
+// 			let avg = rows.map((row) => row.rating);
+// 			avg = avg.reduce((acc, val) => {
+// 				return acc + val;
+// 			}, 0);
 
-			avg = Math.round(avg / count);
+// 			avg = Math.round(avg / count);
 
-			return avg;
-		})
-		.then((x) => res.send({ average: x }))
+// 			return avg;
+// 		})
+// 		.then((x) => res.send({ average: x }))
 
-		.catch((err) => console.log(err));
-});
+// 		.catch((err) => console.log(err));
+// });
 
-// @route   GET albums/favs
-// @desc    Get ALBUM TOTAL Favs
-// @access  Public
-router.get("/favs", async (req, res) => {
-	const { albumID } = req.body;
+// // @route   GET albums/favs
+// // @desc    Get ALBUM TOTAL Favs
+// // @access  Public
+// router.get("/favs", async (req, res) => {
+// 	const { albumID } = req.body;
 
-	Album_favorite.findAndCountAll({
-		where: { albumID },
-	})
-		.then((x) => res.send(x))
-		.catch((err) => console.log(err));
-});
+// 	Album_favorite.findAndCountAll({
+// 		where: { albumID },
+// 	})
+// 		.then((x) => res.send(x))
+// 		.catch((err) => console.log(err));
+// });
 
 /// ADMIN CRUD /////
 

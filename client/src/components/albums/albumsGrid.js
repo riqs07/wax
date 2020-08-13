@@ -39,7 +39,7 @@ padding:1rem;
  
     const context = useContext(AlbumContext)
 
-    const {albums ,getAlbums,loading} = context
+    const {albums ,getAlbums,loading,filterAlbumsByRating,filterAlbumsByLikes,filterAlbumsByFavs} = context
 
     
 
@@ -49,6 +49,35 @@ padding:1rem;
     useEffect(() => {
      getAlbums()
     }, [])
+
+    // useEffect(() => {
+    //   filterAlbums(filter)
+      
+    // }, [filter])
+
+    // const filterAlbums = (filter) =>{
+    //   switch(filter){
+    //     case 'Rating':
+    //       filterAlbumsByRating()
+    //     break;
+    //     case 'Likes':
+    //     filterAlbumsByLikes()
+    //     break;
+    //     case 'Favs':
+    //     filterAlbumsByFavs()
+    //     break;
+    //     case 'Genre':
+    //     console.log(`Filter ${filter}`);
+    //     break;
+    //     case 'Runtime':
+    //     console.log(`Filter ${filter}`);
+    //     break;
+
+
+     
+
+    //   }
+    // }
 
     const onClick = (e) =>{
       // pass in currnet state so it is a togglel 

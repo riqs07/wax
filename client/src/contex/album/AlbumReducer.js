@@ -12,7 +12,8 @@ import {
     REVIEW_FAIL
 } from '../types'
 
-
+// Really dont think i need a lot of thesew
+// only ones that update the front end state 
 
 export default (state,action) => {
     switch (action.type){
@@ -66,8 +67,12 @@ export default (state,action) => {
                 albums:state.albums.filter(album => album.id !== action.payload)
             };
 
-
-
+        case FILTER_ALBUMS:
+            return{
+                ...state,
+                albums:action.payload,
+                loading:false
+            };
 
 
 

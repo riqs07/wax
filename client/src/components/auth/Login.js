@@ -19,8 +19,9 @@ const Login = (props) => {
 	const {albums} = albumContext
 
 
-    let rand = Math.floor(Math.random() * albums.length);
-    const {name,imageURL} = albums[rand]
+	//@issue not sure how this broke but its saying albums is null
+    // let rand = Math.floor(Math.random() * albums.length);
+    // const {name,imageURL} = albums[rand]
 
 
 	const [user, setUser] = useState({
@@ -56,9 +57,9 @@ const Login = (props) => {
 
 	return (
 		<Column50>
-			             <img src = {imageURL}></img>
+			             {/* <img src = {imageURL}></img> */}
 
-				<div className = 'form-container'>
+				<div >
 			<h1>Login</h1>
 			<Form onSubmit = {onSubmit}>
 				

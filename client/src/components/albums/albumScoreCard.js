@@ -29,6 +29,7 @@ const AlbumScoreCard = ({info }) => {
 		// need state to be passed in so its aware if user has like or nbot other than that its working 
 
 		addAlbumLike({albumID})
+		
 	};
 	const Fav = (e) => {
 		setIsFav(!isFav);

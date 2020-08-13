@@ -457,6 +457,7 @@ add_artist = [
 	{ name: "Marvin Gaye", genre: "R&B",imageURL:`${bucket}/artists/marvin_gaye.jpg` },
 	{ name: "Playboy Carti", genre: "Rap",imageURL:`${bucket}/artists/playboy_carti` },
     { name: "Young Thug", genre: "Rap",imageURL:`${bucket}/artists/young_thug.jpg` },
+    { name: "Tupac", genre: "Rap",imageURL:`${bucket}/artists/young_thug.jpg` },
   ];
   
 
@@ -478,6 +479,8 @@ add_artist = [
 	{ name: "Man on the Moon II: The Legend of Mr. Rager",artistID:6, runtime: 3720,genre: "Rap" ,imageURL:`${bucket}/motm2.jpg` },
 	{ name: "Melodrama",artistID:7, runtime: 2000,genre: "Pop" ,imageURL:`${bucket}/melodrama.webp` },
 	{ name: "Lets Get it on",artistID:8, runtime: 2300,genre: "R&B" ,imageURL:`${bucket}/lets_get_it_on.jpg` },
+  { name: "All Eyez on me",artistID:11, runtime: 2300,genre: "Rap" ,imageURL:`${bucket}/all_eyez_on_me` },
+  { name: "808s & Heartbreak",artistID:1, runtime: 3037,genre: "Rap" ,imageURL:`${bucket}/808s.jfif` }
 	
   ];
   
@@ -648,7 +651,6 @@ add_songLikes = [
 
   // then add view
 
- 
 
 
   exports.db = db

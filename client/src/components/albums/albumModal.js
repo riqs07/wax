@@ -25,7 +25,7 @@ const Modal = styled.div`
 	background: white;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
 	position: fixed;
-	top: 10vh;
+	top: 6vh;
 	left: 5%;
 	z-index: 10;
 

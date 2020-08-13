@@ -264,7 +264,7 @@ const AlbumState = props => {
         }
     }
     // Filter by rating
-    const filterAlbumsByRating= async id => {
+    const filterAlbumsByRating= async () => {
        
         const config = {
             headers:{
@@ -273,15 +273,15 @@ const AlbumState = props => {
         }
         try {
             
-            const res = await axios.post('http://localhost:9001/api/albums/ratings',id,config)
-            dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+            const res = await axios.get('http://localhost:9001/api/albums/ratings',config)
+            dispatch({type: FILTER_ALBUMS,payload:res.data})
 
         } catch(err){
             console.log(err)
         }
     }
     // Filter by favs
-    const filterAlbumsByFavs= async id  => {
+    const filterAlbumsByFavs= async ()  => {
        
         const config = {
             headers:{
@@ -290,15 +290,15 @@ const AlbumState = props => {
         }
         try {
             
-            const res = await axios.post('http://localhost:9001/api/albums/ratings',id,config)
-            dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+            const res = await axios.post('http://localhost:9001/api/albums/favs',config)
+            dispatch({type: FILTER_ALBUMS,payload:res.data})
 
         } catch(err){
             console.log(err)
         }
     }
     // Filter by likes
-    const filterAlbumsByLikes= async id => {
+    const filterAlbumsByLikes= async () => {
        
         const config = {
             headers:{
@@ -307,15 +307,15 @@ const AlbumState = props => {
         }
         try {
             
-            const res = await axios.post('http://localhost:9001/api/albums/ratings',id,config)
-            dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+            const res = await axios.post('http://localhost:9001/api/albums/likes',config)
+            dispatch({type: FILTER_ALBUMS,payload:res.data})
 
         } catch(err){
             console.log(err)
         }
     }
     // Filter by genre
-    const filterAlbumsByGenre= async id => {
+    const filterAlbumsByGenre= async genre => {
        
         const config = {
             headers:{
@@ -324,8 +324,8 @@ const AlbumState = props => {
         }
         try {
             
-            const res = await axios.post('http://localhost:9001/api/albums/ratings',id,config)
-            dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+            const res = await axios.post('http://localhost:9001/api/albums/genre',genre,config)
+            dispatch({type: FILTER_ALBUMS,payload:res.data})
 
         } catch(err){
             console.log(err)
@@ -368,7 +368,10 @@ const AlbumState = props => {
             addAlbumFav,
             addAlbumLike,
             getAlbums,
-            getAlbumSongs
+            getAlbumSongs,
+            filterAlbumsByRating,
+            filterAlbumsByLikes,
+            filterAlbumsByFavs
         }}>
 
 

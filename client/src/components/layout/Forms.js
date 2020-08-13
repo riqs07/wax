@@ -7,6 +7,8 @@ const Form = styled.form`
 	border-radius: 2rem;
 	padding: 1rem;
 	margin: 1rem;
+
+
 `;
 
 export default Form;

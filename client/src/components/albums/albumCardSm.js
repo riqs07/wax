@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 import { AlbumModal } from "./albumModal";
 import Backdrop from "../layout/Backdrop";
+import Spinner from "../layout/Spinner";
 const I = styled.i`
 	padding: 0.5rem;
 `;
@@ -59,23 +60,29 @@ const GridItem = ({ album }) => {
 
 	const [modalState, setModal] = useState(false);
 	const [hoverState, setHover] = useState(false);
+	const [loading,setLoading] = useState(true)
 
 	const manageModal = () => {
 		setModal(!modalState);
 	};
-	const manageHover = () => {
-		// setHover(!hoverState);
-	};
 
+// Want image to have loading spinner 
+// cant set loading to true if it never loads lol
 	return (
 		<>
-		
-			<Image
-				onMouseEnter={manageHover}
-				onMouseLeave={manageHover}
+{loading && (
+	<Spinner/>
+
+) }
+
+
+<Image
+				
+				onLoad={() =>setLoading(false)}
 				onClick={manageModal}
 				src={imageURL}
 				alt="artist image "></Image>
+			
 			<Wrapper>
 				
 				<Body>

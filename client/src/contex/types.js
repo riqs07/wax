@@ -28,6 +28,7 @@ export const CREATE_ALBUM = 'CREATE_ALBUM';
 export const UPDATE_ALBUM = 'UPDATE_ALBUM';
 export const DELETE_ALBUM = 'DELETE_ALBUM';
 
+export const FILTER_A = 'FILTER_BY_RATING'
 export const FILTER_BY_RATING = 'FILTER_BY_RATING'
 export const FILTER_BY_GENRE = 'FILTER_BY_GENRE'
 export const FILTER_BY_LIKES = 'FILTER_BY_LIKES'

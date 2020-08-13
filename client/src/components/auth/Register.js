@@ -22,8 +22,12 @@ const Register = (props) => {
 	const {albums} = albumContext
 
 
-	const rand = Math.floor(Math.random() * albums.length);
-    const {name,imageURL} = albums[rand]
+	//@issue not sure how this broke but its saying albums is null
+    // let rand = Math.floor(Math.random() * albums.length);
+    // const {name,imageURL} = albums[rand]
+
+	// const rand = Math.floor(Math.random() * albums.length);
+    // const {name,imageURL} = albums[rand]
 
 	useEffect(()=>{
 
@@ -50,7 +54,9 @@ const Register = (props) => {
     const [warnings,setWarnings] = useState({
         warning:'',
         suggestions:null
-    })
+	})
+	
+
 	const { username, email, password, password2 } = user;
 
 	const onChange = (e) => { 
@@ -83,16 +89,17 @@ const Register = (props) => {
 
         setPWStrength(score)
     }, [password])
-    
+	
+
 
 	return (
 		<Column50>
-		<div><h2>{name}</h2>
-		<img style = {{borderRadius:"50%"}}src = {imageURL}></img>
+		<div><h2>Nigga you gotta fix this shit</h2>
+		{/* <img style = {{borderRadius:"50%"}}src = {imageURL}></img> */}
 		</div>
 	
 
-		<div className = 'form-container'>
+		<div >
 			<h1>Register</h1>
 		     {warnings && 
             <h2>{warnings.warning}</h2>
@@ -112,6 +119,7 @@ const Register = (props) => {
 					<input type="email" name="email" value={email} onChange={onChange} required/>
 				</div>
                 <h2><em>Strength:{strength}</em></h2>
+				
 				<div className="form-group">
 					<label htmlFor="password">Password</label>
 					<input
