@@ -3,7 +3,7 @@ const router = express.Router();
 const { check, validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 const config = require("config");
-const { User, Album_review, UserAlbum } = require("../db");
+const { User, Album_review, UserAlbum ,UserArtists} = require("../db");
 const auth = require("../middleware/auth");
 const bcrypt = require("bcryptjs");
 
@@ -74,6 +74,56 @@ router.post(
 	}
 );
 
+// @route   Post users/profile 
+// @desc    GET User profile info 
+// @access  Private 
+router.post("/profile", auth, async (req, res) => {
+
+	// IF they dont have anything somehow on the fornt end show that error idk
+
+	topAlbums = await UserAlbum.findAll({
+		where: {userID: req.user.id,	},
+		order: [["avg", "DESC"]],
+		limit:3
+
+	})
+	
+	recentAlbums = await UserAlbum.findAll({
+		where: {userID: req.user.id	},
+		order: [["createdAt", "DESC"]],
+		limit:3
+
+	})
+
+	topArtists = await UserArtists.findAll({
+		// hard coded cause followrs not working yet 
+		where: {userID: 1},
+		order: [["createdAt", "DESC"]],
+		limit:3
+
+	})
+	
+	recentReviews = await Album_review.findAll({
+		// not working with where fix later!@
+		// where: {userID: req.user.id,	},
+		order: [["createdAt", "DESC"]],
+	})
+
+
+	// recently likes songs whenever songs is up and running as well 
+	/// magic recomendation algo goes here 
+	
+	const profile = {
+		topArtists,
+		recentAlbums,
+		topAlbums,
+	recentReviews
+	}
+	res.status(200).send(profile)
+		
+});
+
+
 // @route   GET users/albums
 // @desc    GET User albums
 // @access  Private
@@ -118,5 +168,7 @@ router.get("/", async (req, res) => {
 	const { id } = req.body;
 	User.findOne({ where: { id } }).then((x) => res.send(x));
 });
+
+
 
 module.exports = router;

@@ -56,7 +56,7 @@ const Actions = styled.div`
 	justify-content: flex-end;
 `;
 
-const AlbumStat = styled.ul`
+const AlbumStat = styled.li`
 	align-items: center;
 	justify-content: center;
 	font-size: 1rem;
@@ -186,7 +186,7 @@ export const AlbumModal = ({ album, manageModal }) => {
 				{reviewState && (
 					<ReviewForm manageReview={manageReview} album={album} />
 				)}
-				{ratingState && <RatingForm album={album} />}
+				{ratingState && <RatingForm manageRating={manageRating} album={album} />}
 			</Body>
 
 			<Actions>

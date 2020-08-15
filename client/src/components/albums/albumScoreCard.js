@@ -70,13 +70,17 @@ const AlbumScoreCard = ({info }) => {
 				)}
 			</h2>
 
-			{avg && (
+			{avg ? (
 				<h2>
 					Average Score is {" "}
 					<span style={{ color: "black" }}>{Math.round(avg)}</span>
 					<i style={{ color: "black" }} class="fa fa-flag-checkered fa-2x"></i>
 				</h2>
+			) : (
+				<h2>Be the first to rate this album!</h2>
 			)}
+				
+			
 		</Card>
 	);
 };

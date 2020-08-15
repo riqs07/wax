@@ -6,18 +6,24 @@ import Form from "../layout/Forms";
 import Colors from '../layout/Colors'
 
 
-const AlbumRating = ({ album }) => {
-	const { name, id } = album;
+const AlbumRating = ({ album ,manageRating}) => {
+	const { name, albumID } = album;
 	const [rating, setRating] = useState(0);
 	const albumContext = useContext(AlbumContext);
+
 
 	const onSubmit = (e) => {
 		e.preventDefault();
 		if (rating) {
 			albumContext.addAlbumRating({
-				albumID: id,
+				albumID,
 				rating,
 			});
+
+			
+		manageRating()
+		// set alert needs to trigger inside of modal
+
 		}
 	};
 

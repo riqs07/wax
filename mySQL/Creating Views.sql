@@ -41,17 +41,5 @@ group by songs.name;
 
 
 
-CREATE VIEW User_Albums AS
-select userID,albumID from album_favorites 
-inner join users on album_favorites.userID = users.id
-order by users.id;
-
-
-use wax2;
-
-select * from albums;
-
-insert into albums  (name,artistID,runtime,genre,createdAt,updatedAt)values
-('808s',1,300,'Rap','2020-08-10 19:29:16','2020-08-10 19:29:16');
 
 

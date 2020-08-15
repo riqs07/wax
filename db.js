@@ -239,8 +239,6 @@ const Song = db.define('song', {
       model: 'users',
       key: 'id'
   },
-  
-
 },
   })
   
@@ -322,17 +320,20 @@ const Playlist = db.define('playlists',{
       key: 'id'
   },
 },
+name:Sequelize.STRING,
 userID: {
   type: Sequelize.INTEGER,
   references: {
     model: 'users',
     key: 'id'
 },
-}
+},
+ascess:Sequelize.STRING
 
 })
 
 
+// VIEWS FROM THE 6
 // Pointing to stored dql data views
 // Need views in db first b4 cand be run 
 const AlbumFavLike = db.define('AlbumFavLike', {
@@ -399,6 +400,15 @@ const SongFavLike = db.define('SongFavLike', {
 
 
 const UserAlbum = db.define('User_Album', {
+
+  userID:{
+    type:Sequelize.INTEGER,
+    primaryKey:true,
+    references: {
+    model: 'users',
+    key: 'id'
+},
+  },
   albumID:{
     type:Sequelize.INTEGER,
     primaryKey:true,
@@ -408,20 +418,77 @@ const UserAlbum = db.define('User_Album', {
     key: 'id'
 },
 },
-  userID: {
+  artistID: {
     type:Sequelize.INTEGER,
-    primaryKey:true,
     references: {
-      model: 'users',
+      model: 'artists',
       key: 'id'
   },
 },
+artist:Sequelize.STRING,
 name:Sequelize.STRING,
+likes:Sequelize.INTEGER,
+favs:Sequelize.INTEGER,
+avg:Sequelize.INTEGER,
 imageURL:Sequelize.STRING,
+createdAt:Sequelize.DATE
 
 
   
 }, {timestamps: false});
+
+const UserArtists = db.define('User_Artist', {
+
+  userID:{
+    type:Sequelize.INTEGER,
+    primaryKey:true,
+    references: {
+    model: 'users',
+    key: 'id'
+},
+  },
+  artistID:{
+    type:Sequelize.INTEGER,
+    primaryKey:true,
+    references: {
+    model: 'artists',
+    key: 'id'
+},
+},
+  
+name:Sequelize.STRING,
+imageURL:Sequelize.STRING,
+createdAt:Sequelize.DATE,
+
+
+  
+}, {timestamps: false});
+
+
+const ArtistStats = db.define('artist_stat', {
+
+  artistID:{
+    type:Sequelize.INTEGER,
+    primaryKey:true,
+    references: {
+    model: 'artists',
+    key: 'id'
+},
+  },
+  name:Sequelize.STRING,
+  
+  Followers: Sequelize.INTEGER,
+album_fav_total:Sequelize.STRING,
+album_like_total:Sequelize.STRING,
+album_avg_rating:Sequelize.INTEGER,
+song_fav_total:Sequelize.INTEGER,
+song_like_total:Sequelize.INTEGER,
+song_avg_rating:Sequelize.INTEGER,
+
+  
+}, {timestamps: false});
+
+
 
 
 
@@ -459,7 +526,24 @@ add_artist = [
     { name: "Young Thug", genre: "Rap",imageURL:`${bucket}/artists/young_thug.jpg` },
     { name: "Tupac", genre: "Rap",imageURL:`${bucket}/artists/young_thug.jpg` },
   ];
-  
+  add_artistFollowers = [
+    {artistID:1,userID:1},
+    {artistID:1,userID:2},
+    {artistID:1,userID:3},
+    {artistID:1,userID:4},
+    {artistID:1,userID:5},
+    {artistID:1,userID:6},
+    {artistID:2,userID:1},
+    {artistID:2,userID:2},
+    {artistID:2,userID:3},
+    {artistID:2,userID:4},
+    {artistID:2,userID:5},
+    {artistID:2,userID:6},
+    {artistID:4,userID:1},
+    {artistID:5,userID:1},
+    {artistID:6,userID:1},
+    {artistID:7,userID:1},
+   ]
 
 // still need real lengths lol
   add_album = [
@@ -633,6 +717,10 @@ add_songLikes = [
   {songID:10,userID:10, rating:100},
   {songID:10,userID:9, rating:100},
  ];
+
+
+
+ 
   // --Insert first half
 
   // User.bulkCreate(add_users)
@@ -648,6 +736,7 @@ add_songLikes = [
   // Song_like.bulkCreate(add_songLikes)
   // Song_rating.bulkCreate(add_songRatings)
 
+  // Artist_follwer.bulkCreate(add_artistFollowers)
 
   // then add view
 
@@ -667,13 +756,16 @@ exports.Album_favorite = Album_favorite
 exports.Album_like = Album_like
 exports.Album_rating = Album_rating
 exports.Artist = Artist
+exports.Artist_follwer = Artist_follwer
 
 
-
+// VIEWS 
 
 exports.AlbumFavLike = AlbumFavLike
 exports.SongFavLike = SongFavLike
 exports.UserAlbum = UserAlbum
+exports.UserArtists = UserArtists
 exports.Album_review = Album_review
+exports.ArtistStats = ArtistStats
 
 

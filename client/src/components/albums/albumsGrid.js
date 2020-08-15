@@ -47,7 +47,8 @@ padding:1rem;
     const options = ['Rating','Likes','Favs','Genre','Runtime','Date']
 
     useEffect(() => {
-     getAlbums()
+    getAlbums()
+    
     }, [])
 
     // useEffect(() => {
@@ -55,25 +56,26 @@ padding:1rem;
       
     // }, [filter])
 
-    // const filterAlbums = (filter) =>{
-    //   switch(filter){
-    //     case 'Rating':
-    //       filterAlbumsByRating()
-    //     break;
-    //     case 'Likes':
-    //     filterAlbumsByLikes()
-    //     break;
-    //     case 'Favs':
-    //     filterAlbumsByFavs()
-    //     break;
-    //     case 'Genre':
-    //     console.log(`Filter ${filter}`);
-    //     break;
-    //     case 'Runtime':
-    //     console.log(`Filter ${filter}`);
-    //     break;
-
-
+      // const filterAlbums = (filter) =>{
+      //   switch(filter){
+      //     case 'Rating':
+      //       filterAlbumsByRating()
+      //     break;
+      //     case 'Likes':
+      //     filterAlbumsByLikes()
+      //     break;
+      //     case 'Favs':
+      //     filterAlbumsByFavs()
+      //     break;
+      //     case 'Genre':
+      //     console.log(`Filter ${filter}`);
+      //     break;
+      //     case 'Runtime':
+      //     console.log(`Filter ${filter}`);
+      //     break;
+      //   } 
+      
+        
      
 
     //   }

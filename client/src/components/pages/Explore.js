@@ -10,7 +10,7 @@ import {Column50} from '../layout/Grids'
     const {artists} = context
 
 
-    let rand = Math.floor(Math.random() * artists.length + 1 );
+    let rand = Math.floor(Math.random() * artists.length);
     const {name,imageURL} = artists[1]
     return (
         <Fragment>

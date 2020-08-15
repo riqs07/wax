@@ -97,7 +97,7 @@ const Home = () => {
 
 					<Img src={placeHolder}></Img>
 				</Grid5>
-				<Title>Recently Rated / Reviwed </Title>
+				<Title>Recently Faved Albums </Title>
 				<Grid5>
 					<Img src={placeHolder}></Img>
 

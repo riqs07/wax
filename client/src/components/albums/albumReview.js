@@ -20,8 +20,7 @@ const ReviewForm = ({album,manageReview}) => {
 	const albumContext = useContext(AlbumContext);
 	const alertContext = useContext(AlertContext);
 
-	const {setAlert} = alertContext
-	const {id ,name} = album
+	const {albumID ,name} = album
 
 	const [review, setReview] = useState();
 
@@ -32,12 +31,12 @@ const ReviewForm = ({album,manageReview}) => {
        
 		if(review){
 		albumContext.addAlbumReview({
-			albumID:id,
+			albumID,
 			review
 		});
 
 
-		setAlert('Review Added','sucess')
+		alertContext.setAlert('Review Added','sucess')
 		manageReview()
 		// set alert needs to trigger inside of modal
 
