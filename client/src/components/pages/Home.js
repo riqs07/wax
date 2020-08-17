@@ -1,8 +1,11 @@
-import React ,{useContext,useEffect} from "react";
+import React ,{useContext,useEffect,useState} from "react";
 import AuthContext from '../../contex/auth/AuthContext'
+import UserContext from '../../contex/users/UserContext'
 import { Column50 } from "../layout/Grids";
 import styled from "styled-components";
+import Spinner from './../layout/Spinner'
 
+import {AlbumProfileCard} from '../users/profileCard'
 
 const Grid3 = styled.ul`
 	display: grid;
@@ -53,83 +56,50 @@ const Home = () => {
 
 
 		const authContext = useContext(AuthContext)
+		const userContext = useContext(UserContext)
+
+		const {getProfile,profile} = userContext
+		const [loading,setLoading] = useState(true)
+
+
+		const {topArtists,topAlbums,recentAlbums} = profile
+
+		// NOt sure if i should pull profile here and then pass down the corresponmding info
+		// or just have components aware 
 
 		useEffect(()=>{
 			authContext.loadUser()
-			console.log('object')
+			getProfile()
 		},[])
-
+		
+	// /* Recent likes songs
+	// 	algo recomendation 
+	// 	etc */
+/* 	
+		// 		<Title>Top Artists 🎵</Title>
+	
+		// 		<Title> Recently Liked Songs 🎺 </Title>
+	
+	
+	
+		// 		<Title>Just For You 🎸 </Title>
+	
+		// 		<Title>More Algorithim goodness.🤖</Title> */
 
 	return (
+		
 		<Column50>
-			<div class="col-1">
-				<Title>Top Artists 🎵</Title>
-				<Grid3>
-					<Img src={placeHolder}></Img>
-					<Img src={placeHolder}></Img>
-					<Img src={placeHolder}></Img>
-				</Grid3>
-				<Title> Recently Liked Songs 🎺 </Title>
-				<Grid5>
-					<Img src={placeHolder}></Img>
-					<Img src={placeHolder}></Img>
-					<Img src={placeHolder}></Img>
-					<Img src={placeHolder}></Img>
-					<Img src={placeHolder}></Img>
-				</Grid5>
-			</div>
-			<div class="col-2">
-				
-				<Title>Favorite Albums 🎧</Title>
-				<Grid3>
-					<Img src={placeHolder}></Img>
-					<Img src={placeHolder}></Img>
-					<Img src={placeHolder}></Img>
-				</Grid3>
-				<Title>Just For You 🎸 </Title>
-				<Grid5>
-					<Img src={placeHolder}></Img>
+		
+			<AlbumProfileCard title ={'Your Top Albums 🎧'} albums = {topAlbums}/>
 
-					<Img src={placeHolder}></Img>
-
-					<Img src={placeHolder}></Img>
-					<Img src={placeHolder}></Img>
-
-					<Img src={placeHolder}></Img>
-				</Grid5>
-				<Title>Recently Faved Albums </Title>
-				<Grid5>
-					<Img src={placeHolder}></Img>
-
-					<Img src={placeHolder}></Img>
-
-					<Img src={placeHolder}></Img>
-					<Img src={placeHolder}></Img>
-
-					<Img src={placeHolder}></Img>
-				</Grid5>
-				<Title>More Algorithim goodness.🤖</Title>
-				<Grid5>
-					<Img src={placeHolder}></Img>
-
-					<Img src={placeHolder}></Img>
-
-					<Img src={placeHolder}></Img>
-					<Img src={placeHolder}></Img>
-
-					<Img src={placeHolder}></Img>
-					<Img src={placeHolder}></Img>
-
-					<Img src={placeHolder}></Img>
-
-					<Img src={placeHolder}></Img>
-					<Img src={placeHolder}></Img>
-
-					<Img src={placeHolder}></Img>
-				</Grid5>
-			</div>
-			
+	
+		<AlbumProfileCard title ={'Your Recent favorite Albums 🎶'}albums = {recentAlbums}/>
 		</Column50>
+
+		
+
+
+	
 	);
 };
 

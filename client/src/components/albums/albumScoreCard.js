@@ -1,6 +1,8 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import AlbumContext from '../../contex/album/AlbumContext'
+import {calculateAlbumScore} from "../../utils/algo"
+
 
 const Card = styled.div`
 	display: flex;
@@ -20,7 +22,10 @@ const AlbumScoreCard = ({info }) => {
 
 	
 
-	const { likes, favs, avg,albumID } = info;
+	const { likes, favs, avg,albumID ,score} = info;
+
+
+
 	const [isFav, setIsFav] = useState(false);
 	const [isLike, setIsLiked] = useState(false);
 	const Like = (e) => {
@@ -72,13 +77,21 @@ const AlbumScoreCard = ({info }) => {
 
 			{avg ? (
 				<h2>
-					Average Score is {" "}
+					Average Rating is {" "}
 					<span style={{ color: "black" }}>{Math.round(avg)}</span>
 					<i style={{ color: "black" }} class="fa fa-flag-checkered fa-2x"></i>
 				</h2>
 			) : (
 				<h2>Be the first to rate this album!</h2>
 			)}
+			{score && (
+				<h2>
+					Score {" "}
+					<span style={{ color: "black" }}>{Math.round(score)}</span>
+					<i style={{ color: "black" }} class="fa fa-flag-checkered fa-2x"></i>
+				</h2>
+			)}
+
 				
 			
 		</Card>

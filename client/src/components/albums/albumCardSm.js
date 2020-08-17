@@ -6,6 +6,10 @@ import styled from "styled-components";
 import { AlbumModal } from "./albumModal";
 import Backdrop from "../layout/Backdrop";
 import Spinner from "../layout/Spinner";
+
+import {calculateAlbumScore} from "../../utils/algo"
+
+
 const I = styled.i`
 	padding: 0.5rem;
 `;
@@ -56,10 +60,16 @@ const GridItem = ({ album }) => {
 		likes,
 		favs,
 		avg,
+		score
 	} = album;
 
+
+
+
+
+
+
 	const [modalState, setModal] = useState(false);
-	const [hoverState, setHover] = useState(false);
 	const [loading,setLoading] = useState(true)
 
 	const manageModal = () => {
@@ -81,13 +91,12 @@ const GridItem = ({ album }) => {
 				onLoad={() =>setLoading(false)}
 				onClick={manageModal}
 				src={imageURL}
-				alt="artist image "></Image>
+				alt="Album image "></Image>
 			
 			<Wrapper>
 				
 				<Body>
 					<h2>{name}</h2>
-					{hoverState && <h3>{artist}</h3>}
 					<Stats>
 						
 							<li>

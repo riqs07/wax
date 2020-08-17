@@ -13,7 +13,6 @@ import Explore from "./components/pages/Explore";
 import Home from "./components/pages/Home";
 
 import AlbumsPage from "./components/pages/AlbumsPage";
-import SongsPage from "./components/pages/SongsPage";
 import ArtistsPage from "./components/pages/ArtistsPage";
 import PageNotFound from "./components/pages/PageNotFound";
 
@@ -21,6 +20,7 @@ import ArtistState from "./contex/artists/ArtistState";
 import AlbumState from "./contex/album/AlbumState";
 import AuthState from "./contex/auth/AuthState";
 import AlertState from "./contex/alert/AlertState";
+import UserState from "./contex/users/UserState";
 
 import setAuthToken from './utils/setAuthToken'
 
@@ -36,8 +36,11 @@ const Wrapper = styled.div`
 function App() {
 	return (
 		<AuthState>
+
+		
 			<ArtistState>
 				<AlbumState>
+			<UserState>
           <AlertState>
 
 					<Router>
@@ -50,7 +53,6 @@ function App() {
 									<PrivateRoute exact path="/home" component={Home} />
 									<PrivateRoute exact path="/artists" component={ArtistsPage} />
 									<PrivateRoute exact path="/albums" component={AlbumsPage} />
-									<PrivateRoute exact path="/songs" component={SongsPage} />
 									<Route exact path="/register" component={Register} />
 									<Route exact path="/login" component={Login} />
 									<Route render={PageNotFound} />
@@ -59,6 +61,7 @@ function App() {
 						</Fragment>
 					</Router>
           </AlertState>
+			</UserState>
 				</AlbumState>
 			</ArtistState>
 		</AuthState>

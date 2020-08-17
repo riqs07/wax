@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const auth = require("../middleware/auth");
 
-const { Artist, AlbumFavLike, Song, Album, SongFavLike ,Artist_favorite} = require("../db");
+const { Artist, AlbumFavLike, ArtistStats, Album, SongFavLike ,Artist_favorite} = require("../db");
 
 /// GETS///
 
@@ -19,7 +19,7 @@ router.post("/", async (req, res) => {
 // @desc    Get all Artists
 // @access  Public
 router.get("/", async (req, res) => {
-	Artist.findAll()
+	ArtistStats.findAll()
 		.then((x) => res.send(x))
 		.catch((err) => console.log(err));
 });

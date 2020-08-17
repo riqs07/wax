@@ -11,9 +11,10 @@ order by `Total Favs` desc
 ;
 
 
-CREATE VIEW AlbumFavLikes AS
+create view albumfavlikes as 
 select artists.id as 'artistID' ,artists.name as `artist`,albums.id as 'albumID',albums.name,
 count(distinct album_likes.userID) as 'likes', count(distinct album_favorites.userID) as 'favs',avg(album_ratings.rating) as `avg`,
+round(count(distinct album_likes.userID)*3 + count(distinct album_favorites.userID)*1.8 + ((avg(album_ratings.rating)*1.8)/3)) as 'score',
 release_year,runtime,albums.genre,artists.imageURL as 'artist_imageURL',albums.imageURL as 'imageURL'
 from albums
 inner join artists on albums.artistID = artists.id
@@ -25,7 +26,7 @@ order by `avg` desc
 ;
 
 
-
+ 
 CREATE VIEW SongFavLikes AS
 select  albums.id as 'albumID',albums.name as 'album',artists.id as 'artistID', songs.id as 'songID',songs.name as 'name',
 count(distinct song_likes.userID) as 'likes', count(distinct song_favorites.userID) as 'favs',avg(song_ratings.rating) as `avg`,
@@ -43,3 +44,4 @@ group by songs.name;
 
 
 
+select * from albums;

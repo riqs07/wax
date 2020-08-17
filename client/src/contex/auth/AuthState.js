@@ -105,11 +105,6 @@ const AuthState = (props) => {
 		dispatch({ type: CLEAR_ERRORS });
 	};
 
-	//Load user
-	// login
-	//logout
-	//clear errirs
-	//register
 	const [state, dispatch] = useReducer(reducer, initialState);
 	return (
 		<AuthContext.Provider

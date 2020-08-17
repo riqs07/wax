@@ -104,8 +104,7 @@ router.post("/profile", auth, async (req, res) => {
 	})
 	
 	recentReviews = await Album_review.findAll({
-		// not working with where fix later!@
-		// where: {userID: req.user.id,	},
+		where: {userID: req.user.id,	},
 		order: [["createdAt", "DESC"]],
 	})
 

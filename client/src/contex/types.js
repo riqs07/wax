@@ -1,5 +1,6 @@
 // Albums
 export const GET_ALBUMS = 'GET_ALBUMS';
+export const GET_ARTISTS = 'GET_ARTISTS';
 
 export const ADD_ALBUM_REVIEW = 'ADD_ALBUM_REVIEW';
 export const ADD_ALBUM_RATING = 'ADD_ALBUM_RATING';
@@ -37,7 +38,7 @@ export const FILTER_BY_DATE = 'FILTER_BY_DATE'
 export const FILTER_BY_RUNTIME = 'FILTER_BY_RUNTIME'
 
 
-
+export const GET_PROFILE = 'GET_PROFILE'
 
 
 

@@ -2,7 +2,10 @@ import React from 'react'
 import {PrimaryButton,SecondaryButton} from '../layout/Buttons'
 
 const artistTopCard = ({artist}) => {
-    const {name,imageURL} = artist
+  const {name,imageURL,score,followers,album_fav_total,album_like_total} = artist
+
+  let interactions = album_fav_total + album_like_total  
+
     return (
         <div class="wrapper">
  
@@ -24,19 +27,19 @@ const artistTopCard = ({artist}) => {
       
             <div class="artist-card-inf">
               <div class="artist-card-inf__item">
-                <div class="artist-card-inf__title">{'130'}</div>
+                <div class="artist-card-inf__title">{followers}</div>
                 <div class="artist-card-inf__txt"><i className="fas fa-users fa-2x"></i></div>
               </div>
       
               
       
               <div class="artist-card-inf__item">
-                <div class="artist-card-inf__title">{'1200'}</div>
+                <div class="artist-card-inf__title">{score}</div>
                 <div class="artist-card-inf__txt"><i className="fas fa-flag-checkered fa-2x"></i></div>
               </div>
       
               <div class="artist-card-inf__item">
-                <div class="artist-card-inf__title">{'290'}</div>
+                <div class="artist-card-inf__title">{'123'}</div>
                 <div class="artist-card-inf__txt"><i className="fa fa-heart fa-2x"></i></div>
               </div>
               <PrimaryButton>Follow </PrimaryButton>

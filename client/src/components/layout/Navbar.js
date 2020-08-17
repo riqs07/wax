@@ -30,12 +30,12 @@ const Navbar = ({ title, icon }) => {
 
 	const authLinks = (
 		<Fragment>
-			<li>Hello, {user && user.name}</li>
+			<li>Welcome, {user && user.name}</li>
 			<li>
-				<Link to="/home">Home </Link>
+				<Link to="/home"><i className="fas fa-home"></i> Home </Link>
 			</li>
 			<li>
-				<Link to="/discover">Discover </Link>
+				<Link to="/discover"><i class="fas fa-search"></i> Discover </Link>
 			</li>
 			<li>
 				<Link to="/artists">Artists </Link>
@@ -43,10 +43,7 @@ const Navbar = ({ title, icon }) => {
 			<li>
 				<Link to="/albums">Albums </Link>
 			</li>
-			<li>
-				<Link to="/songs">Songs </Link>
-			</li>
-
+			
 			<li>
 				<Link to="/playlists">Playlists </Link>
 			</li>
@@ -78,9 +75,9 @@ const Navbar = ({ title, icon }) => {
 
 	// styled component messed up flex box
 	return (
-		<div class="navbar bg-primary">
+		<div className="navbar bg-primary">
 			<h1>
-				<Link to="/">
+				<Link to="/home">
 					<i className={icon} /> {title}{" "}
 				</Link>
 			</h1>

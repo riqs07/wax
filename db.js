@@ -51,6 +51,10 @@ const User = db.define('user', {
           isEmail: true,    
       },
   },
+  ascess:{
+    type:Sequelize.STRING,
+    defaultValue: 'basic' 
+  }
   
 });
 
@@ -328,7 +332,10 @@ userID: {
     key: 'id'
 },
 },
-ascess:Sequelize.STRING
+ascess:{
+  type:Sequelize.STRING,
+  defaultValue:'private'
+}
 
 })
 
@@ -355,6 +362,7 @@ const AlbumFavLike = db.define('AlbumFavLike', {
   likes:Sequelize.INTEGER,
   favs:Sequelize.INTEGER,
   avg:Sequelize.INTEGER,
+  score:Sequelize.INTEGER,
   release_year:Sequelize.DATE,
   runtime:Sequelize.INTEGER,
   genre:Sequelize.STRING,
@@ -390,6 +398,7 @@ const SongFavLike = db.define('SongFavLike', {
   likes:Sequelize.INTEGER,
   favs:Sequelize.INTEGER,
   avg:Sequelize.INTEGER,
+  score:Sequelize.INTEGER,
   runtime:Sequelize.INTEGER,
   genre:Sequelize.STRING,
   linkURL:Sequelize.STRING,
@@ -400,15 +409,7 @@ const SongFavLike = db.define('SongFavLike', {
 
 
 const UserAlbum = db.define('User_Album', {
-
-  userID:{
-    type:Sequelize.INTEGER,
-    primaryKey:true,
-    references: {
-    model: 'users',
-    key: 'id'
-},
-  },
+  
   albumID:{
     type:Sequelize.INTEGER,
     primaryKey:true,
@@ -430,7 +431,9 @@ name:Sequelize.STRING,
 likes:Sequelize.INTEGER,
 favs:Sequelize.INTEGER,
 avg:Sequelize.INTEGER,
+score:Sequelize.INTEGER,
 imageURL:Sequelize.STRING,
+artist_imageURL:Sequelize.STRING,
 createdAt:Sequelize.DATE
 
 
@@ -478,12 +481,13 @@ const ArtistStats = db.define('artist_stat', {
   name:Sequelize.STRING,
   
   Followers: Sequelize.INTEGER,
-album_fav_total:Sequelize.STRING,
-album_like_total:Sequelize.STRING,
+album_fav_total:Sequelize.INTEGER,
+album_like_total:Sequelize.INTEGER,
 album_avg_rating:Sequelize.INTEGER,
 song_fav_total:Sequelize.INTEGER,
 song_like_total:Sequelize.INTEGER,
 song_avg_rating:Sequelize.INTEGER,
+score:Sequelize.INTEGER
 
   
 }, {timestamps: false});
@@ -563,7 +567,7 @@ add_artist = [
 	{ name: "Man on the Moon II: The Legend of Mr. Rager",artistID:6, runtime: 3720,genre: "Rap" ,imageURL:`${bucket}/motm2.jpg` },
 	{ name: "Melodrama",artistID:7, runtime: 2000,genre: "Pop" ,imageURL:`${bucket}/melodrama.webp` },
 	{ name: "Lets Get it on",artistID:8, runtime: 2300,genre: "R&B" ,imageURL:`${bucket}/lets_get_it_on.jpg` },
-  { name: "All Eyez on me",artistID:11, runtime: 2300,genre: "Rap" ,imageURL:`${bucket}/all_eyez_on_me` },
+  { name: "All Eyez on me",artistID:11, runtime: 2300,genre: "Rap" ,imageURL:`${bucket}/all_eyez_on_me.jpg` },
   { name: "808s & Heartbreak",artistID:1, runtime: 3037,genre: "Rap" ,imageURL:`${bucket}/808s.jfif` }
 	
   ];
@@ -739,8 +743,6 @@ add_songLikes = [
   // Artist_follwer.bulkCreate(add_artistFollowers)
 
   // then add view
-
-
 
   exports.db = db
 

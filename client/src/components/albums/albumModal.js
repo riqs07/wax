@@ -3,7 +3,6 @@
 
 import React, { Fragment, useContext, useState, useEffect } from "react";
 import AlbumContext from "../../contex/album/AlbumContext";
-import PropTypes from "prop-types";
 import styled from "styled-components";
 import AlbumScoreCard from "./albumScoreCard";
 import ReviewForm from "./albumReview";
@@ -15,13 +14,18 @@ import {
 	SecondaryButton,
 	TertiaryButton,
 } from "../layout/Buttons";
-import axios from "axios";
 
 import { Column50 } from "../layout/Grids";
-//// weird media queris look into it
+
+
+const FlexBox = styled.div`
+	display:flex;
+	
+
+`
+
 const Modal = styled.div`
 	width: 90%;
-
 	background: white;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
 	position: fixed;
@@ -29,17 +33,19 @@ const Modal = styled.div`
 	left: 5%;
 	z-index: 10;
 
-	@media (mid-width: 768px) {
-		.modal {
-			width: 30rem;
-			left: calc(100% -30rem) / 2;
-		}
-	}
+
 `;
 const I = styled.i`
 	padding: 0.5rem;
 `;
 
+
+// i guess this works but it dosent seem like the right solutiuon
+//	 the solution is GRIDS BABY 
+const SideImage = styled.img`
+height:65vh;	
+object-fit:cover;
+`
 const Header = styled.h1`
 	padding: 1rem;
 	color: ${Colors.text};
@@ -49,7 +55,6 @@ const Header = styled.h1`
 `;
 
 const Body = styled.section`
-	padding: 1rem;
 `;
 const Actions = styled.div`
 	display: flex;
@@ -65,8 +70,7 @@ const AlbumStat = styled.li`
 const Image = styled.img`
 	width: 20rem;
 	height: 20rem;
-	margin-left: auto;
-	margin-right: auto;
+	
 	border-radius: 2rem;
 	position: relative;
 	z-index: 4;
@@ -74,14 +78,7 @@ const Image = styled.img`
 		0px 0px 0px 7px rgba(52, 152, 218, 0.5);
 `;
 
-
 export const AlbumModal = ({ album, manageModal }) => {
-	// General idea is you get more info than on big scroller componentn and can interact with DB from here in various ways
-	// since this page only pops on click i could have it fire off some cool async functions to the db to get some intresting questions etc
-
-	// figure out a way to check to see if user has review & rating & like & fav for this album then display with update state
-	//if not display just add state
-	// artist picture
 
 	const context = useContext(AlbumContext)
 	const {getAlbumSongs} = context
@@ -99,10 +96,12 @@ export const AlbumModal = ({ album, manageModal }) => {
 		likes,
 		favs,
 		avg,
+		score,
 	} = album;
 
 	const stats = {
 		albumID,
+		score,
 		likes,
 		favs,
 		avg,
@@ -142,19 +141,24 @@ export const AlbumModal = ({ album, manageModal }) => {
 	
 	};
 
+	// side image needs to have a parent element telling it how big to be 
+	// when i do it though it looks weird for now images are showing big like how i want 
+	// but they dont have a standard res so it pushes some white space below my action buttons 
+// GRIDS BABY i
 	return (
+		
+		
+		
+		
 		<Modal>
-			<Header>{name}</Header>
-			<Body>
+			<FlexBox>
+				<SideImage src = {artist_ImageURL} alt = "Artist_image"/>
+						<Body>
+				<Header>{`${name} by ${artist}`}</Header>
 				{imageURL && (
-					<Column50>
-						{/* first image is stretchd idk why */}
-
-						<Image src={artist_ImageURL} alt="Artist Image"></Image>
-
-						<Image src={imageURL} alt="Artist Image"></Image>
-					</Column50>
-				)}
+				
+						<Image src={imageURL} alt="album_Image"></Image>
+								)}
 				{artist}
 				<ul className="album-card--stats">
 					<AlbumScoreCard info ={stats} />
@@ -187,9 +191,8 @@ export const AlbumModal = ({ album, manageModal }) => {
 					<ReviewForm manageReview={manageReview} album={album} />
 				)}
 				{ratingState && <RatingForm manageRating={manageRating} album={album} />}
-			</Body>
-
 			<Actions>
+
 				{/* Maybe have add reveiw button after user clicks reviews to cut down on ui buttons*/}
 				{reviewState ? (
 					<PrimaryButton onClick={manageReview}>Cancel 📜</PrimaryButton>
@@ -208,6 +211,13 @@ export const AlbumModal = ({ album, manageModal }) => {
 
 				<TertiaryButton onClick={manageModal}>❌</TertiaryButton>
 			</Actions>
+			</Body>
+		</FlexBox>
 		</Modal>
 	);
 };
+
+
+export const miniAlbumModal = ({album,manageModal}) =>{
+
+}

@@ -46,13 +46,19 @@ justify-content:center;
     // default sort by ratings 
     const context = useContext(ArtistContext)
 
-    const {artists } = context
 
+    const {getAllArtists,artists} = context
 
-  
-    let top = artists[0]
-    let two = artists[1]
-    let three = artists[2]
+  // console.log(artists)
+    useEffect(() => {
+      getAllArtists()
+    
+    }, [])
+
+    // let top = artists.shift()
+    // let two =  artists.shift()
+    // let three =  artists.shift()
+
   
     const [filter,setFilter] = useState('Rating')
     const options = ['Score','Likes','Favs','Followers','Genre']
@@ -78,10 +84,10 @@ justify-content:center;
         ))}
     </Filter>
           <TopRankGrid>
-
-           <TopRankCard artist = {top}/>
-           <TopRankCard artist = {two}/>
-           <TopRankCard artist = {three}/>
+{/* 
+           <TopRankCard artist = {top}/> */}
+           {/* <TopRankCard artist = {two}/>
+           <TopRankCard artist = {three}/> */}
           </TopRankGrid>
             
             
