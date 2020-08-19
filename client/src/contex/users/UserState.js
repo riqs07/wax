@@ -10,7 +10,8 @@ const UserState = props => {
     const initialState = {
         profile:{
                 topArtists:[],
-                recentAlbums:[],
+                recentFavAlbums:[],
+                recentLikedAlbums:[],
                 topAlbums:[],
             recentReviews:[]
           

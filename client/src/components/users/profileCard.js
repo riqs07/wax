@@ -1,14 +1,9 @@
 import React, { useContext, useState, useEffect } from "react";
-import UserContext from "../../contex/users/UserContext";
-import AlbumContext from "../../contex/album/AlbumContext";
-import { AlbumModal } from "../../components/albums/albumModal";
-import Spinner from "../layout/Spinner";
-import Backdrop from "../layout/Backdrop";
-
 import CardSm from "../albums/albumCardSm";
-
 import styled from "styled-components";
 import artistTopCard from "../artists/artistTopCard";
+
+
 const Grid3 = styled.ul`
 	display: grid;
 	align-content: center;
@@ -44,13 +39,14 @@ const Li = styled.li`
 	padding: 1rem;
 `;
 
-export const AlbumProfileCard = ({ title, albums }) => {
-	const [loading, setLoading] = useState(false);
-
+ const AlbumProfileCard = ({ title, albums }) => {
+	
+	
 	return (
 		<>
+	
 			<Title>{title}</Title>
-            <Grid3 onLoad={() => setLoading(true)}>
+            <Grid3>
 					{albums.map((album) => (
 						<Li>
 							<CardSm album={album} />
@@ -61,3 +57,5 @@ export const AlbumProfileCard = ({ title, albums }) => {
 		</>
 	);
 };
+
+export default AlbumProfileCard

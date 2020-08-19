@@ -6,14 +6,17 @@ import TopRankCard from '../artists/artistTopCard'
 import styled from 'styled-components'
 import {SecondaryButton} from './../layout/Buttons'
 import Colors from './../layout/Colors'
+import Select from 'react-select'
+
+// Will use "Netlflix grid for liked "
 
 
 
 const Grid = styled.ul`
 display:flex;
 align-content:center;
-overflow-x:scroll;
-overflow-y:hidden;
+flex-wrap: wrap;
+padding:1rem;
 
 `
 const TopRankGrid = styled.ul`
@@ -26,6 +29,7 @@ padding:1rem;
 
 const Li = styled.li`
 list-style:none;
+flex-basis: 33%;
 padding:1rem;
 transition: transform 450ms;
 
@@ -38,6 +42,7 @@ transition: transform 450ms;
 
 const Filter = styled.ul`
 display:flex;
+flex-wrap:wrap;
 border:2px solid ${Colors.primary};
 border-Radius:20px;
 justify-content:center;
@@ -61,7 +66,12 @@ justify-content:center;
 
   
     const [filter,setFilter] = useState('Rating')
-    const options = ['Score','Likes','Favs','Followers','Genre']
+    const options = [ 
+      { value: 'Score', label: 'Score' },
+    { value: 'Likes', label: 'Likes' },
+    { value: 'Favs', label: 'Favs' },
+    { value: 'Followers', label: 'Followers' }
+  ]
 
 
     useEffect(() => {
@@ -71,18 +81,7 @@ justify-content:center;
       return (
 
         <Fragment>
-               <Filter >
-        {options.map((option) => (
-            <li key={option}>
-                <SecondaryButton
-                    
-                    style={option === filter ? { color: 'rgb(187,46,31)' } : null}
-                    onClick={() => setFilter(option)}>
-                    {option}
-                </SecondaryButton>
-            </li>
-        ))}
-    </Filter>
+            <Select options = {options}/>
           <TopRankGrid>
 {/* 
            <TopRankCard artist = {top}/> */}

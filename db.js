@@ -440,6 +440,39 @@ createdAt:Sequelize.DATE
   
 }, {timestamps: false});
 
+
+const UserAlbumLikes = db.define('User_Album_likes', {
+  
+  albumID:{
+    type:Sequelize.INTEGER,
+    primaryKey:true,
+
+    references: {
+    model: 'albums',
+    key: 'id'
+},
+},
+  artistID: {
+    type:Sequelize.INTEGER,
+    references: {
+      model: 'artists',
+      key: 'id'
+  },
+},
+artist:Sequelize.STRING,
+name:Sequelize.STRING,
+likes:Sequelize.INTEGER,
+favs:Sequelize.INTEGER,
+avg:Sequelize.INTEGER,
+score:Sequelize.INTEGER,
+imageURL:Sequelize.STRING,
+artist_imageURL:Sequelize.STRING,
+createdAt:Sequelize.DATE
+
+
+  
+}, {timestamps: false});
+
 const UserArtists = db.define('User_Artist', {
 
   userID:{
@@ -478,15 +511,13 @@ const ArtistStats = db.define('artist_stat', {
     key: 'id'
 },
   },
+  imageURL:Sequelize.STRING,
   name:Sequelize.STRING,
   
   Followers: Sequelize.INTEGER,
 album_fav_total:Sequelize.INTEGER,
 album_like_total:Sequelize.INTEGER,
 album_avg_rating:Sequelize.INTEGER,
-song_fav_total:Sequelize.INTEGER,
-song_like_total:Sequelize.INTEGER,
-song_avg_rating:Sequelize.INTEGER,
 score:Sequelize.INTEGER
 
   
@@ -518,17 +549,24 @@ add_users = [
 const bucket = 'https://waxhades123.s3.us-east-2.amazonaws.com'
 
 add_artist = [
-	{ name: "Kanye West ", genre: "Rap" ,imageURL:`${bucket}/kanye-west.webp`},
-	{ name: "Dua Lipa", genre: "Pop" ,  imageURL:`${bucket}/Dua-Lipa.webp` },
-	{ name: "The Weeknd", genre: "R&B" ,imageURL:`${bucket}/artists/the-weekend.webp` },
+	{ name: "Kanye West ", genre: "Rap" ,imageURL:`${bucket}/artists/kanye_west.jpg`},
+	{ name: "Dua Lipa", genre: "Pop" ,  imageURL:`${bucket}/artists/dua_lipa.jpg` },
+	{ name: "The Weeknd", genre: "R&B" ,imageURL:`${bucket}/artists/the_weekend.webp` },
 	{ name: "Lil Uzi Vert", genre: "Rap" ,imageURL:`${bucket}/artists/lil_uzi.jpg`},
     { name: "Drake", genre: "Rap", imageURL:`${bucket}/artists/drake.jfif`},
     { name: "Kid Cudi", genre: "Rap",imageURL:`${bucket}/artists/kid_cudi.jpg` },
-	{ name: "Lorde", genre: "Pop", imageURL:`${bucket}/artists/lorde.webp`},
-	{ name: "Marvin Gaye", genre: "R&B",imageURL:`${bucket}/artists/marvin_gaye.jpg` },
-	{ name: "Playboy Carti", genre: "Rap",imageURL:`${bucket}/artists/playboy_carti` },
+	{ name: "Lorde", genre: "Pop", imageURL:`${bucket}/artists/lorde.jpg`},
+	{ name: "Marvin Gaye", genre: "R&B",imageURL:`${bucket}/artists/marvin_gaye.png` },
+	{ name: "Playboy Carti", genre: "Rap",imageURL:`${bucket}/artists/playboy_carti.jfif` },
     { name: "Young Thug", genre: "Rap",imageURL:`${bucket}/artists/young_thug.jpg` },
-    { name: "Tupac", genre: "Rap",imageURL:`${bucket}/artists/young_thug.jpg` },
+    { name: "Tupac", genre: "Rap",imageURL:`${bucket}/artists/tupac.webp` },
+    { name: "MF DOOM", genre: "Rap",imageURL:`${bucket}/artists/mf_doom.jpeg` },
+    { name: "Travis Scott", genre: "Rap",imageURL:`${bucket}/artists/travis_scott.jpg` },
+    { name: "Future", genre: "Rap",imageURL:`${bucket}/artists/future.webp` },
+    { name: "Bob Marley", genre: "Reggae",imageURL:`${bucket}/artists/bob_marley.jpg` },
+    { name: "Daft Punk", genre: "Electronic",imageURL:`${bucket}/artists/daft_punk.jfif` },
+    { name: "Freddie Gibbs", genre: "Rap",imageURL:`${bucket}/artists/freddie_gibbs.jpg` },
+    { name: "Frank Ocean", genre: "R&B",imageURL:`${bucket}/artists/frank_ocean.jpg` },
   ];
   add_artistFollowers = [
     {artistID:1,userID:1},
@@ -549,27 +587,67 @@ add_artist = [
     {artistID:7,userID:1},
    ]
 
-// still need real lengths lol
-  add_album = [
-	{ name: "Yeezus ", artistID:1,runtime: 1500,genre: "Rap" ,imageURL: `${bucket}/yeezus.jpg`},
-	{ name: "ye", artistID:1,runtime: 2500,genre: "Rap" ,imageURL:`${bucket}/ye.webp` },
-	{ name: "College dropout ", artistID:1,runtime: 4500,genre: "Rap",imageURL: `${bucket}/college_dropout.webp`},
-	{ name: "Graduation ", artistID:1,runtime: 1500,genre: "Rap" ,imageURL: `${bucket}/graduation.jpg`},
-	{ name: "Watch the throne ", artistID:1,runtime: 5500,genre: "Rap",imageURL: `${bucket}/Watch_The_Throne.jpg` },
-	{ name: "Future Nostalgia",artistID:2,runtime: 5200,genre: "Pop" ,imageURL:`${bucket}/future_nostalgia.jpg`},
-	{ name: "Trilogy",artistID:3, runtime: 5005,genre: "R&B" ,imageURL:`${bucket}/trilogy.png` },
-    { name: "After Hours", artistID:3, runtime: 5040,genre: "R&B" ,imageURL:`${bucket}/after_hours.jpg` },
-    { name: "Starboy",artistID:3,  runtime: 5001,genre: "R&B" ,imageURL:`${bucket}/starboy.jpg` },
-    { name: "Beauty Behind the Madness",artistID:3,  runtime: 500,genre: "R&B" ,imageURL:`${bucket}/beauty_behind_the_madness.jfif` },
-	{ name: "Playboy Carti",artistID:9, runtime: 5090,genre: "Rap" ,imageURL: `${bucket}/playboy_carti.png`},
-	{ name: "Die lit",artistID:9, runtime: 5070,genre: "Rap" ,imageURL:`${bucket}/die_lit.webp` },
-	{ name: "Man on the Moon: The End of Day",artistID:6, runtime: 5070,genre: "Rap" ,imageURL:`${bucket}/motm1.jpg` },
-	{ name: "Man on the Moon II: The Legend of Mr. Rager",artistID:6, runtime: 3720,genre: "Rap" ,imageURL:`${bucket}/motm2.jpg` },
-	{ name: "Melodrama",artistID:7, runtime: 2000,genre: "Pop" ,imageURL:`${bucket}/melodrama.webp` },
-	{ name: "Lets Get it on",artistID:8, runtime: 2300,genre: "R&B" ,imageURL:`${bucket}/lets_get_it_on.jpg` },
-  { name: "All Eyez on me",artistID:11, runtime: 2300,genre: "Rap" ,imageURL:`${bucket}/all_eyez_on_me.jpg` },
-  { name: "808s & Heartbreak",artistID:1, runtime: 3037,genre: "Rap" ,imageURL:`${bucket}/808s.jfif` }
-	
+//future & gibbs & franks lenghts not accutrate
+// fix later im lazy   
+// release year needs to be change to just show year in DB 
+add_album = [
+	{ name: "Yeezus ", artistID:1,release_year: 2013,runtime: 2400,genre: "Rap" ,imageURL: `${bucket}/albums/yeezus.jpg`},
+	{ name: "ye", artistID:1,release_year: 2018,runtime: 1380,genre: "Rap" ,imageURL:`${bucket}/albums/ye.webp` },
+	{ name: "College dropout ", artistID:1,release_year: 2004,runtime: 4380,genre: "Rap",imageURL: `${bucket}/albums/college_dropout.webp`},
+	{ name: "Graduation ", artistID:1,release_year: 2008,runtime: 3072,genre: "Rap" ,imageURL: `${bucket}/albums/graduation.jpg`},
+	{ name: "Watch the throne ", artistID:1,release_year: 2011,runtime: 2772,genre: "Rap",imageURL: `${bucket}/albums/Watch_The_Throne.jpg` },
+	{ name: "The Life of Pablo ", artistID:1,release_year: 2016,runtime: 3960,genre: "Rap",imageURL: `${bucket}/albums/life_of_pablo.webp` },
+  { name: "808s & Heartbreak",artistID:1, release_year: 2008,runtime: 3037,genre: "Rap" ,imageURL:`${bucket}/albums/808s.jfif` },
+	{ name: "Future Nostalgia",artistID:2,release_year: 2020,runtime: 2220,genre: "Pop" ,imageURL:`${bucket}/albums/future_nostalgia.jpg`},
+	{ name: "Dua Lipa",artistID:2,release_year: 2008,runtime: 2443,genre: "Pop" ,imageURL:`${bucket}/albums/dua_lipa_albu%2C.png`},
+	{ name: "Trilogy",artistID:3, release_year: 2011,runtime: 9600,genre: "R&B" ,imageURL:`${bucket}/albums/trilogy.png` },
+    { name: "After Hours", artistID:3,release_year: 2020, runtime: 5040,genre: "R&B" ,imageURL:`${bucket}/albums/after_hours.jpg` },
+    { name: "Starboy",artistID:3, release_year: 2016, runtime: 5001,genre: "R&B" ,imageURL:`${bucket}/albums/starboy.jpg` },
+    { name: "Beauty Behind the Madness",artistID:3, release_year: 2015, runtime: 500,genre: "R&B" ,imageURL:`${bucket}/albums/beauty_behind_the_madness.jfif` },
+    { name: "Eternal Atake",artistID:4, release_year: 2020, runtime: 3733,genre: "Rap" ,imageURL:`${bucket}/albums/eternal_atake.jpg` },
+    { name: "Lil Uzi Vert vs. the World 2",artistID:4, release_year: 2020, runtime: 2734,genre: "Rap" ,imageURL:`${bucket}/albums/uzi_vs_the_world.jpg` },
+    { name: "Luv is Rage 2",artistID:4, release_year: 2018, runtime: 3373,genre: "Rap" ,imageURL:`${bucket}/albums/luv_is_rage2.webp` },
+    { name: "Take Care",artistID:5,release_year: 2011, runtime: 4818,genre: "Rap" ,imageURL:`${bucket}/albums/take_care.jpg` },
+    { name: "If you're Reading this its Too Late",artistID:5, release_year: 2015,runtime: 4118,genre: "Rap" ,imageURL:`${bucket}/albums/too_late.jpg` },
+    { name: "Nothing was the Same",artistID:5, release_year: 2008,runtime: 3562,genre: "Rap" ,imageURL:`${bucket}/albums/nwts.jpg` },
+    { name: "Scorpion",artistID:5, release_year: 2018,runtime: 5384,genre: "Rap" ,imageURL:`${bucket}/albums/scorpian.webp` },
+    { name: "More Life",artistID:5, release_year: 2017,runtime: 4902,genre: "Rap" ,imageURL:`${bucket}/albums/more_life.webp` },
+    { name: "What a Time to be Alive",artistID:5, release_year: 2015,runtime: 2430,genre: "Rap" ,imageURL:`${bucket}/albums/wattba.jpg` },
+    { name: "Man on the Moon: The End of Day",artistID:6,release_year: 2009, runtime: 3513,genre: "Rap" ,imageURL:`${bucket}/albums/motm1.jpg` },
+    { name: "Man on the Moon II: The Legend of Mr.Rager",artistID:6,release_year: 2010, runtime: 3720,genre: "Rap" ,imageURL:`${bucket}/albums/motm2.jpg` },
+    { name: "Indicud",artistID:6,release_year: 2010, runtime: 3720,genre: "Rap" ,imageURL:`${bucket}/albums/indicud.webp` },
+    { name: "Melodrama",artistID:7,release_year: 2017, runtime: 2458,genre: "Pop" ,imageURL:`${bucket}/albums/melodrama.webp` },
+    { name: "Pure Heroine",artistID:7,release_year: 2013, runtime: 2048,genre: "Pop" ,imageURL:`${bucket}/albums/pure_heroine.png` },
+    { name: "Lets Get it on",artistID:8,release_year: 1973, runtime: 2300,genre: "R&B" ,imageURL:`${bucket}/albums/lets_get_it_on.jpg` },
+    { name: "Playboy Carti",artistID:9, release_year: 2017,runtime: 2810,genre: "Rap" ,imageURL: `${bucket}/albums/playboy_carti.png`},
+	{ name: "Die lit",artistID:9,release_year: 2018, runtime: 3459,genre: "Rap" ,imageURL:`${bucket}/albums/die_lit.webp` },
+	{ name: "Barter 6",artistID:10,release_year: 2015, runtime: 3000,genre: "Rap" ,imageURL:`${bucket}/albums/barter6.webp` },
+	{ name: "Jeffery",artistID:10,release_year: 2016, runtime: 2535,genre: "Rap" ,imageURL:`${bucket}/albums/jeffery.webp` },
+	{ name: "So much Fun",artistID:10,release_year: 2019, runtime: 3724,genre: "Rap" ,imageURL:`${bucket}/albums/so_much_fun.webp` },
+  { name: "All Eyez on me",artistID:11,release_year: 1996, runtime: 7940,genre: "Rap" ,imageURL:`${bucket}/albums/all_eyez_on_me.jpg` },
+  { name: "Madvillainy",artistID:12,release_year: 2004, runtime: 2760,genre: "Rap" ,imageURL:`${bucket}/albums/madvillian.jpg` },
+  { name: "Operation: Doomsday",artistID:12,release_year: 1999, runtime: 3478,genre: "Rap" ,imageURL:`${bucket}/albums/doomsday.jpg` },
+  { name: "Mm.. Food",artistID:12,release_year: 2004, runtime: 2929,genre: "Rap" ,imageURL:`${bucket}/albums/mm_food.webp` },
+  { name: "Astroworld",artistID:13,release_year: 2018, runtime: 3513,genre: "Rap" ,imageURL:`${bucket}/albums/astroworld.jfif` },
+  { name: "Birds in the Trap Sing McKnight",artistID:13,release_year: 2016, runtime: 3212,genre: "Rap" ,imageURL:`${bucket}/albums/birds.jpg` },
+  { name: "Rodeo",artistID:13,release_year: 2015, runtime: 3926,genre: "Rap" ,imageURL:`${bucket}/albums/rodeo.jpg` },
+  { name: "Days Before Rodeo",artistID:13,release_year: 2014, runtime: 3002,genre: "Rap" ,imageURL:`${bucket}/albums/dbr.jpg` },
+  { name: "Monster",artistID:14,release_year: 2014, runtime: 3002,genre: "Rap" ,imageURL:`${bucket}/albums/monster.jpg` },
+  { name: "56 Nights",artistID:14,release_year: 2015, runtime: 3002,genre: "Rap" ,imageURL:`${bucket}/albums/56_nights.jpg` },
+  { name: "Beast Mode",artistID:14,release_year: 2015, runtime: 3002,genre: "Rap" ,imageURL:`${bucket}/albums/beast_mode.jfif` },
+  { name: "Exodus",artistID:15,release_year: 1977, runtime: 2244,genre: "Reggae" ,imageURL:`${bucket}/albums/exodus.jpg` },
+  { name: "Legend",artistID:15,release_year: 1984, runtime: 3060,genre: "Reggae" ,imageURL:`${bucket}/albums/legend.webp` },
+  { name: "Kaya",artistID:15,release_year: 1978, runtime: 2220,genre: "Reggae" ,imageURL:`${bucket}/albums/kaya.jpg` },
+  { name: "Random Access Memories",artistID:16,release_year: 2013, runtime: 4464,genre: "Electronic" ,imageURL:`${bucket}/albums/ram.jpg` },
+  { name: "Discovery",artistID:16,release_year: 2001, runtime: 3654,genre: "Electronic" ,imageURL:`${bucket}/albums/discovery.jpg` },
+  { name: "Bandana",artistID:17,release_year: 2019, runtime: 3654,genre: "Rap" ,imageURL:`${bucket}/albums/bandana.webp` },
+  { name: "Piniata",artistID:17,release_year: 2014, runtime: 3654,genre: "Rap" ,imageURL:`${bucket}/albums/piniata.jpg` },
+  { name: "Alfredo",artistID:17,release_year: 2020, runtime: 3654,genre: "Rap" ,imageURL:`${bucket}/albums/alfredo.webp` },
+  { name: "Channel Orange",artistID:18,release_year: 2012, runtime: 3720,genre: "Rap" ,imageURL:`${bucket}/albums/channe;_orange.webp` },
+  { name: "Blonde",artistID:18,release_year: 2016, runtime: 3608,genre: "Rap" ,imageURL:`${bucket}/albums/blond.jpg` },
+
+
+  
   ];
   
   add_albumLikes = [
@@ -732,7 +810,7 @@ add_songLikes = [
   // Album.bulkCreate(add_album)
   //   Song.bulkCreate(add_Songs)
 
-  //////////////////
+  // ////////////////
   // Album_favorite.bulkCreate(add_albumFavs)
   // Album_like.bulkCreate(add_albumLikes)
   // Album_rating.bulkCreate(add_albumRatings)
@@ -743,6 +821,7 @@ add_songLikes = [
   // Artist_follwer.bulkCreate(add_artistFollowers)
 
   // then add view
+
 
   exports.db = db
 
@@ -766,8 +845,8 @@ exports.Artist_follwer = Artist_follwer
 exports.AlbumFavLike = AlbumFavLike
 exports.SongFavLike = SongFavLike
 exports.UserAlbum = UserAlbum
+exports.UserAlbumLikes = UserAlbumLikes
 exports.UserArtists = UserArtists
 exports.Album_review = Album_review
 exports.ArtistStats = ArtistStats
-
 

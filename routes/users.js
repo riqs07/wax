@@ -3,7 +3,7 @@ const router = express.Router();
 const { check, validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 const config = require("config");
-const { User, Album_review, UserAlbum ,UserArtists} = require("../db");
+const { User, Album_review, UserAlbum ,UserAlbumLikes,UserArtists} = require("../db");
 const auth = require("../middleware/auth");
 const bcrypt = require("bcryptjs");
 
@@ -88,12 +88,19 @@ router.post("/profile", auth, async (req, res) => {
 
 	})
 	
-	recentAlbums = await UserAlbum.findAll({
+	recentFavAlbums = await UserAlbum.findAll({
 		where: {userID: req.user.id	},
 		order: [["createdAt", "DESC"]],
 		limit:3
 
 	})
+
+	recentLikedAlbums = await UserAlbumLikes.findAll({
+		where: {userID: req.user.id	},
+		order: [["createdAt", "DESC"]],
+		limit:20
+	})
+
 
 	topArtists = await UserArtists.findAll({
 		// hard coded cause followrs not working yet 
@@ -114,7 +121,8 @@ router.post("/profile", auth, async (req, res) => {
 	
 	const profile = {
 		topArtists,
-		recentAlbums,
+		recentFavAlbums,
+		recentLikedAlbums,
 		topAlbums,
 	recentReviews
 	}

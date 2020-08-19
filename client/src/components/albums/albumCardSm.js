@@ -69,8 +69,8 @@ const GridItem = ({ album }) => {
 
 
 
-	const [modalState, setModal] = useState(false);
 	const [loading,setLoading] = useState(true)
+	const [modalState, setModal] = useState(false);
 
 	const manageModal = () => {
 		setModal(!modalState);

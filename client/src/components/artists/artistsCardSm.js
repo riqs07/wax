@@ -6,6 +6,8 @@ import {PrimaryButton,SecondaryButton,} from '../layout/Buttons'
   const {name,imageURL,score,followers,album_fav_total,album_like_total} = artist
 
   // until i break DB down again its thinking these are stirngs
+  // take song stats out og scoring algo so that all of them can have aa socre
+  // mauybe al;so add imageURL to that table so i can acess it easier even tho that is not the best practise fir sql table s
   let interactions = album_fav_total + album_like_total
 
     return (
@@ -16,7 +18,7 @@ import {PrimaryButton,SecondaryButton,} from '../layout/Buttons'
        
 
           <div class="artist-card__img">
-              <img src = {imageURL} ></img>
+              <img alt = "artist-image" src = {imageURL} onClick = {()=> console.log(artist)}></img>
           </div>
           
       
@@ -42,8 +44,7 @@ import {PrimaryButton,SecondaryButton,} from '../layout/Buttons'
                 <div class="artist-card-inf__title">{interactions}</div>
                 <div class="artist-card-inf__txt"><i className="fa fa-heart fa-2x"></i></div>
               </div>
-              <PrimaryButton>Follow </PrimaryButton>
-              <SecondaryButton><i class="fas fa-info-circle"></i></SecondaryButton>
+              
             </div>
       
       

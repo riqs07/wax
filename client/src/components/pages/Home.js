@@ -5,7 +5,9 @@ import { Column50 } from "../layout/Grids";
 import styled from "styled-components";
 import Spinner from './../layout/Spinner'
 
-import {AlbumProfileCard} from '../users/profileCard'
+import AlbumProfileCard from '../users/profileCard'
+import RecentAlbums from '../users/recentAlbums'
+
 
 const Grid3 = styled.ul`
 	display: grid;
@@ -62,7 +64,7 @@ const Home = () => {
 		const [loading,setLoading] = useState(true)
 
 
-		const {topArtists,topAlbums,recentAlbums} = profile
+		const {topArtists,topAlbums,recentFavAlbums,recentLikedAlbums} = profile
 
 		// NOt sure if i should pull profile here and then pass down the corresponmding info
 		// or just have components aware 
@@ -87,17 +89,19 @@ const Home = () => {
 		// 		<Title>More Algorithim goodness.🤖</Title> */
 
 	return (
-		
+		<>
 		<Column50>
 		
 			<AlbumProfileCard title ={'Your Top Albums 🎧'} albums = {topAlbums}/>
 
 	
-		<AlbumProfileCard title ={'Your Recent favorite Albums 🎶'}albums = {recentAlbums}/>
-		</Column50>
+		<AlbumProfileCard title ={'Your Recent favorite Albums 🎶'}albums = {recentFavAlbums}/>
 
 		
-
+		</Column50>
+		<RecentAlbums title ={'Recently Liked Albums'} albums = {recentLikedAlbums}></RecentAlbums>
+		
+</>
 
 	
 	);

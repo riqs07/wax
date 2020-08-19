@@ -18,8 +18,11 @@ import {
 import { Column50 } from "../layout/Grids";
 
 
-const FlexBox = styled.div`
-	display:flex;
+const Grid = styled.div`
+	display:grid;
+  grid-template-columns: 0.8fr 1.4fr 0.8fr;
+  grid-template-rows: 1fr ;
+  grid-template-areas: "artist-image stats album-image" "artist-image stats album-image" "artist-image stats album-image";
 	
 
 `
@@ -42,9 +45,12 @@ const I = styled.i`
 
 // i guess this works but it dosent seem like the right solutiuon
 //	 the solution is GRIDS BABY 
-const SideImage = styled.img`
-height:65vh;	
-object-fit:cover;
+const ArtistImage = styled.img`
+grid-area:"artist-image";
+`
+const AlbumImage = styled.img`
+
+grid-area:"album-image";
 `
 const Header = styled.h1`
 	padding: 1rem;
@@ -151,15 +157,12 @@ export const AlbumModal = ({ album, manageModal }) => {
 		
 		
 		<Modal>
-			<FlexBox>
-				<SideImage src = {artist_ImageURL} alt = "Artist_image"/>
+			<Grid>
+				
+				<ArtistImage src = {artist_ImageURL} alt = "Artist_image"/>
 						<Body>
 				<Header>{`${name} by ${artist}`}</Header>
-				{imageURL && (
 				
-						<Image src={imageURL} alt="album_Image"></Image>
-								)}
-				{artist}
 				<ul className="album-card--stats">
 					<AlbumScoreCard info ={stats} />
 					{genre && (
@@ -212,7 +215,9 @@ export const AlbumModal = ({ album, manageModal }) => {
 				<TertiaryButton onClick={manageModal}>❌</TertiaryButton>
 			</Actions>
 			</Body>
-		</FlexBox>
+			<AlbumImage src = {imageURL} alt = "Artist_image"/>
+		
+		</Grid>
 		</Modal>
 	);
 };
