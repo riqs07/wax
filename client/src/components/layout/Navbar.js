@@ -1,10 +1,10 @@
-import React, { Fragment, useEffect, useContext } from "react";
+import React,{useContext} from 'react'
+
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import AuthContext from "../../contex/auth/AuthContext";
 import Colors from "./Colors";
 import styled from "styled-components";
-
 const Nav = styled.div`
 	display: flex;
 	justify-content: space-between;
@@ -29,7 +29,7 @@ const Navbar = ({ title, icon }) => {
 	};
 
 	const authLinks = (
-		<Fragment>
+		<>
 			<li>Welcome, {user && user.name}</li>
 			<li>
 				<Link to="/home"><i className="fas fa-home"></i> Home </Link>
@@ -39,38 +39,30 @@ const Navbar = ({ title, icon }) => {
 			</li>
 			<li>
 				<Link to="/artists">Artists </Link>
+		
 			</li>
 			<li>
 				<Link to="/albums">Albums </Link>
 			</li>
 			
 			<li>
-				<Link to="/playlists">Playlists </Link>
-			</li>
-
-			<li>
-				<Link to="/reviews">
-					<i class="fa fa-bars" aria-hidden="true"></i>{" "}
-				</Link>
-			</li>
-			<li>
 				<a onClick={onLogout} href="#!">
 					<i className="fas fa-sign-out-alt" />{" "}
 					<span className="hide-sm">Logout</span>
 				</a>
 			</li>
-		</Fragment>
+		</>
 	);
 
 	const guestLinks = (
-		<Fragment>
+		<>
 			<li>
 				<Link to="/register">Register </Link>
 			</li>
 			<li>
 				<Link to="/login">Login </Link>
 			</li>
-		</Fragment>
+		</>
 	);
 
 	// styled component messed up flex box

@@ -166,7 +166,7 @@ router.post("/songs/likes", async (req, res) => {
 		.catch((err) => console.log(err));
 });
 
-//////////////					  PUT & PATCH				///////////////////
+//////////////					  PUT 			///////////////////
 
 // @route   PUT albums/reviews
 // @desc    Update album Review
@@ -204,14 +204,15 @@ router.put("/ratings", auth, async (req, res) => {
 	res.status(201).send({ msg: "Success! Rating Updated" });
 });
 
-////////////////////////// 	DELETE         ///////////
+////////////////////////// 	PATCH   ///////////
+// DELETE DOSENT TAKE IN A BODY
 
 
 // @route   DELETE /albums/favs
 // @desc    REmove a Favorite to albums
 // @access  Private
 
-router.delete("/favs", auth, (req, res) => {
+router.patch("/favs", auth, (req, res) => {
 	const { albumID } = req.body;
 	Album_favorite.destroy({
 		where: {
@@ -224,15 +225,14 @@ router.delete("/favs", auth, (req, res) => {
 // @route   DELETE /albums/likes
 // @desc    Remove a like to albums
 // @access  Private
+// DELETE dont take in body rip
 
-
-router.delete("/likes", auth, async (req, res) => {
+router.patch("/likes", auth, async (req, res) => {
 	const { albumID } = req.body;
-
 	Album_like.destroy({
 		where: {
 			userID: req.user.id,
-			albumID
+			albumID:albumID
 		},
 	}).then(res.status(204).send());
 
@@ -243,7 +243,7 @@ router.delete("/likes", auth, async (req, res) => {
 // @desc    Delete a rating to reviews
 // @access  Private
 
-router.delete("/reviews", auth, (req, res) => {
+router.patch("/reviews", auth, (req, res) => {
 	const { albumID } = req.body;
 	Album_review.destroy({
 		where:{
@@ -258,7 +258,7 @@ router.delete("/reviews", auth, (req, res) => {
 // @desc    Delete a rating to album
 // @access  Private
 
-router.delete("/ratings", auth, (req, res) => {
+router.patch("/ratings", auth, (req, res) => {
 	const { albumID } = req.body;
 	Album_rating.destroy({
 		where:{
@@ -282,43 +282,23 @@ router.delete("/ratings", auth, (req, res) => {
 
 
 
-
-
-
-
-
-///////// ADMIN   /////
-
-
-
 ////////////////// GET ////////////////
-
-// // @route   GET albums/all
-// // @desc    Get all albums
-// // @access  Public
-// router.get("/all", async (req, res) => {
-// 	Album.findAll()
-// 		.then((x) => res.send(x))
-// 		.catch((err) => console.log(err));
-// });
-
-
 // @route   GET albums//
 // @desc    Get all albums stats
 // @access  Public
-//@issue naming error in view sequlize thinks its albumID but its in view as id
 
 router.get("/", async (req, res) => {
 	AlbumFavLike.findAll()
 		.then((x) => res.send(x))
 		.catch((err) => console.log(err));
 });
-// @route   GET albums/reviews
+
+// @route   POST albums/reviews
 // @desc    Get all albums reviews
 // @access  Public
-//@issue naming error in view sequlize thinks its albumID but its in view as id
 
-router.get("/reviews", async (req, res) => {
+
+router.post("/reviews", async (req, res) => {
 	const {albumID} = req.body
 	Album_review.findAll({
 		where:{albumID}
@@ -349,81 +329,6 @@ router.post("/", async (req, res) => {
 	Album.findOne({ where: { id } }).then((x) => res.send(x));
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-// not sure if i need these 3 because context as acess to view of the tables
-
-
-// // @route   GET albums/likes
-// // @desc    Get ALBUM TOTAL LIKES
-// // @access  Public
-// router.get("/likes", async (req, res) => {
-// 	const { albumID } = req.body;
-
-// 	Album_like.findAndCountAll({
-// 		where: { albumID },
-// 	})
-// 		.then((x) => res.send(x))
-// 		.catch((err) => console.log(err));
-// });
-// // @route   GET albums/avg
-// // @desc    Get ALBUM AVG RATINGS
-// // @access  Public
-// router.get("/avg", async (req, res) => {
-// 	// IDK WHY This not taking in request but it works
-
-
-
-// 	Album_rating.findAndCountAll({
-// 		where: { albumID:req.body.albumID },
-// 	})
-// 		.then((ratings) => {
-// 			/// Maybe later run one on each thing rating like favs
-
-// 			// have bunch of mini fucntions called
-// 			// this entire one just returns the avg number which is good but would take up one little space in ui
-// 			// like get album rating info
-// 			//  or show user who gave this top ranking idk
-// 			// the info for someting like that would be inside of ros
-// 			const { count, rows } = ratings;
-
-// 			let avg = rows.map((row) => row.rating);
-// 			avg = avg.reduce((acc, val) => {
-// 				return acc + val;
-// 			}, 0);
-
-// 			avg = Math.round(avg / count);
-
-// 			return avg;
-// 		})
-// 		.then((x) => res.send({ average: x }))
-
-// 		.catch((err) => console.log(err));
-// });
-
-// // @route   GET albums/favs
-// // @desc    Get ALBUM TOTAL Favs
-// // @access  Public
-// router.get("/favs", async (req, res) => {
-// 	const { albumID } = req.body;
-
-// 	Album_favorite.findAndCountAll({
-// 		where: { albumID },
-// 	})
-// 		.then((x) => res.send(x))
-// 		.catch((err) => console.log(err));
-// });
 
 /// ADMIN CRUD /////
 
@@ -461,29 +366,15 @@ router.delete("/", async (req, res) => {
 });
 
 
-
-
-
-
-
-
-
-/// fn that checks to see if user already has a reveiw 
-
-
-
-router.get("/editState",auth, async (req, res) => {
-
-	//// Promise all????/ but need to -find a way to pass in user id 
-	// refractor canidate 
+router.post("/editState",auth, async (req, res) => {
 
 	const { albumID } = req.body;
 
 	const editState = {
 		review:null,
 		rating:null,
-		fav:false,
-		like:false,
+		fav:null,
+		like:null,
 	}
 
 	 review = await Album_review.findOne({

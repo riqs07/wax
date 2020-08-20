@@ -591,7 +591,7 @@ add_artist = [
 // fix later im lazy   
 // release year needs to be change to just show year in DB 
 add_album = [
-	{ name: "Yeezus ", artistID:1,release_year: 2013,runtime: 2400,genre: "Rap" ,imageURL: `${bucket}/albums/yeezus.jpg`},
+	{ name: "Yeezus", artistID:1,release_year: 2013,runtime: 2400,genre: "Rap" ,imageURL: `${bucket}/albums/yeezus.jpg`},
 	{ name: "ye", artistID:1,release_year: 2018,runtime: 1380,genre: "Rap" ,imageURL:`${bucket}/albums/ye.webp` },
 	{ name: "College dropout ", artistID:1,release_year: 2004,runtime: 4380,genre: "Rap",imageURL: `${bucket}/albums/college_dropout.webp`},
 	{ name: "Graduation ", artistID:1,release_year: 2008,runtime: 3072,genre: "Rap" ,imageURL: `${bucket}/albums/graduation.jpg`},

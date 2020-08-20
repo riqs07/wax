@@ -1,30 +1,40 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext ,useEffect} from "react";
 import styled from "styled-components";
 import AlbumContext from "../../contex/album/AlbumContext";
+import AlertContext from "../../contex/alert/AlertContext";
+
 import { PrimaryButton } from "../layout/Buttons";
 import Form from "../layout/Forms";
 import Colors from '../layout/Colors'
 
 
-const AlbumRating = ({ album ,manageRating}) => {
+const AlbumRating = ({ album ,manageRating,previousRating}) => {
+	const albumContext = useContext(AlbumContext);
+	const alertContext = useContext(AlertContext);
+	
+	
 	const { name, albumID } = album;
 	const [rating, setRating] = useState(0);
-	const albumContext = useContext(AlbumContext);
 
+	const {addAlbumRating,updateAlbumRating} = albumContext
+
+
+	
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		if (rating) {
-			albumContext.addAlbumRating({
-				albumID,
-				rating,
-			});
+		
+		if(previousRating){
+			updateAlbumRating({albumID,rating})
+		} else {
 
-			
-		manageRating()
-		// set alert needs to trigger inside of modal
-
+			addAlbumRating({albumID,rating})
 		}
+
+		
+		manageRating()
+		alertContext.setAlert('rating Added','sucess')
+		// set alert needs to trigger inside of modal
 	};
 
 	return (
@@ -38,7 +48,9 @@ const AlbumRating = ({ album ,manageRating}) => {
 				type="number"
 				max="100"
 				min="0"
-				required></input>
+				defaultValue = {previousRating}
+				required>
+					</input>
 			<PrimaryButton>Submit</PrimaryButton>
 		</Form>
 	);

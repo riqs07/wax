@@ -15,35 +15,33 @@ const ReviewTextArea = styled.textarea`
 
 	
 
-const ReviewForm = ({album,manageReview}) => {
+const ReviewForm = ({album,manageReview,previousReview}) => {
         
-	const albumContext = useContext(AlbumContext);
 	const alertContext = useContext(AlertContext);
+	const albumContext = useContext(AlbumContext);
 
 	const {albumID ,name} = album
-
-	const [review, setReview] = useState();
-
+	const {addAlbumReview,updateAlbumReview} = albumContext
+	const [review, setReview] = useState('');
+	
 	const onChange = (e) => setReview(e.target.value);
 
 	const onSubmit = async (e) => {
         e.preventDefault();
-       
-		if(review){
-		albumContext.addAlbumReview({
-			albumID,
-			review
-		});
-
-
+	
+		if(previousReview){
+			updateAlbumReview({albumID,review})
+		} else {
+			addAlbumReview({albumID,review})
+		}
+		
+		
 		alertContext.setAlert('Review Added','sucess')
 		manageReview()
 		// set alert needs to trigger inside of modal
 
-	} else {
-		
-	}
-	};
+	} 
+
 
 
 	
@@ -51,7 +49,14 @@ const ReviewForm = ({album,manageReview}) => {
 		<Form onSubmit={onSubmit}>
 			<h1 style ={{paddingBottom:'1rem'}}> Review for <span style = {{color:Colors.primary}}>{name}</span>📜</h1>
 			
-			<ReviewTextArea required onChange={onChange}></ReviewTextArea>
+			<ReviewTextArea required onChange={onChange}>
+
+			{previousReview && (
+				previousReview
+			)}
+			</ReviewTextArea>
+
+
 			<PrimaryButton>Submit</PrimaryButton>
 			
 		</Form>

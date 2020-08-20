@@ -99,7 +99,7 @@ const Home = () => {
 
 		
 		</Column50>
-		<RecentAlbums title ={'Recently Liked Albums'} albums = {recentLikedAlbums}></RecentAlbums>
+		{/* <RecentAlbums title ={'Recently Liked Albums'} albums = {recentLikedAlbums}></RecentAlbums> */}
 		
 </>
 

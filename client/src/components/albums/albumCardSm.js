@@ -6,8 +6,8 @@ import styled from "styled-components";
 import { AlbumModal } from "./albumModal";
 import Backdrop from "../layout/Backdrop";
 import Spinner from "../layout/Spinner";
+import AlbumScoreCard from "./albumScoreCard";
 
-import {calculateAlbumScore} from "../../utils/algo"
 
 
 const I = styled.i`
@@ -66,8 +66,19 @@ const GridItem = ({ album }) => {
 
 
 
+	const stats = {
+		albumID,
+		score,
+		likes,
+		favs,
+			};
 
 
+
+	// maybe have modified album stats card on sm page instead of just like fav
+	// def wanna have those two on there to like and fav from scroller 
+	// wanna keep a lot of funtionality 
+	// esp when i make like fav aware 
 
 	const [loading,setLoading] = useState(true)
 	const [modalState, setModal] = useState(false);
@@ -76,8 +87,7 @@ const GridItem = ({ album }) => {
 		setModal(!modalState);
 	};
 
-// Want image to have loading spinner 
-// cant set loading to true if it never loads lol
+
 	return (
 		<>
 {loading && (

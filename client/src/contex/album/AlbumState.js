@@ -45,9 +45,7 @@ const AlbumState = props => {
     }
 
     //ADD Review 
-    // NEED ERROR HANDLING for when reviews exists
-    // but it should never show add state if review exists already but still
-    const addAlbumReview = async review => {
+      const addAlbumReview = async review => {
        
         const config = {
             headers:{
@@ -55,20 +53,15 @@ const AlbumState = props => {
             }
         }
         try {
-            const res = await axios.post('http://localhost:9001/api/albums/reviews',review,config)
-            dispatch({type: ADD_ALBUM_REVIEW,payload:res.data})
+          axios.post('http://localhost:9001/api/albums/reviews',review,config)
 
         } catch(error){
             console.log(error)
-            dispatch({
-				type: REVIEW_FAIL,
-				payload: error.response.data.msg,
-			});
+           
         }
     }
 
-   
-    //ADD RATING
+     //ADD RATING
     const addAlbumRating= async rating => {
        
         const config = {
@@ -78,14 +71,12 @@ const AlbumState = props => {
         }
         try {
             
-            const res = await axios.post('http://localhost:9001/api/albums/ratings',rating,config)
-            dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+              axios.post('http://localhost:9001/api/albums/ratings',rating,config)
 
         } catch(err){
             console.log(err)
         }
     }
-
 
     // ADD LIKE 
     const addAlbumLike= async albumID => {
@@ -97,8 +88,7 @@ const AlbumState = props => {
         }
         try {
             
-            const res = await axios.post('http://localhost:9001/api/albums/likes',albumID,config)
-        console.log('foo')
+           axios.post('http://localhost:9001/api/albums/likes',albumID,config)
 
         } catch(err){
             console.log(err)
@@ -107,7 +97,6 @@ const AlbumState = props => {
     
     // ADD FAV 
     const addAlbumFav= async albumID => {
-       
         const config = {
             headers:{
                 'Content-Type':'application/json',
@@ -115,27 +104,8 @@ const AlbumState = props => {
         }
         try {
             
-            await axios.post('http://localhost:9001/api/albums/favs',albumID,config)
+             axios.post('http://localhost:9001/api/albums/favs',albumID,config)
 
-        } catch(err){
-            console.log(err)
-        }
-    }
-
-    // show songs in album 
-    const getAlbumSongs= async id => {
-       
-        const config = {
-            headers:{
-                'Content-Type':'application/json',
-            }
-        }
-        try {
-            
-            const res = await axios.post('http://localhost:9001/api/albums/songs',id,config)
-            console.log(res)
-
-            return res
         } catch(err){
             console.log(err)
         }
@@ -168,8 +138,7 @@ const AlbumState = props => {
         }
         try {
             
-            const res = await axios.post('http://localhost:9001/api/albums/ratings',review,config)
-            dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+            axios.put('http://localhost:9001/api/albums/reviews',review,config)
 
         } catch(err){
             console.log(err)
@@ -186,8 +155,7 @@ const AlbumState = props => {
         }
         try {
             
-            const res = await axios.post('http://localhost:9001/api/albums/ratings',rating,config)
-            dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+             axios.put('http://localhost:9001/api/albums/ratings',rating,config)
 
         } catch(err){
             console.log(err)
@@ -230,8 +198,8 @@ const AlbumState = props => {
         }
     }
     // Delete Like
-    const deleteAlbumLike= async id => {
-       
+    const deleteAlbumLike= async albumID => {
+
         const config = {
             headers:{
                 'Content-Type':'application/json',
@@ -239,15 +207,14 @@ const AlbumState = props => {
         }
         try {
             
-            const res = await axios.post('http://localhost:9001/api/albums/ratings',id,config)
-            dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+            axios.patch('http://localhost:9001/api/albums/likes',albumID,config)
 
         } catch(err){
             console.log(err)
         }
     }
     // Delete Fav 
- const deleteAlbumFav= async id => {
+ const deleteAlbumFav= async albumID => {
        
         const config = {
             headers:{
@@ -256,8 +223,7 @@ const AlbumState = props => {
         }
         try {
             
-            const res = await axios.post('http://localhost:9001/api/albums/ratings',id,config)
-            dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+             axios.patch('http://localhost:9001/api/albums/favs',albumID,config)
 
         } catch(err){
             console.log(err)
@@ -339,36 +305,41 @@ const AlbumState = props => {
         
         dispatch({type: DELETE_ALBUM,payload:id})
     }
-    const setCurrentAlbum = album => {
-        
-        dispatch({type: SET_CURRENT,payload:album})
-    }
-    const clearCurrentAlbum = album => {
-        
-        dispatch({type: CLEAR_CURRENT,payload:album})
-    }
+    
 
-    // UPDATE ALBUM
-    // FILTER ALBUM
-    // CLEAR FILTER ALBUM
-    // ADD LIKE ALBUM
-    // DELTE LIKE ALBUM
-    // ADD FAV ALBUM
-    // DELETE FAV ALBUM
 
+    const checkInteractions = async albumID => {
+      
+        const config = {
+            headers:{
+                'Content-Type':'application/json',
+                'Access-Control-Allow-Origin': 'Origin, X-Requested-With, Content-Type, Accept'
+            }
+        }
+
+        try {
+            const res = await axios.post('http://localhost:9001/api/albums/editState',albumID,config)
+            return res
+        } catch (err) {
+            console.log(err)
+        }
+     }
 
     return (
        < AlbumContext.Provider
         value = {{
             albums :state.albums,
             error:state.error,
-            deleteAlbum,
             addAlbumReview,
+            updateAlbumReview,
             addAlbumRating,
+            updateAlbumRating,
             addAlbumFav,
+            deleteAlbumFav,
             addAlbumLike,
+            deleteAlbumLike,
             getAlbums,
-            getAlbumSongs,
+            checkInteractions,
             filterAlbumsByRating,
             filterAlbumsByLikes,
             filterAlbumsByFavs

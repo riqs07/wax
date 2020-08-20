@@ -24,47 +24,10 @@ export default (state,action) => {
                 albums:action.payload,
                 loading:false
             };
-
-        case CREATE_ALBUM:
-            return{
-                ...state,
-                albums:[...state.albums,action.payload]
-            };
-
-        case DELETE_ALBUM:
-            return{
-                ...state,
-                albums:state.albums.filter(album => album.id !== action.payload)
-            };
-
-        case ADD_ALBUM_REVIEW:
-            return{
-                ...state,
-                albums:[...state.albums,action.payload]
-            };
-     
-
             case REVIEW_FAIL:
             return {
                 ...state,
                 error:action.payload
-            };
-        // case ADD_ALBUM_RATING:
-        //     return{
-        //         ...state,
-        //         albums:[...state.albums,action.payload]
-        //     };
-
-        case SET_CURRENT:
-            return{
-                ...state,
-                albums:state.albums.filter(album => album.id !== action.payload)
-            };
-
-        case CLEAR_CURRENT:
-            return{
-                ...state,
-                albums:state.albums.filter(album => album.id !== action.payload)
             };
 
         case FILTER_ALBUMS:
@@ -73,11 +36,6 @@ export default (state,action) => {
                 albums:action.payload,
                 loading:false
             };
-
-
-
-
-
 
         default: 
         return state;

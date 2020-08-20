@@ -1,7 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext ,useEffect} from "react";
 import styled from "styled-components";
 import AlbumContext from '../../contex/album/AlbumContext'
-import {calculateAlbumScore} from "../../utils/algo"
+import {convertScoreToGrade} from "../../utils/algo";
+import Colors from "../layout/Colors";
 
 
 const Card = styled.div`
@@ -10,37 +11,59 @@ const Card = styled.div`
 	margin-top:.5rem;
 `;
 
-const AlbumScoreCard = ({info }) => {
-	// check if user has favorited this album if not then display outline
-	// on click display full and add to db
-	// toggle to add / delete
-
+const AlbumScoreCard = ({data,previousLike,previousFav}) => {
 
 	const context = useContext(AlbumContext)
 
-	const {addAlbumFav,addAlbumLike} = context
-
+	const {addAlbumFav,addAlbumLike,deleteAlbumFav,deleteAlbumLike} = context
 	
+	const { likes, favs, avg,albumID ,score} = data;
 
-	const { likes, favs, avg,albumID ,score} = info;
+	const grade = convertScoreToGrade(score);
 
-
+	console.log(previousLike,previousFav,)
 
 	const [isFav, setIsFav] = useState(false);
 	const [isLike, setIsLiked] = useState(false);
-	const Like = (e) => {
-		setIsLiked(!isLike);
-		// now dislik if state = full 
-		// need state to be passed in so its aware if user has like or nbot other than that its working 
 
-		addAlbumLike({albumID})
+	useEffect(() => {
+		const fetchData = async () => {
+			if (previousFav ){
+				setIsFav(true)
+			}
+		
+			if (previousLike){
+				setIsLiked(!isLike)
+			}
+
+		};
+
+		fetchData();
+		
+	
+	}, [])
+
+	
+	const handleLike = (e) => {
+		if (previousLike){
+			deleteAlbumLike({albumID})
+		} else {
+			addAlbumLike({albumID})
+		}
+		setIsLiked(!isLike);
 		
 	};
-	const Fav = (e) => {
-		setIsFav(!isFav);
-		addAlbumFav({albumID})
+	const handleFav = (e) => {
+		if (previousFav){
+			console.log(albumID)
 
-		// Needs to update DB
+			deleteAlbumFav({albumID})
+		} else {
+			addAlbumFav({albumID})
+		}
+
+		setIsFav(!isFav);
+
 	};
 
 	return (
@@ -49,12 +72,12 @@ const AlbumScoreCard = ({info }) => {
 				Has <span style={{ color: "orange" }}>{favs}</span> favorites.
 				{isFav ? (
 					<i
-						onClick={Fav}
+						onClick={handleFav}
 						style={{ color: "orange" }}
 						class="fa fa-star fa-2x"></i>
 				) : (
 					<i
-						onClick={Fav}
+						onClick={handleFav}
 						style={{ color: "orange" }}
 						class="far fa-star fa-2x"></i>
 				)}
@@ -64,12 +87,12 @@ const AlbumScoreCard = ({info }) => {
 				Has <span style={{ color: "red" }}>{likes}</span> likes.
 				{isLike ? (
 					<i
-						onClick={Like}
+						onClick={handleLike}
 						style={{ color: "red" }}
 						class="fa fa-heart fa-2x"></i>
 				) : (
 					<i
-						onClick={Like}
+						onClick={handleLike}
 						style={{ color: "red" }}
 						class="far fa-heart fa-2x"></i>
 				)}
@@ -86,9 +109,8 @@ const AlbumScoreCard = ({info }) => {
 			)}
 			{score && (
 				<h2>
-					Score {" "}
-					<span style={{ color: "black" }}>{Math.round(score)}</span>
-					<i style={{ color: "black" }} class="fa fa-flag-checkered fa-2x"></i>
+					Grade {" "}
+					<span style={{color:`${Colors.primary}` }}>{grade}</span>
 				</h2>
 			)}
 
