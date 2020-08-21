@@ -1,21 +1,16 @@
-// ON album grid item click modal will open with slightly more info and a bigger sized picture
-// will then have a button to take you to artist home page where you can then interact with database rather than view it
-
 import React, { Fragment, useContext, useState, useEffect } from "react";
 import AlbumContext from "../../contex/album/AlbumContext";
 import styled from "styled-components";
 import AlbumScoreCard from "./albumScoreCard";
 import ReviewForm from "./albumReview";
 import RatingForm from "./albumRating";
-import Colors from "../layout/Colors";
-
+import { Colors, Shadows } from "../layout/Palette";
 
 import {
 	PrimaryButton,
 	SecondaryButton,
 	TertiaryButton,
 } from "../layout/Buttons";
-
 
 const Grid = styled.div`
 	display: grid;
@@ -36,7 +31,6 @@ const Modal = styled.div`
 const I = styled.i`
 	padding: 0.5rem;
 `;
-
 
 const ArtistImage = styled.img`
 	grid-area: "artist-image";
@@ -64,13 +58,10 @@ const AlbumStat = styled.li`
 	font-size: 1rem;
 `;
 
-
 export const AlbumModal = ({ album, manageModal }) => {
 	const context = useContext(AlbumContext);
-	const { checkInteractions ,addAlbumReview,updateAlbumReview} = context;
-	
-	
-	
+	const { checkInteractions, addAlbumReview, updateAlbumReview } = context;
+
 	const {
 		albumID,
 		name,
@@ -88,9 +79,9 @@ export const AlbumModal = ({ album, manageModal }) => {
 	} = album;
 
 	const info = {
-		name,albumID
-	}
-
+		name,
+		albumID,
+	};
 
 	const stats = {
 		albumID,
@@ -141,8 +132,6 @@ export const AlbumModal = ({ album, manageModal }) => {
 		console.log("Show all reviews with associated with this album id");
 	};
 
-
-
 	return (
 		<Modal>
 			<Grid>
@@ -151,9 +140,11 @@ export const AlbumModal = ({ album, manageModal }) => {
 					<Header>{`${name} by ${artist}`}</Header>
 
 					<ul className="album-card--stats">
-						<AlbumScoreCard data={stats}
-						 previousLike ={editState.like}
-						 previousFav ={editState.fav}/>
+						<AlbumScoreCard
+							data={stats}
+							previousLike={editState.like}
+							previousFav={editState.fav}
+						/>
 						{genre && (
 							<AlbumStat>
 								<I className="fas fa-music"></I>
@@ -165,15 +156,15 @@ export const AlbumModal = ({ album, manageModal }) => {
 							<AlbumStat>
 								<I
 									className="fas fa-stopwatch fa-2x"
-									style={{ color: "black" }}></I>
+									style={{ color: "grey" }}></I>
 								{`${secs}m`}
 							</AlbumStat>
 						)}
 						{release_year && (
 							<AlbumStat>
 								<I
-									className="fas fa-stopwatch fa-2x"
-									style={{ color: "black" }}></I>
+									className="fas fa-calender fa-2x"
+									style={{ color: "grey" }}></I>
 								{release_year}
 							</AlbumStat>
 						)}
@@ -183,44 +174,46 @@ export const AlbumModal = ({ album, manageModal }) => {
 						<ReviewForm
 							manageReview={manageReview}
 							album={info}
-							previousReview = {editState.review}
+							previousReview={editState.review}
 						/>
 					)}
 					{ratingState && (
 						<RatingForm
 							manageRating={manageRating}
 							album={info}
-							previousRating = {editState.rating}
+							previousRating={editState.rating}
 						/>
 					)}
 
 					<Actions>
-{/* if prev review show update review and cancel  */}
+						{/* if prev review show update review and cancel  */}
 
-      {reviewState
-        ? <PrimaryButton onClick = {manageReview}>Cancel📜 </PrimaryButton>
-        : (editState.review
-          ? <PrimaryButton onClick={manageReview}>
-		  Update Review 📜
-	  </PrimaryButton>
-          : <PrimaryButton onClick={manageReview}>
-		  Add Review 📜
-	  </PrimaryButton>
-        )
-      }
+						{reviewState ? (
+							<PrimaryButton onClick={manageReview}>Cancel📜 </PrimaryButton>
+						) : editState.review ? (
+							<PrimaryButton onClick={manageReview}>
+								Update Review 📜
+							</PrimaryButton>
+						) : (
+							<PrimaryButton onClick={manageReview}>
+								Add Review 📜
+							</PrimaryButton>
+						)}
 
-      {ratingState
-        ? <SecondaryButton onClick = {manageRating}>Cancel📜 </SecondaryButton>
-        : (editState.rating
-          ? <SecondaryButton onClick={manageRating}>
-		  Update Rating 📜
-	  </SecondaryButton>
-          : <SecondaryButton onClick={manageRating}>
-		  Add Rating 🏁
-	  </SecondaryButton>
-        )
-      }
-						
+						{ratingState ? (
+							<SecondaryButton onClick={manageRating}>
+								Cancel📜{" "}
+							</SecondaryButton>
+						) : editState.rating ? (
+							<SecondaryButton onClick={manageRating}>
+								Update Rating 📜
+							</SecondaryButton>
+						) : (
+							<SecondaryButton onClick={manageRating}>
+								Add Rating 🏁
+							</SecondaryButton>
+						)}
+
 						<SecondaryButton onClick={seeReviews}>See Reviews </SecondaryButton>
 					</Actions>
 				</Body>

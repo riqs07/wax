@@ -4,7 +4,7 @@ import AlbumContext from "../../contex/album/AlbumContext";
 import AlertContext from "../../contex/alert/AlertContext";
 import {PrimaryButton} from "../layout/Buttons";
 import Form from '../layout/Forms'
-import Colors from '../layout/Colors'
+import {Colors} from '../layout/Palette'
 
 
 

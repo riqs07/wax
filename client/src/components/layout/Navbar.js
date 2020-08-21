@@ -3,7 +3,7 @@ import React,{useContext} from 'react'
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import AuthContext from "../../contex/auth/AuthContext";
-import Colors from "./Colors";
+import {Colors} from "./Palette";
 import styled from "styled-components";
 const Nav = styled.div`
 	display: flex;

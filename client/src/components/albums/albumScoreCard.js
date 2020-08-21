@@ -2,7 +2,7 @@ import React, { useState, useContext ,useEffect} from "react";
 import styled from "styled-components";
 import AlbumContext from '../../contex/album/AlbumContext'
 import {convertScoreToGrade} from "../../utils/algo";
-import Colors from "../layout/Colors";
+import {Colors} from "../layout/Palette";
 
 
 const Card = styled.div`

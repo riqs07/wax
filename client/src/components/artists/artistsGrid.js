@@ -1,113 +1,77 @@
-import React,{Fragment , useContext ,useState,useEffect} from 'react'
-import ArtistContext from '../../contex/artists/ArtistContext'
+import React, { Fragment, useContext, useState, useEffect } from "react";
+import ArtistContext from "../../contex/artists/ArtistContext";
 
-import Card from '../artists/artistsCardSm'
-import TopRankCard from '../artists/artistTopCard'
-import styled from 'styled-components'
-import {SecondaryButton} from './../layout/Buttons'
-import Colors from './../layout/Colors'
-import Select from 'react-select'
-
-// Will use "Netlflix grid for liked "
-
+import Card from "../artists/artistsCardSm";
+import styled from "styled-components";
+import { SecondaryButton } from "./../layout/Buttons";
+import { Colors } from "./../layout/Palette";
+import Select from "react-select";
 
 
 const Grid = styled.ul`
-display:flex;
-align-content:center;
-flex-wrap: wrap;
-padding:1rem;
-
-`
+	display: flex;
+	align-content: center;
+	flex-wrap: wrap;
+	padding: 1rem;
+`;
 const TopRankGrid = styled.ul`
-display:flex;
-align-content:center;
-padding:1rem;
-
-
-`
+	display: flex;
+	align-content: center;
+	padding: 1rem;
+`;
 
 const Li = styled.li`
-list-style:none;
-flex-basis: 33%;
-padding:1rem;
-transition: transform 450ms;
+	list-style: none;
+	flex-basis: 33%;
+	padding: 1rem;
+	transition: transform 450ms;
 
-&:hover{ 
-    transform:scale(1.08);
-}
-
-
-    `
+	&:hover {
+		transform: scale(1.08);
+	}
+`;
 
 const Filter = styled.ul`
-display:flex;
-flex-wrap:wrap;
-border:2px solid ${Colors.primary};
-border-Radius:20px;
-justify-content:center;
-`
- const ArtistGrid = () => {
-    // default sort by ratings 
-    const context = useContext(ArtistContext)
+	display: flex;
+	flex-wrap: wrap;
+	border: 2px solid ${Colors.primary};
+	border-radius: 20px;
+	justify-content: center;
+`;
+const ArtistGrid = () => {
+	const context = useContext(ArtistContext);
 
+	const { getAllArtists, artists } = context;
 
-    const {getAllArtists,artists} = context
+	useEffect(() => {
+		getAllArtists();
+	}, []);
 
-  // console.log(artists)
-    useEffect(() => {
-      getAllArtists()
-    
-    }, [])
+	const [filter, setFilter] = useState("Rating");
+	const options = [
+		{ value: "Score", label: "Score" },
+		{ value: "Likes", label: "Likes" },
+		{ value: "Favs", label: "Favs" },
+		{ value: "Followers", label: "Followers" },
+	];
 
-    // let top = artists.shift()
-    // let two =  artists.shift()
-    // let three =  artists.shift()
+	useEffect(() => {
+		console.log(`Fetch ${filter}`);
+	}, [filter]);
 
-  
-    const [filter,setFilter] = useState('Rating')
-    const options = [ 
-      { value: 'Score', label: 'Score' },
-    { value: 'Likes', label: 'Likes' },
-    { value: 'Favs', label: 'Favs' },
-    { value: 'Followers', label: 'Followers' }
-  ]
+	return (
+		<Fragment>
+			<Select options={options} />
 
+			<Grid>
+				{artists.map((artist) => (
+					<Li key={artist.id}>
+						<Card artist={artist} />
+					</Li>
+				))}
+			</Grid>
+		</Fragment>
+	);
+};
 
-    useEffect(() => {
-      console.log(`Fetch ${filter}`)
-    }, [filter])
-
-      return (
-
-        <Fragment>
-            <Select options = {options}/>
-          <TopRankGrid>
-{/* 
-           <TopRankCard artist = {top}/> */}
-           {/* <TopRankCard artist = {two}/>
-           <TopRankCard artist = {three}/> */}
-          </TopRankGrid>
-            
-            
-            
-            <Grid>
-         
-
-            {artists.map(artist => (
-              <Li key = {artist.id}  >
-               <Card artist = {artist} />
-               
-             </Li>
-                
-           ))}
-
-
-
-           </Grid>
-    
-        </Fragment>
-    )
-}
-
-export default ArtistGrid
+export default ArtistGrid;

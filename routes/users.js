@@ -3,7 +3,7 @@ const router = express.Router();
 const { check, validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 const config = require("config");
-const { User, Album_review, UserAlbum ,UserAlbumLikes,UserArtists} = require("../db");
+const { User, UserReviews, UserAlbum ,UserAlbumLikes,UserRatings} = require("../db");
 const auth = require("../middleware/auth");
 const bcrypt = require("bcryptjs");
 
@@ -102,17 +102,24 @@ router.post("/profile", auth, async (req, res) => {
 	})
 
 
-	topArtists = await UserArtists.findAll({
-		// hard coded cause followrs not working yet 
-		where: {userID: 1},
-		order: [["createdAt", "DESC"]],
-		limit:3
+	// topArtists = await UserArtists.findAll({
+	// 	// hard coded cause followrs not working yet 
+	// 	where: {userID: 1},
+	// 	order: [["createdAt", "DESC"]],
+	// 	limit:3
 
-	})
+	// })
 	
-	recentReviews = await Album_review.findAll({
-		where: {userID: req.user.id,	},
-		order: [["createdAt", "DESC"]],
+	recentReviews = await UserReviews.findAll({
+		where: {userID: req.user.id},
+		order: [["updatedAt", "DESC"]],
+		limit:3
+	})
+
+	recentRatings = await UserRatings.findAll({
+		where: {userID: req.user.id},
+		order: [["updatedAt", "DESC"]],
+		limit:5
 	})
 
 
@@ -120,12 +127,12 @@ router.post("/profile", auth, async (req, res) => {
 	/// magic recomendation algo goes here 
 	
 	const profile = {
-		topArtists,
+		recentReviews,
 		recentFavAlbums,
 		recentLikedAlbums,
 		topAlbums,
-	recentReviews
-	}
+		recentRatings
+		}
 	res.status(200).send(profile)
 		
 });

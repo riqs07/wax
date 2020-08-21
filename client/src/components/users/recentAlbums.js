@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React from 'react'
 import styled from "styled-components";
 
 const Grid = styled.ul`
@@ -32,7 +32,7 @@ const Title = styled.h1`
         <Grid>
             {albums.map(album => (
               <Li key = {album.id}  >
-               <img src = {album.imageURL} />
+               <img  alt = "album_image" src = {album.imageURL} />
              
              </Li>
                           )

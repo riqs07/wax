@@ -1,8 +1,7 @@
-import React, { Fragment, useContext, useState, useEffect } from "react";
+import React, {useContext, useState, useEffect } from "react";
 import AlbumContext from "../../contex/album/AlbumContext";
 import CardSm from "./albumCardSm";
-import { SecondaryButton } from "./../layout/Buttons";
-import Colors from "./../layout/Colors";
+import {Colors} from "./../layout/Palette";
 import Spinner from "./../layout/Spinner";
 import Select from "react-select";
 
@@ -50,12 +49,42 @@ const AlbumsGrid = () => {
 	];
 
 	useEffect(() => {
-		getAlbums();
-	}, []);
+		filterAlbums()
+
+		
+	}, [filter]);
+
+
+	const filterAlbums= () =>{
+
+		let x = filter
+		console.log(x)
+		if (x = 'Favs'){
+			console.log('Foo')
+			filterAlbumsByFavs()
+		} else if (x = 'Likes'){
+			console.log('goo')
+
+filterAlbumsByLikes()
+		} else if (x = "Rating"){
+getAlbums()
+		}else if (x = 'Runtime'){
+			console.log('object')
+		}else if (x = 'Date'){
+			console.log('object')
+
+		} else if (x = 'Score'){
+			console.log('object')
+
+		}
+	}
+	const handleSelect =(e) =>{
+		setFilter(e.value)
+	}
 
 	return (
 		<>
-			<Select options={options} />
+			<Select onChange = {handleSelect} options={options} placeholder={'Filter Albums by....' }/>
 
 			{albums !== null && !loading ? (
 				<Grid>

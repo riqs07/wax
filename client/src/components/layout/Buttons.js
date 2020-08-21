@@ -1,5 +1,5 @@
 import React from "react";
-import Colors from "./Colors"
+import {Colors} from "./Palette"
 import styled from 'styled-components'
 
 

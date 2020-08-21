@@ -9,7 +9,7 @@ import Login from "./components/auth/Login";
 
 import Navbar from "./components/layout/Navbar";
 import Alerts from "./components/layout/Alerts";
-import Explore from "./components/pages/Explore";
+import Discover from "./components/pages/Discover";
 import Home from "./components/pages/Home";
 
 import AlbumsPage from "./components/pages/AlbumsPage";
@@ -49,7 +49,7 @@ function App() {
 							<Wrapper>
                 <Alerts/>
 								<Switch>
-									<Route exact path="/explore" component={Explore} />
+									<PrivateRoute exact path="/discover" component={Discover} />
 									<PrivateRoute exact path="/home" component={Home} />
 									<PrivateRoute exact path="/artists" component={ArtistsPage} />
 									<PrivateRoute exact path="/albums" component={AlbumsPage} />

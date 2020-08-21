@@ -1,13 +1,17 @@
-import React ,{useContext,useEffect,useState} from "react";
-import AuthContext from '../../contex/auth/AuthContext'
-import UserContext from '../../contex/users/UserContext'
-import { Column50 } from "../layout/Grids";
+import React, { useContext, useEffect, useState } from "react";
+import AuthContext from "../../contex/auth/AuthContext";
+import UserContext from "../../contex/users/UserContext";
+import { Column50, Row50 } from "../layout/Grids";
 import styled from "styled-components";
-import Spinner from './../layout/Spinner'
+import Spinner from "./../layout/Spinner";
 
-import AlbumProfileCard from '../users/profileCard'
-import RecentAlbums from '../users/recentAlbums'
-
+import AlbumProfileCard from "../users/profileCard";
+import RecentAlbums from "../users/recentAlbums";
+import {
+	Collection,
+	ReviewCollectionChild,
+	RatingCollectionChild,
+} from "../layout/Collection";
 
 const Grid3 = styled.ul`
 	display: grid;
@@ -46,38 +50,38 @@ const Title = styled.h1`
 `;
 
 const Home = () => {
-	// on hover can show there rating in the database
-    // on click lead to there page in app
-    
+	const album = {
+		imageURL:
+			"https://waxhades123.s3.us-east-2.amazonaws.com/artists/kanye_west.jpg",
+		review: "This is a good album",
+		name: "Rodeo",
+	};
 
-	/// grabbing info from users context
-	
-    // really jiust need the id and the name and the image 
-	const placeHolder =
-		"https://waxhades123.s3.us-east-2.amazonaws.com/ye.webp";
+	const authContext = useContext(AuthContext);
+	const userContext = useContext(UserContext);
 
+	const { getProfile, profile } = userContext;
+	const [loading, setLoading] = useState(true);
 
-		const authContext = useContext(AuthContext)
-		const userContext = useContext(UserContext)
+	useEffect(() => {
+		authContext.loadUser();
+		getProfile();
+	}, []);
 
-		const {getProfile,profile} = userContext
-		const [loading,setLoading] = useState(true)
+	const {
+		topArtists,
+		topAlbums,
+		recentFavAlbums,
+		recentLikedAlbums,
+		recentReviews,
+		recentRatings,
+	} = profile;
+	console.log(profile);
 
-
-		const {topArtists,topAlbums,recentFavAlbums,recentLikedAlbums} = profile
-
-		// NOt sure if i should pull profile here and then pass down the corresponmding info
-		// or just have components aware 
-
-		useEffect(()=>{
-			authContext.loadUser()
-			getProfile()
-		},[])
-		
 	// /* Recent likes songs
-	// 	algo recomendation 
+	// 	algo recomendation
 	// 	etc */
-/* 	
+	/* 	
 		// 		<Title>Top Artists 🎵</Title>
 	
 		// 		<Title> Recently Liked Songs 🎺 </Title>
@@ -90,20 +94,38 @@ const Home = () => {
 
 	return (
 		<>
-		<Column50>
-		
-			<AlbumProfileCard title ={'Your Top Albums 🎧'} albums = {topAlbums}/>
+			<Column50>
+				<div>
+					<Title>Your Top Albums 👑</Title>
+					<AlbumProfileCard albums={topAlbums} />
+				</div>
 
-	
-		<AlbumProfileCard title ={'Your Recent favorite Albums 🎶'}albums = {recentFavAlbums}/>
+				<div>
+					<Title>Your Recent favorite Albums 🎸</Title>
 
-		
-		</Column50>
-		{/* <RecentAlbums title ={'Recently Liked Albums'} albums = {recentLikedAlbums}></RecentAlbums> */}
-		
-</>
-
-	
+					<AlbumProfileCard albums={recentFavAlbums} />
+				</div>
+			</Column50>
+			<Column50>
+				{recentReviews && (
+					<Collection>
+						<Title>Recent Reviews 📜</Title>
+						{recentReviews.map((review) => (
+							<ReviewCollectionChild data={review} key={album.id} />
+						))}
+					</Collection>
+				)}
+				{recentRatings && (
+					<Collection>
+						<Title>Recent Ratings 💯</Title>
+						{recentRatings.map((rating) => (
+							<RatingCollectionChild data={rating} key={album.id} />
+						))}
+					</Collection>
+				)}
+			</Column50>
+			{/* <RecentAlbums title ={'Recently Liked Albums'} albums = {recentLikedAlbums}></RecentAlbums> */}
+		</>
 	);
 };
 

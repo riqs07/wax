@@ -1,10 +1,12 @@
-import React, { useReducer, useEffect, useState } from "react";
+import React, { useReducer, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import AlertContext from "./AlertContext";
 import reducer from "./AlertReducer";
-import axios from "axios";
-
 import { SET_ALERT, REMOVE_ALERT } from "../types";
+
+
+// TOASTIFY THIS ALERT STATE
+
 
 const AlertState = (props) => {
 	const initialState = [];

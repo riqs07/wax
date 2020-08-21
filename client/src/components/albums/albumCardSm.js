@@ -7,6 +7,7 @@ import { AlbumModal } from "./albumModal";
 import Backdrop from "../layout/Backdrop";
 import Spinner from "../layout/Spinner";
 import AlbumScoreCard from "./albumScoreCard";
+import {Shadows} from "../layout/Palette"
 
 
 
@@ -17,7 +18,7 @@ const I = styled.i`
 // Play around with shadows the one on info card needs to bigger
 const Image = styled.img`
 	border-radius: 2rem;
-	box-shadow: 0px 8px 60px -10px rgba(13, 28, 39, 0.6);
+	box-shadow: ${Shadows.lg};
 	transition: transform 450ms;
 	&:hover{ 
 		transform:scale(1.08);
@@ -32,7 +33,7 @@ justify-content:space-around;
 const Body = styled.div`
 	background-color: #eee;
 	border-radius: 1rem;
-	box-shadow: 0px 8px 60px -10px rgba(13, 28, 39, 0.6);
+	box-shadow: ${Shadows.xl};
 	padding:.5rem;
 `;
 
@@ -72,13 +73,6 @@ const GridItem = ({ album }) => {
 		likes,
 		favs,
 			};
-
-
-
-	// maybe have modified album stats card on sm page instead of just like fav
-	// def wanna have those two on there to like and fav from scroller 
-	// wanna keep a lot of funtionality 
-	// esp when i make like fav aware 
 
 	const [loading,setLoading] = useState(true)
 	const [modalState, setModal] = useState(false);

@@ -93,7 +93,7 @@ const Album = db.define(	"album",{
 			},
 		},
 		release_year: {
-			type: Sequelize.DATEONLY,
+			type: Sequelize.INTEGER,
 		},
 		runtime: {
 			// IN SECONDS
@@ -372,39 +372,6 @@ const AlbumFavLike = db.define('AlbumFavLike', {
   
 }, {timestamps: false});
 
-const SongFavLike = db.define('SongFavLike', {
-  albumID:{type:Sequelize.INTEGER,
-     references: {
-    model: 'albums',
-    key: 'id'
-},},
-  album: Sequelize.STRING,
-  artistID:{
-    type:Sequelize.INTEGER,
-    references: {
-      model: 'artists',
-      key: 'id'
-  },
-  },
-  songID: {
-    type:Sequelize.INTEGER,
-    primaryKey:true,
-    references: {
-      model: 'songs',
-      key: 'id'
-  },
-  },
-  name:Sequelize.STRING,
-  likes:Sequelize.INTEGER,
-  favs:Sequelize.INTEGER,
-  avg:Sequelize.INTEGER,
-  score:Sequelize.INTEGER,
-  runtime:Sequelize.INTEGER,
-  genre:Sequelize.STRING,
-  linkURL:Sequelize.STRING,
-
-  
-}, {timestamps: false});
 
 
 
@@ -435,6 +402,42 @@ score:Sequelize.INTEGER,
 imageURL:Sequelize.STRING,
 artist_imageURL:Sequelize.STRING,
 createdAt:Sequelize.DATE
+
+
+  
+}, {timestamps: false});
+
+const UserRatings = db.define('User_Ratings', {
+  userID: {
+    primaryKey:true,
+  type:Sequelize.INTEGER,
+  references: {
+  model: 'albums',
+  key: 'id'
+},
+  },
+name:Sequelize.STRING,
+imageURL:Sequelize.STRING,
+rating:Sequelize.INTEGER,
+updatedAt:Sequelize.DATE
+
+
+  
+}, {timestamps: false});
+
+
+const UserReviews = db.define('User_Reviews', {
+  userID: {primaryKey:true,
+  type:Sequelize.INTEGER,
+  references: {
+  model: 'albums',
+  key: 'id'
+},
+  },
+name:Sequelize.STRING,
+imageURL:Sequelize.STRING,
+review:Sequelize.TEXT,
+updatedAt:Sequelize.DATE
 
 
   
@@ -843,10 +846,11 @@ exports.Artist_follwer = Artist_follwer
 // VIEWS 
 
 exports.AlbumFavLike = AlbumFavLike
-exports.SongFavLike = SongFavLike
+exports.UserReviews = UserReviews
 exports.UserAlbum = UserAlbum
 exports.UserAlbumLikes = UserAlbumLikes
 exports.UserArtists = UserArtists
+exports.UserRatings = UserRatings
 exports.Album_review = Album_review
 exports.ArtistStats = ArtistStats
 

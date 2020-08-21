@@ -1,14 +1,7 @@
 import {
-    SET_CURRENT,
-    CLEAR_CURRENT,
-    CREATE_ALBUM,
-    ADD_ALBUM_REVIEW,
-    DELETE_ALBUM,
+
     GET_ALBUMS,
-    LIKE_ALBUM,
-    UPDATE_ALBUM,
     FILTER_ALBUMS,
-    CLEAR_FILTER,
     REVIEW_FAIL
 } from '../types'
 

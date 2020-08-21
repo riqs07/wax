@@ -5,18 +5,11 @@ import axios from 'axios';
 
 
 import {
-    SET_CURRENT,
-    CLEAR_CURRENT,
     ADD_ALBUM_REVIEW,
     ADD_ALBUM_RATING,
     DELETE_ALBUM,
     GET_ALBUMS,
-    REVIEW_FAIL,
-    RATING_FAIL,
-    CLEAR_ALBUMS,
-    UPDATE_ALBUM,
     FILTER_ALBUMS,
-    CLEAR_FILTER,
 } from '../types'
 
 
@@ -238,7 +231,8 @@ const AlbumState = props => {
             }
         }
         try {
-            
+            initialState.albums = []
+
             const res = await axios.get('http://localhost:9001/api/albums/ratings',config)
             dispatch({type: FILTER_ALBUMS,payload:res.data})
 
@@ -254,9 +248,11 @@ const AlbumState = props => {
                 'Content-Type':'application/json',
             }
         }
+
         try {
-            
-            const res = await axios.post('http://localhost:9001/api/albums/favs',config)
+            initialState.albums = []
+
+            const res = await axios.get('http://localhost:9001/api/albums/favs',config)
             dispatch({type: FILTER_ALBUMS,payload:res.data})
 
         } catch(err){
@@ -272,8 +268,9 @@ const AlbumState = props => {
             }
         }
         try {
-            
-            const res = await axios.post('http://localhost:9001/api/albums/likes',config)
+            initialState.albums = []
+
+            const res = await axios.get('http://localhost:9001/api/albums/likes',config)
             dispatch({type: FILTER_ALBUMS,payload:res.data})
 
         } catch(err){

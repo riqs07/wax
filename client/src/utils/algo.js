@@ -38,3 +38,11 @@ export function convertScoreToGrade(score){
 }
 
 
+const guests = [
+    {email:"bob@gmail.com",password:"horsepurse"},
+    {email:"tom@gmail.com",password:"horsepurse"},
+    {email:"jim@gmail.com",password:"horsepurse"},
+    {email:"sam@gmail.com",password:"horsepurse"},
+]
+
+console.log('Test accounts ', guests)

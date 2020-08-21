@@ -9,11 +9,11 @@ import { GET_PROFILE } from '../types';
 const UserState = props => {
     const initialState = {
         profile:{
-                topArtists:[],
                 recentFavAlbums:[],
                 recentLikedAlbums:[],
                 topAlbums:[],
-            recentReviews:[]
+                recentReviews:[],
+                recentRatings:[]
           
         },
         loading:true

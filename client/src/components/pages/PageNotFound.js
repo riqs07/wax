@@ -1,5 +1,8 @@
 import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
+import { server404} from '../layout/svg'
+import { Column50} from '../layout/Grids'
+
 
 
 
@@ -32,14 +35,17 @@ const PageNotFound = () => {
 
     return (
 
-        <Fragment>
+        <Column50>
 
-            <h1>404 Page Not Found....</h1>
-          <h3>Sorry, what you are looking for does not exist 😔</h3>
+            {server404}
+            <div>
+            <h3>Sorry, what you are looking for does not exist 😔</h3>
               <h2>💍 {quotes[num]} 💍</h2>
-                <Link style={linkStyle} to="/">🏡 Return to Safety</Link>
+                <Link style={linkStyle} to="/home">🏡 Return to Safety</Link>
+            </div>
+      
 
-        </Fragment>
+        </Column50>
 
 
     )
