@@ -5,9 +5,6 @@ import axios from 'axios';
 
 
 import {
-    ADD_ALBUM_REVIEW,
-    ADD_ALBUM_RATING,
-    DELETE_ALBUM,
     GET_ALBUMS,
     FILTER_ALBUMS,
 } from '../types'
@@ -27,7 +24,7 @@ const AlbumState = props => {
     const getAlbums = async () => {
         
        try {
-           const res = await axios.get('http://localhost:9001/api/albums')
+           const res = await axios.get('http://localhost:9001/api/albums/')
            dispatch({
                type:GET_ALBUMS,
                payload:res.data
@@ -105,7 +102,7 @@ const AlbumState = props => {
     }
 
     // show all album reviws 
-    const showAlbumReviews= async id => {
+    const showAlbumReviews= async albumID => {
        
         const config = {
             headers:{
@@ -114,8 +111,7 @@ const AlbumState = props => {
         }
         try {
             
-            const res = await axios.post('http://localhost:9001/api/albums/ratings',id,config)
-            dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+            await axios.post('http://localhost:9001/api/albums/ratings',albumID,config)
 
         } catch(err){
             console.log(err)
@@ -156,7 +152,7 @@ const AlbumState = props => {
     }
 
     // Delete Review 
-    const deleteAlbumReview= async id => {
+    const deleteAlbumReview= async albumID => {
        
         const config = {
             headers:{
@@ -165,8 +161,7 @@ const AlbumState = props => {
         }
         try {
             
-            const res = await axios.post('http://localhost:9001/api/albums/ratings',id,config)
-            dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+          axios.patch('http://localhost:9001/api/albums/reviews',albumID,config)
 
         } catch(err){
             console.log(err)
@@ -174,7 +169,7 @@ const AlbumState = props => {
     }
 
     // Delete Rating
-    const deleteAlbumRating= async id => {
+    const deleteAlbumRating= async albumID => {
        
         const config = {
             headers:{
@@ -183,8 +178,7 @@ const AlbumState = props => {
         }
         try {
             
-            const res = await axios.post('http://localhost:9001/api/albums/ratings',id,config)
-            dispatch({type: ADD_ALBUM_RATING,payload:res.data})
+           axios.patch('http://localhost:9001/api/albums/ratings',albumID,config)
 
         } catch(err){
             console.log(err)
@@ -277,8 +271,9 @@ const AlbumState = props => {
             console.log(err)
         }
     }
-    // Filter by genre
-    const filterAlbumsByGenre= async genre => {
+  
+    // Filter by Score
+    const filterAlbumsByScore= async () => {
        
         const config = {
             headers:{
@@ -286,23 +281,74 @@ const AlbumState = props => {
             }
         }
         try {
-            
-            const res = await axios.post('http://localhost:9001/api/albums/genre',genre,config)
+            initialState.albums = []
+
+            const res = await axios.get('http://localhost:9001/api/albums/score',config)
             dispatch({type: FILTER_ALBUMS,payload:res.data})
 
         } catch(err){
             console.log(err)
         }
     }
-    
+  
+    // Filter by Runtime
+    const filterAlbumsByRuntime= async () => {
+       
+        const config = {
+            headers:{
+                'Content-Type':'application/json',
+            }
+        }
+        try {
+            initialState.albums = []
 
-    // DELTE ALBUM
+            const res = await axios.get('http://localhost:9001/api/albums/runtime',config)
+            dispatch({type: FILTER_ALBUMS,payload:res.data})
 
-    const deleteAlbum = id => {
-        
-        dispatch({type: DELETE_ALBUM,payload:id})
+        } catch(err){
+            console.log(err)
+        }
     }
-    
+  
+  
+    // Filter by release
+    const filterAlbumsByRelease= async () => {
+       
+        const config = {
+            headers:{
+                'Content-Type':'application/json',
+            }
+        }
+        try {
+            initialState.albums = []
+
+            const res = await axios.get('http://localhost:9001/api/albums/release',config)
+            dispatch({type: FILTER_ALBUMS,payload:res.data})
+
+        } catch(err){
+            console.log(err)
+        }
+    }
+  
+    const filterAlbumsByGenre= async () => {
+       
+        const config = {
+            headers:{
+                'Content-Type':'application/json',
+            }
+        }
+        try {
+            initialState.albums = []
+
+            const res = await axios.get('http://localhost:9001/api/albums/genre',config)
+            dispatch({type: FILTER_ALBUMS,payload:res.data})
+
+        } catch(err){
+            console.log(err)
+        }
+    }
+  
+
 
 
     const checkInteractions = async albumID => {
@@ -339,7 +385,13 @@ const AlbumState = props => {
             checkInteractions,
             filterAlbumsByRating,
             filterAlbumsByLikes,
-            filterAlbumsByFavs
+            filterAlbumsByFavs,
+            filterAlbumsByRuntime,
+            filterAlbumsByRelease,
+            filterAlbumsByScore,
+            filterAlbumsByGenre,
+            deleteAlbumRating,
+            deleteAlbumReview
         }}>
 
 

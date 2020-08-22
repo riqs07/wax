@@ -37,6 +37,23 @@ export function convertScoreToGrade(score){
     
 }
 
+export function convertArtistScoreToGrade(score){
+    let grade = '';
+ 
+    if (score < 30){
+        grade = 'D'
+    } else if (score >= 30 && score < 60){
+        grade = 'C'
+    } else if ( score >= 60 && score < 90){
+        grade = 'B'
+    }else if ( score >= 90 && score < 120){
+        grade = 'A'
+    }else if ( score >= 120){
+        grade = 'S'
+    }
+    return grade
+}
+
 
 const guests = [
     {email:"bob@gmail.com",password:"horsepurse"},

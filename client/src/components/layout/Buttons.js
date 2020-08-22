@@ -38,6 +38,13 @@ const Secondary = styled(Btn)`
       text-decoration: none;
 `;
 
+const Danger = styled(Btn)`  
+ background-color:red;
+      color: ${Colors.text};
+      border:2px solid red;
+      text-decoration: none;
+`;
+
 const Tertiary = styled(Btn)`
   
   font-size: 18px;
@@ -77,6 +84,14 @@ const SecondaryButton = (props) => {
         </Secondary>
     )
 }
+const DangerButton = (props) => {
+    return (
+        
+        <Danger onClick = {props.onClick}>
+            {props.children}
+        </Danger>
+    )
+}
 const TertiaryButton = (props) => {
     return (
         
@@ -87,5 +102,5 @@ const TertiaryButton = (props) => {
 }
 
 
-export  {PrimaryButton, SecondaryButton,TertiaryButton}
+export  {PrimaryButton, SecondaryButton,TertiaryButton,DangerButton}
  

@@ -106,7 +106,7 @@ router.get("/ratings", async (req, res) => {
 		.then((x) => res.send(x))
 		.catch((err) => console.log(err));
 });
-// @route   GET albums/ratings
+// @route   GET albums/favs
 // @desc    Filter all albums by Favs 
 // @access  Public
 router.get("/favs", async (req, res) => {
@@ -116,7 +116,7 @@ router.get("/favs", async (req, res) => {
 		.then((x) => res.send(x))
 		.catch((err) => console.log(err));
 });
-// @route   GET albums/ratings
+// @route   GET albums/likes
 // @desc    Filter all albums by likes 
 // @access  Public
 router.get("/likes", async (req, res) => {
@@ -129,42 +129,58 @@ router.get("/likes", async (req, res) => {
 
 
 
-// @route   POST albums/songs/best
-// @desc    Get albums Songs by rating
+// @route   GET albums/score
+// @desc    Filter all albums by score 
 // @access  Public
-router.post("/songs/best", async (req, res) => {
-	const { albumID } = req.body;
-	SongFavLike.findAll({
-		where: { albumID },
-		order: [["avg", "DESC"]],
+router.get("/score", async (req, res) => {
+	AlbumFavLike.findAll({
+		order: [["score", "DESC"]],
 	})
 		.then((x) => res.send(x))
 		.catch((err) => console.log(err));
 });
-// @route   POST albums/songs/favs
-// @desc    Get albums Songs by favs
+
+
+// @route   GET albums/runtime
+// @desc    Filter all albums by runtime 
 // @access  Public
-router.post("/songs/favs", async (req, res) => {
-	const { albumID } = req.body;
-	SongFavLike.findAll({
-		where: { albumID },
-		order: [["favs", "DESC"]],
+router.get("/runtime", async (req, res) => {
+	AlbumFavLike.findAll({
+		order: [["runtime", "DESC"]],
 	})
 		.then((x) => res.send(x))
 		.catch((err) => console.log(err));
 });
-// @route   POST albums/songs/likes
-// @desc    Get albums Songs by likes
+
+
+
+// @route   GET albums/release
+// @desc    Filter all albums by release year
 // @access  Public
-router.post("/songs/likes", async (req, res) => {
-	const { albumID } = req.body;
-	SongFavLike.findAll({
-		where: { albumID },
-		order: [["likes", "DESC"]],
+router.get("/release", async (req, res) => {
+	AlbumFavLike.findAll({
+		order: [["release_year", "DESC"]],
 	})
 		.then((x) => res.send(x))
 		.catch((err) => console.log(err));
 });
+
+// @route   GET albums/release
+// @desc    Filter all albums by Genre
+// @access  Public
+router.get("/genre", async (req, res) => {
+	AlbumFavLike.findAll({
+		order: [["genre", "ASC"]],
+	})
+		.then((x) => res.send(x))
+		.catch((err) => console.log(err));
+});
+
+
+
+
+
+
 
 //////////////					  PUT 			///////////////////
 

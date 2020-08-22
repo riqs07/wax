@@ -190,40 +190,6 @@ const Album_review = db.define("album_review", {
 	},
 });
 
-const Song = db.define('song', {
-  // Model attributes are defined here
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
-
-  },
-  artistID: {
-    type: Sequelize.INTEGER,
-    references: {
-      model: 'artists',
-      key: 'id'
-  }
-},
-  albumID: {
-    type: Sequelize.INTEGER,
-    references: {
-      model: 'albums',
-      key: 'id'
-  },
-},
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-
-  },
-  runtime:{
-      // IN SECONDS
-      type:DataTypes.INTEGER,
-  },
-  genre:DataTypes.STRING,
-  linkURL:Sequelize.STRING
-});
 
  
   const Artist_follwer = db.define('artist_follower',{
@@ -246,99 +212,6 @@ const Song = db.define('song', {
 },
   })
   
-
-  const Song_favorite = db.define('song_favorite',{
-    songID: {
-      type: Sequelize.INTEGER,
-      primaryKey:true,
-      references: {
-        model: 'songs',
-        key: 'id'
-    },
-  },
-  userID: {
-    type: Sequelize.INTEGER,
-    primaryKey:true,
-    references: {
-      model: 'users',
-      key: 'id'
-  },
-},
-  })
-  const Song_rating = db.define('song_rating',{
-    songID: {
-      type: Sequelize.INTEGER,
-      primaryKey:true,
-      references: {
-        model: 'songs',
-        key: 'id'
-    },
-  },
-  userID: {
-    type: Sequelize.INTEGER,
-    primaryKey:true,
-    references: {
-      model: 'users',
-      key: 'id'
-  },
-  
-  },
-  rating: {
-    type: Sequelize.DECIMAL,
-    allowNull: false
-
-},
-})
-
-const Song_like = db.define('song_like',{
-  songID: {
-    type: Sequelize.INTEGER,
-    primaryKey:true,
-    references: {
-      model: 'songs',
-      key: 'id'
-  },
- 
-  
-},
-userID: {
-  type: Sequelize.INTEGER,
-  primaryKey:true
-,
-  references: {
-    model: 'users',
-    key: 'id'
-},
-}
-})
-
-const Playlist = db.define('playlists',{
-  id:{
-    type: Sequelize.INTEGER,
-    primaryKey:true,
-  },
-  songID: {
-    type: Sequelize.INTEGER,
-    references: {
-      model: 'songs',
-      key: 'id'
-  },
-},
-name:Sequelize.STRING,
-userID: {
-  type: Sequelize.INTEGER,
-  references: {
-    model: 'users',
-    key: 'id'
-},
-},
-ascess:{
-  type:Sequelize.STRING,
-  defaultValue:'private'
-}
-
-})
-
 
 // VIEWS FROM THE 6
 // Pointing to stored dql data views
@@ -516,10 +389,10 @@ const ArtistStats = db.define('artist_stat', {
   },
   imageURL:Sequelize.STRING,
   name:Sequelize.STRING,
-  
+  genre:Sequelize.STRING,
   Followers: Sequelize.INTEGER,
-album_fav_total:Sequelize.INTEGER,
-album_like_total:Sequelize.INTEGER,
+fav_total:Sequelize.INTEGER,
+like_total:Sequelize.INTEGER,
 album_avg_rating:Sequelize.INTEGER,
 score:Sequelize.INTEGER
 
@@ -832,10 +705,6 @@ add_songLikes = [
 
 exports.User = User
 exports.Album = Album
-exports.Song = Song
-exports.Song_rating = Song_rating
-exports.Song_favorite = Song_favorite
-exports.Song_like = Song_like
 exports.Album_favorite = Album_favorite
 exports.Album_like = Album_like
 exports.Album_rating = Album_rating

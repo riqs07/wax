@@ -1,14 +1,16 @@
 import React from 'react'
 import {PrimaryButton,SecondaryButton,} from '../layout/Buttons'
+import {convertArtistScoreToGrade} from '../../utils/algo'
 
  const artistsCardSm = ({artist}) => {
 
-  const {name,imageURL,score,followers,album_fav_total,album_like_total} = artist
+  const {name,imageURL,score,followers,fav_total,like_total} = artist
 
   // until i break DB down again its thinking these are stirngs
-  // take song stats out og scoring algo so that all of them can have aa socre
   // mauybe al;so add imageURL to that table so i can acess it easier even tho that is not the best practise fir sql table s
-  let interactions = album_fav_total + album_like_total
+  let interactions = fav_total + like_total
+
+  let grade = convertArtistScoreToGrade(score)
 
     return (
         <div class="wrapper">
@@ -36,7 +38,7 @@ import {PrimaryButton,SecondaryButton,} from '../layout/Buttons'
               
       
               <div class="artist-card-inf__item">
-                <div class="artist-card-inf__title">{score}</div>
+                <div class="artist-card-inf__title">{grade}</div>
                 <div class="artist-card-inf__txt"><i className="fas fa-flag-checkered fa-2x"></i></div>
               </div>
       

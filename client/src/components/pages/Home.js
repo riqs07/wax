@@ -76,7 +76,6 @@ const Home = () => {
 		recentReviews,
 		recentRatings,
 	} = profile;
-	console.log(profile);
 
 	// /* Recent likes songs
 	// 	algo recomendation

@@ -7,9 +7,7 @@ import { AlbumModal } from "./albumModal";
 import Backdrop from "../layout/Backdrop";
 import Spinner from "../layout/Spinner";
 import AlbumScoreCard from "./albumScoreCard";
-import {Shadows} from "../layout/Palette"
-
-
+import { Shadows } from "../layout/Palette";
 
 const I = styled.i`
 	padding: 0.5rem;
@@ -20,31 +18,27 @@ const Image = styled.img`
 	border-radius: 2rem;
 	box-shadow: ${Shadows.lg};
 	transition: transform 450ms;
-	&:hover{ 
-		transform:scale(1.08);
-		opacity:0.8
-}
+	&:hover {
+		transform: scale(1.08);
+		opacity: 0.8;
+	}
 `;
 const Stats = styled.ul`
-display:flex;
-justify-content:space-around;
-
-`
+	display: flex;
+	justify-content: space-around;
+`;
 const Body = styled.div`
 	background-color: #eee;
 	border-radius: 1rem;
 	box-shadow: ${Shadows.xl};
-	padding:.5rem;
+	padding: 0.5rem;
 `;
-
 
 const Wrapper = styled.div`
 	margin-top: -4rem;
 	padding: 0 1rem;
 	position: relative;
 `;
-
-
 
 const GridItem = ({ album }) => {
 	const albumContext = useContext(AlbumContext);
@@ -61,61 +55,48 @@ const GridItem = ({ album }) => {
 		likes,
 		favs,
 		avg,
-		score
+		score,
 	} = album;
-
-
-
 
 	const stats = {
 		albumID,
 		score,
 		likes,
 		favs,
-			};
+	};
 
-	const [loading,setLoading] = useState(true)
+	const [loading, setLoading] = useState(true);
 	const [modalState, setModal] = useState(false);
 
 	const manageModal = () => {
 		setModal(!modalState);
 	};
 
-
 	return (
 		<>
-{loading && (
-	<Spinner/>
+			{loading && <Spinner />}
 
-) }
-
-
-<Image
-				
-				onLoad={() =>setLoading(false)}
+			<Image
+				onLoad={() => setLoading(false)}
 				onClick={manageModal}
 				src={imageURL}
 				alt="Album image "></Image>
-			
+
 			<Wrapper>
-				
 				<Body>
 					<h2>{name}</h2>
 					<Stats>
-						
-							<li>
-								<I
-									className="fas fa fa-star fa-2x"
-									style={{ color: "orange" }}></I>
-									{favs}
-							</li>
-						
-					
-							<li>
-								{likes}
-								<I className="fa fa-heart fa-2x" style={{ color: "red" }}></I>
-							</li>
-						
+						<li>
+							<I
+								className="fas fa fa-star fa-2x"
+								style={{ color: "orange" }}></I>
+							{favs}
+						</li>
+
+						<li>
+							{likes}
+							<I className="fa fa-heart fa-2x" style={{ color: "red" }}></I>
+						</li>
 					</Stats>
 				</Body>
 			</Wrapper>
@@ -125,7 +106,6 @@ const GridItem = ({ album }) => {
 					<AlbumModal manageModal={manageModal} album={album} />
 				</Fragment>
 			)}
-		
 		</>
 	);
 };

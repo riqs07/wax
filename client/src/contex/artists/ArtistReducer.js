@@ -11,11 +11,7 @@ export default (state,action) => {
                 artists:action.payload,
                 loading:false
             };
-
        
-
-
-
         default: 
         return state;
     }

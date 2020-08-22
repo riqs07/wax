@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useState, useEffect } from "react";
+import React, {useContext, useState, useEffect } from "react";
 import AlbumContext from "../../contex/album/AlbumContext";
 import styled from "styled-components";
 import AlbumScoreCard from "./albumScoreCard";
@@ -9,7 +9,7 @@ import { Colors, Shadows } from "../layout/Palette";
 import {
 	PrimaryButton,
 	SecondaryButton,
-	TertiaryButton,
+	DangerButton,
 } from "../layout/Buttons";
 
 const Grid = styled.div`
@@ -60,7 +60,7 @@ const AlbumStat = styled.li`
 
 export const AlbumModal = ({ album, manageModal }) => {
 	const context = useContext(AlbumContext);
-	const { checkInteractions, addAlbumReview, updateAlbumReview } = context;
+	const { checkInteractions, deleteAlbumRating,deleteAlbumReview } = context;
 
 	const {
 		albumID,
@@ -128,6 +128,17 @@ export const AlbumModal = ({ album, manageModal }) => {
 		setAddRatingState(!ratingState);
 	};
 
+
+	const ReviewDelete = () =>{
+		deleteAlbumReview({albumID})
+		manageReview()
+	}
+
+	const RatingDelete = () =>{
+		deleteAlbumRating({albumID})
+		manageRating()
+	}
+
 	const seeReviews = () => {
 		console.log("Show all reviews with associated with this album id");
 	};
@@ -139,7 +150,8 @@ export const AlbumModal = ({ album, manageModal }) => {
 				<Body>
 					<Header>{`${name} by ${artist}`}</Header>
 
-					<ul className="album-card--stats">
+{!reviewState && !ratingState &&(
+	<ul >
 						<AlbumScoreCard
 							data={stats}
 							previousLike={editState.like}
@@ -169,6 +181,8 @@ export const AlbumModal = ({ album, manageModal }) => {
 							</AlbumStat>
 						)}
 					</ul>
+)}
+					
 
 					{reviewState && (
 						<ReviewForm
@@ -189,7 +203,12 @@ export const AlbumModal = ({ album, manageModal }) => {
 						{/* if prev review show update review and cancel  */}
 
 						{reviewState ? (
+							<>
 							<PrimaryButton onClick={manageReview}>Cancel📜 </PrimaryButton>
+							<DangerButton onClick= {ReviewDelete}>
+								Delete Review
+							</DangerButton>
+							</>
 						) : editState.review ? (
 							<PrimaryButton onClick={manageReview}>
 								Update Review 📜
@@ -201,12 +220,18 @@ export const AlbumModal = ({ album, manageModal }) => {
 						)}
 
 						{ratingState ? (
+							<>
 							<SecondaryButton onClick={manageRating}>
-								Cancel📜{" "}
+								Cancel 🏁
 							</SecondaryButton>
+							<DangerButton onClick= {RatingDelete}>
+							Delete Rating
+						</DangerButton>
+						</>
 						) : editState.rating ? (
+							
 							<SecondaryButton onClick={manageRating}>
-								Update Rating 📜
+								Update Rating 🏁
 							</SecondaryButton>
 						) : (
 							<SecondaryButton onClick={manageRating}>

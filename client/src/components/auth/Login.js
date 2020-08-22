@@ -7,6 +7,10 @@ import {ladySVG} from "../layout/svg"
 
 import Form from "../layout/Forms";
 
+import Modal from "../artists/artistsModal"
+
+
+
 const Login = (props) => {
 	const alertContext = useContext(AlertContext);
 	const authContext = useContext(AuthContext);
@@ -52,8 +56,10 @@ const Login = (props) => {
 	return (
 
 		<Column50>
-		{ladySVG}
-			<div>
+		{/* {ladySVG} */}
+
+<Modal/>
+			{/* <div>
 				<h1>Login</h1>
 				<Form onSubmit={onSubmit}>
 					<div className="form-group">
@@ -79,7 +85,7 @@ const Login = (props) => {
 
 					<PrimaryButton type="submit">Login</PrimaryButton>
 				</Form>
-			</div> 
+			</div>  */}
 		</Column50>
 	);
 };

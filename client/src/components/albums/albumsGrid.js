@@ -1,7 +1,7 @@
-import React, {useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect,useRef } from "react";
 import AlbumContext from "../../contex/album/AlbumContext";
 import CardSm from "./albumCardSm";
-import {Colors} from "./../layout/Palette";
+import { Colors } from "./../layout/Palette";
 import Spinner from "./../layout/Spinner";
 import Select from "react-select";
 
@@ -36,55 +36,73 @@ const AlbumsGrid = () => {
 		filterAlbumsByRating,
 		filterAlbumsByLikes,
 		filterAlbumsByFavs,
+		filterAlbumsByRuntime,
+		filterAlbumsByRelease,
+		filterAlbumsByScore,
+		filterAlbumsByGenre,
 	} = context;
 
 	const [filter, setFilter] = useState("Rating");
+	const firstUpdate = useRef(true);
+
+
 	const options = [
 		{ value: "Score", label: "Score" },
 		{ value: "Likes", label: "Likes" },
 		{ value: "Favs", label: "Favs" },
 		{ value: "Rating", label: "Rating" },
 		{ value: "Runtime", label: "Runtime" },
-		{ value: "Date", label: "Release Date" },
+		{ value: "Release", label: "Release Date" },
+		{ value: "Genre", label: "Genre" },
 	];
 
+	
 	useEffect(() => {
-		filterAlbums()
+		if (firstUpdate.current){
+			getAlbums()
+			firstUpdate.current = false
+		} else {
+			switch(filter){
+				case "Favs":
+					filterAlbumsByFavs();
+					break;
 
-		
-	}, [filter]);
-
-
-	const filterAlbums= () =>{
-
-		let x = filter
-		console.log(x)
-		if (x = 'Favs'){
-			console.log('Foo')
-			filterAlbumsByFavs()
-		} else if (x = 'Likes'){
-			console.log('goo')
-
-filterAlbumsByLikes()
-		} else if (x = "Rating"){
-getAlbums()
-		}else if (x = 'Runtime'){
-			console.log('object')
-		}else if (x = 'Date'){
-			console.log('object')
-
-		} else if (x = 'Score'){
-			console.log('object')
-
+				case "Likes":
+					filterAlbumsByLikes();
+					break;
+				case "Rating":
+					filterAlbumsByRating();
+					break;
+				case "Runtime":
+					filterAlbumsByRuntime();
+					break;
+				case "Score":
+					filterAlbumsByScore();
+					break;
+				case "Release":
+					filterAlbumsByRelease();
+					break;
+				case "Genre":
+					filterAlbumsByGenre();
+					break;
+			}
 		}
-	}
-	const handleSelect =(e) =>{
-		setFilter(e.value)
-	}
+
+	}, [filter]);
+	
+	
+
+	const handleSelect = (e) => {
+		setFilter(e.value);
+	};
 
 	return (
 		<>
-			<Select onChange = {handleSelect} options={options} placeholder={'Filter Albums by....' }/>
+			<Select
+				onChange={handleSelect}
+				options={options}
+				placeholder={"Filter Albums by...."}
+			/>
 
 			{albums !== null && !loading ? (
 				<Grid>

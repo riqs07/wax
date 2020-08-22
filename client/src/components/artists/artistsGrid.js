@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useState, useEffect } from "react";
+import React, { useRef, useContext, useState, useEffect } from "react";
 import ArtistContext from "../../contex/artists/ArtistContext";
 
 import Card from "../artists/artistsCardSm";
@@ -14,11 +14,6 @@ const Grid = styled.ul`
 	flex-wrap: wrap;
 	padding: 1rem;
 `;
-const TopRankGrid = styled.ul`
-	display: flex;
-	align-content: center;
-	padding: 1rem;
-`;
 
 const Li = styled.li`
 	list-style: none;
@@ -31,37 +26,79 @@ const Li = styled.li`
 	}
 `;
 
-const Filter = styled.ul`
-	display: flex;
-	flex-wrap: wrap;
-	border: 2px solid ${Colors.primary};
-	border-radius: 20px;
-	justify-content: center;
-`;
+
 const ArtistGrid = () => {
 	const context = useContext(ArtistContext);
 
-	const { getAllArtists, artists } = context;
+	const { 
+		artists,
+		getAllArtists, 
+		filterArtistsByFavs,
+		filterArtistsByFollowers,
+		filterArtistsByGenre,
+		filterArtistsByLikes,
+		filterArtistsByRating,
+		filterArtistsByScore
+	
+	
+	} = context;
 
-	useEffect(() => {
-		getAllArtists();
-	}, []);
-
-	const [filter, setFilter] = useState("Rating");
+	
+	const [filter, setFilter] = useState();
+	const firstUpdate = useRef(true);
+	
 	const options = [
 		{ value: "Score", label: "Score" },
 		{ value: "Likes", label: "Likes" },
 		{ value: "Favs", label: "Favs" },
+		{ value: "Avg", label: "Avg Album Rating" },
 		{ value: "Followers", label: "Followers" },
+		{ value: "Genre", label: "Genre" },
 	];
-
+	
 	useEffect(() => {
-		console.log(`Fetch ${filter}`);
-	}, [filter]);
+		if (firstUpdate.current){
+			getAllArtists()
+			firstUpdate.current = false
+		} else {
+			switch(filter){
+				case "Favs":
+					filterArtistsByFavs();
+					break;
+
+				case "Followers":
+					filterArtistsByFollowers();
+					break;
+				case "Rating":
+					filterArtistsByRating();
+					break;
+			
+				case "Score":
+					filterArtistsByScore();
+					break;
+			
+				case "Genre":
+					filterArtistsByGenre();
+					break;
+					
+					case "Likes":
+						filterArtistsByLikes();
+						break;
+					}
+			}
+		}, [filter]);
+	
+		const handleSelect = (e) => {
+			setFilter(e.value);
+		};
 
 	return (
-		<Fragment>
-			<Select options={options} />
+		<>
+			<Select
+				onChange={handleSelect}
+			options={options}
+			placeholder={"Filter Artists by...."}
+			/>
 
 			<Grid>
 				{artists.map((artist) => (
@@ -70,7 +107,7 @@ const ArtistGrid = () => {
 					</Li>
 				))}
 			</Grid>
-		</Fragment>
+		</>
 	);
 };
 

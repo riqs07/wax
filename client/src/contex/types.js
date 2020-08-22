@@ -1,11 +1,16 @@
-// Albums
 export const GET_ALBUMS = 'GET_ALBUMS';
 export const GET_ARTISTS = 'GET_ARTISTS';
+export const FILTER_ALBUMS = 'FILTER_ALBUMS';
+export const FILTER_ARTISTS  = 'FILTER_ARTISTS ';
 
-export const ADD_ALBUM_REVIEW = 'ADD_ALBUM_REVIEW';
-export const ADD_ALBUM_RATING = 'ADD_ALBUM_RATING';
-export const REVIEW_FAIL = 'REVIEW_FAIL';
-export const RATING_FAIL = 'RATING_FAIL';
+
+
+
+
+
+
+
+export const GET_PROFILE = 'GET_PROFILE'
 
 
 export const LIKE_ALBUM = 'LIKE_ALBUM'
@@ -38,7 +43,6 @@ export const FILTER_BY_DATE = 'FILTER_BY_DATE'
 export const FILTER_BY_RUNTIME = 'FILTER_BY_RUNTIME'
 
 
-export const GET_PROFILE = 'GET_PROFILE'
 
 
 
@@ -48,7 +52,6 @@ export const GET_PROFILE = 'GET_PROFILE'
 
 export const SET_CURRENT = 'SET_CURRENT';
 export const CLEAR_CURRENT = 'CLEAR_CURRENT';
-export const FILTER_ALBUMS = 'FILTER_ALBUMS';
 export const CLEAR_ALBUMS = 'CLEAR_ALBUMS';
 export const ALBUM_ERROR = 'ALBUM_ERROR';
 

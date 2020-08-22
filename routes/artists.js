@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const auth = require("../middleware/auth");
 
-const { Artist, AlbumFavLike, ArtistStats, Album, SongFavLike ,Artist_favorite} = require("../db");
+const { Artist, AlbumFavLike, ArtistStats, Album, Artist_follwer} = require("../db");
 
 /// GETS///
 
@@ -24,46 +24,86 @@ router.get("/", async (req, res) => {
 		.catch((err) => console.log(err));
 });
 
+
+
+
+/// FILTERS /// 
+// FILTER ///
+
+// @route   GET artists/ratings
+// @desc    Filter all artists by ratings 
+// @access  Public
+router.get("/ratings", async (req, res) => {
+	ArtistStats.findAll({
+		order: [["aalbum_avg_rating", "DESC"]],
+	})
+		.then((x) => res.send(x))
+		.catch((err) => console.log(err));
+});
+// @route   GET artists/favs
+// @desc    Filter all artists by Favs 
+// @access  Public
+router.get("/favs", async (req, res) => {
+	ArtistStats.findAll({
+		order: [["fav_total", "DESC"]],
+	})
+		.then((x) => res.send(x))
+		.catch((err) => console.log(err));
+});
+// @route   GET artists/likes
+// @desc    Filter all artists by likes 
+// @access  Public
+router.get("/likes", async (req, res) => {
+	ArtistStats.findAll({
+		order: [["like_total", "DESC"]],
+	})
+		.then((x) => res.send(x))
+		.catch((err) => console.log(err));
+});
+
+
+
+// @route   GET artists/score
+// @desc    Filter all artists by score 
+// @access  Public
+router.get("/score", async (req, res) => {
+	ArtistStats.findAll({
+		order: [["score", "DESC"]],
+	})
+		.then((x) => res.send(x))
+		.catch((err) => console.log(err));
+});
+
+
+// @route   GET artists/followers
+// @desc    Filter all artists by follwers 
+// @access  Public
+router.get("/follwers", async (req, res) => {
+	ArtistStats.findAll({
+		order: [["follwers", "DESC"]],
+	})
+		.then((x) => res.send(x))
+		.catch((err) => console.log(err));
+});
+
+
+
+
+// @route   GET artists/release
+// @desc    Filter all artists by Genre
+// @access  Public
+router.get("/genre", async (req, res) => {
+	ArtistStats.findAll({
+		order: [["genre", "ASC"]],
+	})
+		.then((x) => res.send(x))
+		.catch((err) => console.log(err));
+});
+
+
+
+
 /// POSTS///
-
-// @route   GET artists/songs
-// @desc    Get all songs by an artist
-// @access  Public
-router.post("/songs", async (req, res) => {
-	const { artistID } = req.body;
-	SongFavLike.findAll({ where: { artistID } })
-		.then((x) => res.send(x))
-		.catch((err) => console.log(err));
-});
-
-// @route   POST artists/songs/best
-// @desc    Get artists Songs by rating
-// @access  Public
-router.post("/songs/best", async (req, res) => {
-	const { artistID } = req.body;
-	SongFavLike.findAll({
-		where: { artistID },
-		order: [["avg", "DESC"]],
-	})
-		.then((x) => res.send(x))
-		.catch((err) => console.log(err));
-});
-
-// @route   POST artists/songs/likes
-// @desc    Get artists Songs by likes
-// @access  Public
-router.post("/songs/likes", async (req, res) => {
-	const { artistID } = req.body;
-	SongFavLike.findAll({
-		where: { artistID },
-		order: [["likes", "DESC"]],
-	})
-		.then((x) => res.send(x))
-		.catch((err) => console.log(err));
-});
-
-
-
 
 // @route   POST artists/albums
 // @desc    Get all albums by an artist
@@ -78,7 +118,7 @@ router.post("/albums", async (req, res) => {
 // @route   POST artists/albums/rating
 // @desc    Get artists Albums by rating
 // @access  Public
-router.post("/albums/best", async (req, res) => {
+router.post("/albums/rating", async (req, res) => {
 	const { artistID } = req.body;
 	AlbumFavLike.findAll({
 		where: { artistID },
@@ -129,27 +169,36 @@ router.delete("/", async (req, res) => {
 });
 
 
+
+
+
+
+// followers 
+
+
 // @route   POST api/artist/:id/favorite
 // @desc    Add a Favorite to artist
 // @access  Private
 
-router.post("/favorite",auth ,(req, res) => {
-	const { userID, artistID } = req.body;
-	Artist_favorite.create({
-		userID,
+router.post("/followers",auth ,(req, res) => {
+	const { artistID } = req.body;
+	Artist_follwer.create({
+		userID:req.user.id,
 		artistID,
-	}).then(res.send("favorited an artist "));
+	}).then(res.status(201).send("Sucess! Followed an artist "));
 });
 // @route   DELETE api/artist/:id/favorite
 // @desc    REmove a Favorite to artist
 // @access  Private
 
-router.delete("/favorite",auth ,(req, res) => {
-	const { userID, artistID } = req.body;
-	Artist_favorite.destroy({
-		userID,
-		artistID,
-	}).then(res.send("favorited on artist deleted "));
+router.patch("/followers",auth ,(req, res) => {
+	const { artistID } = req.body;
+	Artist_follwer.destroy({
+		where:{
+			userID:req.user.id,
+			artistID,
+		}
+	}).then(res.status(204));
 });
 
 module.exports = router;

@@ -2,7 +2,6 @@ import {
 
     GET_ALBUMS,
     FILTER_ALBUMS,
-    REVIEW_FAIL
 } from '../types'
 
 // Really dont think i need a lot of thesew
@@ -17,11 +16,7 @@ export default (state,action) => {
                 albums:action.payload,
                 loading:false
             };
-            case REVIEW_FAIL:
-            return {
-                ...state,
-                error:action.payload
-            };
+            
 
         case FILTER_ALBUMS:
             return{
