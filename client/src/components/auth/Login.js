@@ -56,12 +56,12 @@ const Login = (props) => {
 	return (
 
 		<Column50>
-		{/* {ladySVG} */}
+		{ladySVG}
 
-<Modal/>
-			{/* <div>
-				<h1>Login</h1>
+{/* <Modal/> */}
+			<div>
 				<Form onSubmit={onSubmit}>
+				<h1>Login</h1>
 					<div className="form-group">
 						<label htmlFor="email">Email</label>
 						<input
@@ -85,7 +85,7 @@ const Login = (props) => {
 
 					<PrimaryButton type="submit">Login</PrimaryButton>
 				</Form>
-			</div>  */}
+			</div> 
 		</Column50>
 	);
 };

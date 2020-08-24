@@ -7,10 +7,8 @@ const {
 	Album_like,
 	Album_rating,
 	AlbumFavLike,
-	SongFavLike,
 	Album_review,
 	User,
-	Song,
 } = require("../db");
 const auth = require("../middleware/auth");
 
@@ -37,9 +35,6 @@ router.post("/reviews", auth, async (req, res) => {
 // @route   POST /albums/like
 // @desc    Add a like to albums
 // @access  Private
-// @issue giving foreign key erroro but all others are working? 
-// //@issue naming error in view sequlize 
-
 router.post("/likes", auth, (req, res) => {
 	const { albumID } = req.body;
 	Album_like.create({
@@ -84,17 +79,9 @@ router.post("/ratings", auth, (req, res) => {
 });
 
 
-// @route   GET album/songs
-// @desc    Get all songs in an album
-// @access  Public
-router.post("/songs", async (req, res) => {
-	const { albumID } = req.body;
-	Song.findAll({ where: { albumID } })
-		.then((x) => res.send(x))
-		.catch((err) => console.log(err));
-});
 
 // FILTER ///
+// add query params
 
 // @route   GET albums/ratings
 // @desc    Filter all albums by ratings 
@@ -126,8 +113,6 @@ router.get("/likes", async (req, res) => {
 		.then((x) => res.send(x))
 		.catch((err) => console.log(err));
 });
-
-
 
 // @route   GET albums/score
 // @desc    Filter all albums by score 

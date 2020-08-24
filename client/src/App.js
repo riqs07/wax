@@ -11,6 +11,7 @@ import Navbar from "./components/layout/Navbar";
 import Alerts from "./components/layout/Alerts";
 import Discover from "./components/pages/Discover";
 import Home from "./components/pages/Home";
+import Settings from "./components/pages/Settings";
 
 import AlbumsPage from "./components/pages/AlbumsPage";
 import ArtistsPage from "./components/pages/ArtistsPage";
@@ -55,6 +56,7 @@ function App() {
 									<PrivateRoute exact path="/albums" component={AlbumsPage} />
 									<Route exact path="/register" component={Register} />
 									<Route exact path="/login" component={Login} />
+									<Route exact path="/settings" component={Settings} />
 									<Route render={PageNotFound} />
 								</Switch>
 							</Wrapper>

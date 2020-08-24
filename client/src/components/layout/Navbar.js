@@ -32,10 +32,10 @@ const Navbar = ({ title, icon }) => {
 		<>
 			<li>Welcome, {user && user.name}</li>
 			<li>
-				<Link to="/home"><i className="fas fa-home"></i> Home </Link>
+				<Link to="/home"><i className="fas fa-home"></i> </Link>
 			</li>
 			<li>
-				<Link to="/discover"><i class="fas fa-search"></i> Discover </Link>
+				<Link to="/discover"><i class="fas fa-search"></i>  </Link>
 			</li>
 			<li>
 				<Link to="/artists">Artists </Link>
@@ -44,11 +44,13 @@ const Navbar = ({ title, icon }) => {
 			<li>
 				<Link to="/albums">Albums </Link>
 			</li>
+			<li>
+				<Link to="/settings"><i class="fas fa-cog"></i>  </Link>
+			</li>
 			
 			<li>
 				<a onClick={onLogout} href="#!">
 					<i className="fas fa-sign-out-alt" />{" "}
-					<span className="hide-sm">Logout</span>
 				</a>
 			</li>
 		</>

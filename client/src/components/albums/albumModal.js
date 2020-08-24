@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import AlbumContext from "../../contex/album/AlbumContext";
 import styled from "styled-components";
 import AlbumScoreCard from "./albumScoreCard";
@@ -60,7 +60,7 @@ const AlbumStat = styled.li`
 
 export const AlbumModal = ({ album, manageModal }) => {
 	const context = useContext(AlbumContext);
-	const { checkInteractions, deleteAlbumRating,deleteAlbumReview } = context;
+	const { checkInteractions, deleteAlbumRating, deleteAlbumReview } = context;
 
 	const {
 		albumID,
@@ -128,16 +128,15 @@ export const AlbumModal = ({ album, manageModal }) => {
 		setAddRatingState(!ratingState);
 	};
 
+	const ReviewDelete = () => {
+		deleteAlbumReview({ albumID });
+		manageReview();
+	};
 
-	const ReviewDelete = () =>{
-		deleteAlbumReview({albumID})
-		manageReview()
-	}
-
-	const RatingDelete = () =>{
-		deleteAlbumRating({albumID})
-		manageRating()
-	}
+	const RatingDelete = () => {
+		deleteAlbumRating({ albumID });
+		manageRating();
+	};
 
 	const seeReviews = () => {
 		console.log("Show all reviews with associated with this album id");
@@ -150,39 +149,38 @@ export const AlbumModal = ({ album, manageModal }) => {
 				<Body>
 					<Header>{`${name} by ${artist}`}</Header>
 
-{!reviewState && !ratingState &&(
-	<ul >
-						<AlbumScoreCard
-							data={stats}
-							previousLike={editState.like}
-							previousFav={editState.fav}
-						/>
-						{genre && (
-							<AlbumStat>
-								<I className="fas fa-music"></I>
-								{genre}
-							</AlbumStat>
-						)}
+					{!reviewState && !ratingState && (
+						<ul>
+							<AlbumScoreCard
+								data={stats}
+								previousLike={editState.like}
+								previousFav={editState.fav}
+							/>
+							{genre && (
+								<AlbumStat>
+									<I className="fas fa-music"></I>
+									{genre}
+								</AlbumStat>
+							)}
 
-						{runtime && (
-							<AlbumStat>
-								<I
-									className="fas fa-stopwatch fa-2x"
-									style={{ color: "grey" }}></I>
-								{`${secs}m`}
-							</AlbumStat>
-						)}
-						{release_year && (
-							<AlbumStat>
-								<I
-									className="fas fa-calender fa-2x"
-									style={{ color: "grey" }}></I>
-								{release_year}
-							</AlbumStat>
-						)}
-					</ul>
-)}
-					
+							{runtime && (
+								<AlbumStat>
+									<I
+										className="fas fa-stopwatch fa-2x"
+										style={{ color: "grey" }}></I>
+									{`${secs}m`}
+								</AlbumStat>
+							)}
+							{release_year && (
+								<AlbumStat>
+									<I
+										className="fas fa-calender-day fa-2x"
+										style={{ color: "grey" }}></I>
+									{release_year}
+								</AlbumStat>
+							)}
+						</ul>
+					)}
 
 					{reviewState && (
 						<ReviewForm
@@ -204,10 +202,10 @@ export const AlbumModal = ({ album, manageModal }) => {
 
 						{reviewState ? (
 							<>
-							<PrimaryButton onClick={manageReview}>Cancel📜 </PrimaryButton>
-							<DangerButton onClick= {ReviewDelete}>
-								Delete Review
-							</DangerButton>
+								<PrimaryButton onClick={manageReview}>Cancel📜 </PrimaryButton>
+								<DangerButton onClick={ReviewDelete}>
+									Delete Review
+								</DangerButton>
 							</>
 						) : editState.review ? (
 							<PrimaryButton onClick={manageReview}>
@@ -221,15 +219,14 @@ export const AlbumModal = ({ album, manageModal }) => {
 
 						{ratingState ? (
 							<>
-							<SecondaryButton onClick={manageRating}>
-								Cancel 🏁
-							</SecondaryButton>
-							<DangerButton onClick= {RatingDelete}>
-							Delete Rating
-						</DangerButton>
-						</>
+								<SecondaryButton onClick={manageRating}>
+									Cancel 🏁
+								</SecondaryButton>
+								<DangerButton onClick={RatingDelete}>
+									Delete Rating
+								</DangerButton>
+							</>
 						) : editState.rating ? (
-							
 							<SecondaryButton onClick={manageRating}>
 								Update Rating 🏁
 							</SecondaryButton>

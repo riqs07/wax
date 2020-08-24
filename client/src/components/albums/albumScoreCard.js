@@ -1,4 +1,4 @@
-import React, { useState, useContext ,useEffect} from "react";
+import React, { useState, useContext ,useEffect,useRef} from "react";
 import styled from "styled-components";
 import AlbumContext from '../../contex/album/AlbumContext'
 import {convertScoreToGrade} from "../../utils/algo";
@@ -25,6 +25,11 @@ const AlbumScoreCard = ({data,previousLike,previousFav}) => {
 
 	const [isFav, setIsFav] = useState(false);
 	const [isLike, setIsLiked] = useState(false);
+
+
+
+	// I think i can useRef to check if prevois vals are likes /faved
+
 
 	useEffect(() => {
 		const fetchData = async () => {

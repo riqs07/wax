@@ -9,7 +9,6 @@ import { birdSVG } from "../layout/svg";
 
 import { Column50 } from "../layout/Grids";
 
-// @issue img reloads on every key press???
 
 const Register = (props) => {
 	const alertContext = useContext(AlertContext);
@@ -18,13 +17,7 @@ const Register = (props) => {
 	const { setAlert } = alertContext;
 	const { register, error, clearErrors, isAuth } = authContext;
 
-	//@issue not sure how this broke but its saying albums is null
-	// let rand = Math.floor(Math.random() * albums.length);
-	// const {name,imageURL} = albums[rand]
-
-	// const rand = Math.floor(Math.random() * albums.length);
-	// const {name,imageURL} = albums[rand]
-
+	
 	useEffect(() => {
 		if (isAuth) {
 			// go to user onboarding
@@ -91,10 +84,10 @@ const Register = (props) => {
 			{birdSVG}
 
 			<div>
+				<Form onSubmit={onSubmit}>
 				<h1>Register</h1>
 				{warnings && <h2>{warnings.warning}</h2>}
 				{warnings.suggestions && <h3>{warnings.suggestions[0]}</h3>}
-				<Form onSubmit={onSubmit}>
 					<div className="form-group">
 						<label htmlFor="username">UserName</label>
 						<input

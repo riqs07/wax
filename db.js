@@ -443,6 +443,8 @@ add_artist = [
     { name: "Daft Punk", genre: "Electronic",imageURL:`${bucket}/artists/daft_punk.jfif` },
     { name: "Freddie Gibbs", genre: "Rap",imageURL:`${bucket}/artists/freddie_gibbs.jpg` },
     { name: "Frank Ocean", genre: "R&B",imageURL:`${bucket}/artists/frank_ocean.jpg` },
+    { name: "Billie Eilish", genre: "Pop",imageURL:`${bucket}/artists/frank_ocean.jpg` },
+    { name: "Kendrick Lamar", genre: "Rap",imageURL:`${bucket}/artists/frank_ocean.jpg` },
   ];
   add_artistFollowers = [
     {artistID:1,userID:1},
@@ -463,9 +465,10 @@ add_artist = [
     {artistID:7,userID:1},
    ]
 
-//future & gibbs & franks lenghts not accutrate
+//future & gibbs & franks & kendrick &billie  lenghts not accutrate
 // fix later im lazy   
 // release year needs to be change to just show year in DB 
+// add image for don killuminat && kenny albums && billie eilish 
 add_album = [
 	{ name: "Yeezus", artistID:1,release_year: 2013,runtime: 2400,genre: "Rap" ,imageURL: `${bucket}/albums/yeezus.jpg`},
 	{ name: "ye", artistID:1,release_year: 2018,runtime: 1380,genre: "Rap" ,imageURL:`${bucket}/albums/ye.webp` },
@@ -501,6 +504,7 @@ add_album = [
 	{ name: "Jeffery",artistID:10,release_year: 2016, runtime: 2535,genre: "Rap" ,imageURL:`${bucket}/albums/jeffery.webp` },
 	{ name: "So much Fun",artistID:10,release_year: 2019, runtime: 3724,genre: "Rap" ,imageURL:`${bucket}/albums/so_much_fun.webp` },
   { name: "All Eyez on me",artistID:11,release_year: 1996, runtime: 7940,genre: "Rap" ,imageURL:`${bucket}/albums/all_eyez_on_me.jpg` },
+  { name: "The Don Killuminati: The 7 Day Theory",artistID:11,release_year: 1996, runtime: 3540,genre: "Rap" ,imageURL:`${bucket}/albums/all_eyez_on_me.jpg` },
   { name: "Madvillainy",artistID:12,release_year: 2004, runtime: 2760,genre: "Rap" ,imageURL:`${bucket}/albums/madvillian.jpg` },
   { name: "Operation: Doomsday",artistID:12,release_year: 1999, runtime: 3478,genre: "Rap" ,imageURL:`${bucket}/albums/doomsday.jpg` },
   { name: "Mm.. Food",artistID:12,release_year: 2004, runtime: 2929,genre: "Rap" ,imageURL:`${bucket}/albums/mm_food.webp` },
@@ -521,6 +525,12 @@ add_album = [
   { name: "Alfredo",artistID:17,release_year: 2020, runtime: 3654,genre: "Rap" ,imageURL:`${bucket}/albums/alfredo.webp` },
   { name: "Channel Orange",artistID:18,release_year: 2012, runtime: 3720,genre: "Rap" ,imageURL:`${bucket}/albums/channe;_orange.webp` },
   { name: "Blonde",artistID:18,release_year: 2016, runtime: 3608,genre: "Rap" ,imageURL:`${bucket}/albums/blond.jpg` },
+  { name: "Dont Smile at Me",artistID:19,release_year: 2017, runtime: 1560,genre: "Pop" ,imageURL:`${bucket}/albums/blond.jpg` },
+  { name: "When We All Fall Asleep, Where Do We Go?",artistID:19,release_year: 2019, runtime: 2580,genre: "Pop" ,imageURL:`${bucket}/albums/blond.jpg` },
+  { name: "Good Kid M.A.A.D City",artistID:20,release_year: 2013, runtime: 3608,genre: "Rap" ,imageURL:`${bucket}/albums/blond.jpg` },
+  { name: "To Pimp a Butterfly",artistID:20,release_year: 2015, runtime: 3608,genre: "Rap" ,imageURL:`${bucket}/albums/blond.jpg` },
+  { name: "untitiled unmastered",artistID:20,release_year: 2016, runtime: 3608,genre: "Rap" ,imageURL:`${bucket}/albums/blond.jpg` },
+  { name: "DAMN",artistID:20,release_year: 2017, runtime: 3608,genre: "Rap" ,imageURL:`${bucket}/albums/blond.jpg` },
 
 
   

@@ -81,13 +81,7 @@ const Home = () => {
 	// 	algo recomendation
 	// 	etc */
 	/* 	
-		// 		<Title>Top Artists 🎵</Title>
-	
-		// 		<Title> Recently Liked Songs 🎺 </Title>
-	
-	
-	
-		// 		<Title>Just For You 🎸 </Title>
+		
 	
 		// 		<Title>More Algorithim goodness.🤖</Title> */
 
@@ -123,7 +117,7 @@ const Home = () => {
 					</Collection>
 				)}
 			</Column50>
-			{/* <RecentAlbums title ={'Recently Liked Albums'} albums = {recentLikedAlbums}></RecentAlbums> */}
+			<RecentAlbums title ={'Recently Liked Albums'} albums = {recentLikedAlbums}></RecentAlbums>
 		</>
 	);
 };
