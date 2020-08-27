@@ -6,7 +6,6 @@ import styled from "styled-components";
 import { AlbumModal } from "./albumModal";
 import Backdrop from "../layout/Backdrop";
 import Spinner from "../layout/Spinner";
-import AlbumScoreCard from "./albumScoreCard";
 import { Shadows } from "../layout/Palette";
 
 const I = styled.i`
@@ -86,14 +85,14 @@ const GridItem = ({ album }) => {
 				<Body>
 					<h2>{name}</h2>
 					<Stats>
-						<li>
+						<li style = {{fontSize:'1.25rem'}}>
 							<I
 								className="fas fa fa-star fa-2x"
 								style={{ color: "orange" }}></I>
-							{favs}
+			{favs}
 						</li>
 
-						<li>
+						<li style = {{fontSize:'1.25rem'}}>
 							{likes}
 							<I className="fa fa-heart fa-2x" style={{ color: "red" }}></I>
 						</li>
@@ -103,7 +102,7 @@ const GridItem = ({ album }) => {
 			{modalState && (
 				<Fragment>
 					<Backdrop manageModal={manageModal} />
-					<AlbumModal manageModal={manageModal} album={album} />
+					<AlbumModal album={album} />
 				</Fragment>
 			)}
 		</>

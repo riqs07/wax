@@ -39,7 +39,8 @@ xs:'0 1px 3px rgba(0, 0, 0, 0.2)',
 sm:'0 4px 6px rgba(0, 0, 0, 0.2)',
 md:'0 5px 15px rgba(0, 0, 0, 0.2)',
 lg:'0 10px 24px rgba(0, 0, 0, 0.2)',
-xl:'0 15px 35px rgba(0, 0, 0, 0.2)'
+xl:'0 15px 35px rgba(0, 0, 0, 0.2)',
+blue:'0px 5px 50px 0px rgb(52, 152, 218), 0px 0px 0px 7px rgba(52, 152, 218,0.5)'
 }
 
  

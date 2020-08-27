@@ -49,9 +49,11 @@ const ReviewCollectionChild = ({ data }) => {
 
 	return (
 		<Child>
-			<Header>{name}</Header>
+			{name && <Header>{name}</Header>}
 			<Container>
-				<Image src={imageURL}></Image>
+			{imageURL && (
+				<Image src={imageURL}/>
+				)}
 
 				<p style={{ fontSize: "1.5rem" }}>{review}</p>
 			</Container>
@@ -66,7 +68,9 @@ const RatingCollectionChild = ({ data }) => {
 		<Child>
 			<Header>{name}</Header>
 			<Container>
-				<Image src={imageURL}></Image>
+				{imageURL && (
+				<Image src={imageURL}/>
+				)}
 
 				<p style={{ fontSize: "2.5rem"}}>{rating}</p>
 			</Container>

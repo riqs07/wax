@@ -5,7 +5,7 @@ import AlbumScoreCard from "./albumScoreCard";
 import ReviewForm from "./albumReview";
 import RatingForm from "./albumRating";
 import { Colors, Shadows } from "../layout/Palette";
-
+import { Collection, ReviewCollectionChild } from "../layout/Collection";
 import {
 	PrimaryButton,
 	SecondaryButton,
@@ -16,7 +16,10 @@ const Grid = styled.div`
 	display: grid;
 	grid-template-columns: 0.8fr 1.4fr 0.8fr;
 	grid-template-rows: 1fr;
-	grid-template-areas: "artist-image stats album-image" "artist-image stats album-image" "artist-image stats album-image";
+`;
+const Title = styled.h1`
+	font-size: 2.5rem;
+	margin: 1rem;
 `;
 
 const Modal = styled.div`
@@ -32,12 +35,6 @@ const I = styled.i`
 	padding: 0.5rem;
 `;
 
-const ArtistImage = styled.img`
-	grid-area: "artist-image";
-`;
-const AlbumImage = styled.img`
-	grid-area: "album-image";
-`;
 const Header = styled.h1`
 	padding: 1rem;
 	color: ${Colors.text};
@@ -58,9 +55,14 @@ const AlbumStat = styled.li`
 	font-size: 1rem;
 `;
 
-export const AlbumModal = ({ album, manageModal }) => {
+export const AlbumModal = ({ album }) => {
 	const context = useContext(AlbumContext);
-	const { checkInteractions, deleteAlbumRating, deleteAlbumReview } = context;
+	const {
+		checkInteractions,
+		deleteAlbumRating,
+		deleteAlbumReview,
+		getAlbumReviews,
+	} = context;
 
 	const {
 		albumID,
@@ -107,6 +109,9 @@ export const AlbumModal = ({ album, manageModal }) => {
 	const [reviewState, setAddReviewState] = useState(false);
 	const [ratingState, setAddRatingState] = useState(false);
 
+	// Really dont like this implemntatino but i cant get jsx to return from seeReview Function
+	const [allReviews, setSeeReviews] = useState();
+
 	const [editState, setEditStates] = useState({
 		review: null,
 		rating: null,
@@ -115,15 +120,17 @@ export const AlbumModal = ({ album, manageModal }) => {
 	});
 
 	const manageReview = () => {
-		if (ratingState) {
+		if (ratingState || allReviews) {
 			setAddRatingState(false);
+			setSeeReviews(null);
 		}
 		setAddReviewState(!reviewState);
 	};
 
 	const manageRating = () => {
-		if (reviewState) {
+		if (reviewState || allReviews) {
 			setAddReviewState(false);
+			setSeeReviews(null);
 		}
 		setAddRatingState(!ratingState);
 	};
@@ -138,18 +145,30 @@ export const AlbumModal = ({ album, manageModal }) => {
 		manageRating();
 	};
 
-	const seeReviews = () => {
-		console.log("Show all reviews with associated with this album id");
+	const seeReviews = async () => {
+		if (ratingState || reviewState) {
+			setAddRatingState(false);
+			setAddReviewState(false);
+		}
+
+		const res = await getAlbumReviews({ albumID });
+
+		const reviews = res.data;
+
+		reviews.map((review) => {
+			review.imageURL = imageURL;
+		});
+		setSeeReviews(reviews);
 	};
 
 	return (
 		<Modal>
 			<Grid>
-				<ArtistImage src={artist_ImageURL} alt="Artist_image" />
+				<img src={artist_ImageURL} alt="Artist_image" />
 				<Body>
 					<Header>{`${name} by ${artist}`}</Header>
 
-					{!reviewState && !ratingState && (
+					{!reviewState && !ratingState && !allReviews && (
 						<ul>
 							<AlbumScoreCard
 								data={stats}
@@ -196,10 +215,18 @@ export const AlbumModal = ({ album, manageModal }) => {
 							previousRating={editState.rating}
 						/>
 					)}
+					{allReviews && (
+						<div style={{ margin: "1rem" }}>
+							<Collection>
+								<Title>Recent Reviews 📜</Title>
 
+								{allReviews.map((review) => (
+									<ReviewCollectionChild data={review} key={review.userID} />
+								))}
+							</Collection>
+						</div>
+					)}
 					<Actions>
-						{/* if prev review show update review and cancel  */}
-
 						{reviewState ? (
 							<>
 								<PrimaryButton onClick={manageReview}>Cancel📜 </PrimaryButton>
@@ -239,10 +266,8 @@ export const AlbumModal = ({ album, manageModal }) => {
 						<SecondaryButton onClick={seeReviews}>See Reviews </SecondaryButton>
 					</Actions>
 				</Body>
-				<AlbumImage src={imageURL} alt="Artist_image" />
+				<img src={imageURL} alt="Artist_image" />
 			</Grid>
 		</Modal>
 	);
 };
-
-export const miniAlbumModal = ({ album, manageModal }) => {};

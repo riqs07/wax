@@ -3,6 +3,8 @@ import ArtistContext from "../../contex/artists/ArtistContext";
 import styled from "styled-components";
 import { Colors, Shadows } from "../layout/Palette";
 import { PrimaryButton, DangerButton } from "../layout/Buttons";
+import {Collection,RatingCollectionChild} from "../layout/Collection"
+import {convertArtistScoreToGrade} from "../../utils/algo"
 
 const Modal = styled.div`
 	width: 90%;
@@ -11,7 +13,7 @@ const Modal = styled.div`
 	position: fixed;
 	top: 6vh;
 	left: 5%;
-	z-index: 10;
+	z-index: 16;
 	padding: 1rem;
 `;
 
@@ -37,34 +39,37 @@ const Image = styled.img`
 	padding: 1rem;
 `;
 
-const ArtistsModal = () => {
-	const artist = {
-		name: "Kane West",
-		artistID: 1,
-		favs: 10,
-		likes: 20,
-		grade: "a",
-		imageURL:
-			"https://waxhades123.s3.us-east-2.amazonaws.com/artists/kanye_west.jpg",
-		followers: 10,
-	};
+const Title = styled.h1`
+	font-size: 2.5rem;
+	margin: 1rem;
+`;
 
-	const { name, artistID, favs, likes, imageURL, grade, followers } = artist;
+const ArtistsModal = ({artist}) => {
+
+	const { name, artistID, fav_total, like_total, imageURL, score, followers } = artist;
 
 	const context = useContext(ArtistContext);
 	const { followArtists, getArtistAlbums } = context;
 
-	const [albums, setAlbums] = useState([]);
+	const [artistAlbums, setAlbums] = useState();
 	// const [isFollowing,setFollowing] = useState()
 
 	useEffect(() => {
 		const fetchData = async () => {
-			const res = await getArtistAlbums({ artistID });
+			let res = await getArtistAlbums({ artistID });
+			res = res.data
+
+			console.log(res)
+
+			res.map((album)=>{
+				album.rating = Math.floor(album.avg)
+			})
 
 			// check to see if user has followed
 			// const result2 = await checkIfFollowing({ artistID });
 
-			setAlbums(res.data);
+				
+			setAlbums(res);
 		};
 
 		fetchData();
@@ -79,44 +84,49 @@ const ArtistsModal = () => {
 				<Image src={imageURL}></Image>
 
 				<ul style={{ marginLeft: "1rem" }}>
-					{likes && (
+					
+					{artistAlbums && (
+					<Collection>
+					<Title>Average Ratings 🏴</Title>
+					{artistAlbums.map((album) => (
+						<RatingCollectionChild data={album} key={album.id} />
+					))}
+				</Collection>
+					)}
+
+{like_total && (
 						<Stats>
 							<I style={{ color: "red" }} className="fa fa-heart fa-2x"></I>
-							{likes}
+							{like_total}
 						</Stats>
 					)}
-					{favs && (
+					{fav_total && (
 						<Stats>
 							<I style={{ color: "orange" }} className="fa fa-star fa-2x"></I>
-							{favs}
+							{fav_total}
 						</Stats>
 					)}
-					{grade && (
+					{score && (
 						<Stats>
 							<I
 								style={{ color: "black" }}
 								className="fa fa-flag-checkered fa-2x"></I>
-							{grade}
+							{convertArtistScoreToGrade(score)}
 						</Stats>
 					)}
 					{followers && (
 						<Stats>
 							<I style={{ color: "black" }} className="fas fa-users fa-2x"></I>
-							{grade}
+							{followers}
 						</Stats>
 					)}
+
+
 				</ul>
 			</Grid>
 			<PrimaryButton onClick={handleFollow}>Follow {name}</PrimaryButton>
-			<PrimaryButton onClick={handleFollow}>Show Albums {name}</PrimaryButton>
 
-			{/* {albums !== null &&  (
-			
-					{albums.map((album) => (
-						<img src = {album.imageURL}></img>
-					))}
-				
-			)} */}
+		
 		</Modal>
 	);
 };

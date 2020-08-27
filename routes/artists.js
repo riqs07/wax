@@ -110,7 +110,7 @@ router.get("/genre", async (req, res) => {
 // @access  Public
 router.post("/albums", async (req, res) => {
 	const { artistID } = req.body;
-	Album.findAll({ where: { artistID } })
+	AlbumFavLike.findAll({ where: { artistID } })
 		.then((x) => res.send(x))
 		.catch((err) => console.log(err));
 });

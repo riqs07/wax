@@ -299,7 +299,7 @@ router.get("/", async (req, res) => {
 // @access  Public
 
 
-router.post("/reviews", async (req, res) => {
+router.post("/test", async (req, res) => {
 	const {albumID} = req.body
 	Album_review.findAll({
 		where:{albumID}

@@ -349,6 +349,22 @@ const AlbumState = props => {
     }
   
 
+    const getAlbumReviews = async albumID =>{
+        const config = {
+            headers:{
+                'Content-Type':'application/json',
+            }
+        }
+
+        try {
+
+            const res = await axios.post('http://localhost:9001/api/albums/test',albumID,config)
+
+            return res
+        } catch(err){
+            console.log(err)
+        }
+    }
 
 
     const checkInteractions = async albumID => {
@@ -382,6 +398,7 @@ const AlbumState = props => {
             addAlbumLike,
             deleteAlbumLike,
             getAlbums,
+            getAlbumReviews,
             checkInteractions,
             filterAlbumsByRating,
             filterAlbumsByLikes,
